@@ -6,6 +6,6 @@ COPY . .
 
 RUN yarn install
 
-EXPOSE 4000
+EXPOSE ${PORT}
 
 CMD [ "sh", "-c", "yarn start:debug"]

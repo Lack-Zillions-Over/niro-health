@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: development.dockerfile
     networks:
-      niro_development:
+      niro-development:
         aliases:
           - backend
         ipv4_address: 172.18.0.2
@@ -18,21 +18,21 @@ services:
       - ${PORT}:${PORT}
     volumes:
       - .:/app
-      - niro_development:/app/node_modules
+      - niro-development:/app/node_modules
     env_file:
       - ./.env
   postgres:
     container_name: postgres-preview
     image: postgres:latest
     networks:
-      niro_development:
+      niro-development:
         aliases:
           - postgres
         ipv4_address: 172.18.0.3
     ports:
       - 5432:5432
     volumes:
-      - niro_development:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -42,21 +42,22 @@ services:
     container_name: redis-preview
     image: redis:latest
     networks:
-      niro_development:
+      niro-development:
         aliases:
           - redis
         ipv4_address: 172.18.0.4
     ports:
       - 6379:6379
     volumes:
-      - niro_development:/data
+      - niro-development:/data
 
 networks:
-  niro_development:
+  niro-development:
     ipam:
       driver: default
       config:
         - subnet: '172.18.0.0/16'
 
 volumes:
-  niro_development:
+  niro-development:
+  pg-data:

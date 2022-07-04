@@ -10,28 +10,28 @@ services:
       context: .
       dockerfile: production.dockerfile
     networks:
-      niro_production:
+      niro-production:
         aliases:
           - backend
         ipv4_address: 172.18.0.2
     ports:
       - ${PORT}:${PORT}
     volumes:
-      - niro_production:/app
+      - niro-production:/app
     env_file:
       - ./.env
   postgres:
     container_name: postgres-produciton
     image: postgres:latest
     networks:
-      niro_production:
+      niro-production:
         aliases:
           - postgres
         ipv4_address: 172.18.0.3
     ports:
       - 5432:5432
     volumes:
-      - niro_production:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -51,11 +51,12 @@ services:
       - niro_development:/data
 
 networks:
-  niro_production:
+  niro-production:
     ipam:
       driver: default
       config:
         - subnet: '172.18.0.0/16'
 
 volumes:
-  niro_production:
+  niro-production:
+  pg-data:
