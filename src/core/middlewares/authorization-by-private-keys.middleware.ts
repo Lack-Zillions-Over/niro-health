@@ -13,13 +13,16 @@ export class AuthorizationByPrivateKeysMiddleware implements NestMiddleware {
     const headers = req.headers,
       { tag, secret, value } = headers;
 
-    if (
-      !(await ValidatePrivateKeyFactory.run(
-        tag as string,
-        secret as string,
-        value as string,
-      ))
-    )
+    const validate = await ValidatePrivateKeyFactory.run(
+      tag as string,
+      secret as string,
+      value as string,
+    );
+
+    if (validate instanceof Error)
+      throw new HttpException(validate.message, HttpStatus.UNAUTHORIZED);
+
+    if (!validate)
       throw new HttpException(
         'Private Key is invalid. Try again, later!',
         HttpStatus.UNAUTHORIZED,
