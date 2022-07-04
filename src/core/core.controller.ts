@@ -13,10 +13,14 @@ import {
 import { CoreService } from './core.service';
 import { CreatePrivateKeyDto } from './dto/create-private-keys.dto';
 import { UpdatePrivateKeyDto } from './dto/update-private-keys.dto';
+import { PrivateKeysParser } from './parsers/private-keys.parser';
 
 @Controller('core')
 export class CoreController {
-  constructor(private readonly coreService: CoreService) {}
+  constructor(
+    private readonly coreService: CoreService,
+    private readonly privateKeysParser: PrivateKeysParser,
+  ) {}
 
   @Post('private/keys')
   async create(@Body() createPrivateKeyDto: CreatePrivateKeyDto) {
@@ -25,12 +29,14 @@ export class CoreController {
     if (key instanceof Error)
       throw new HttpException(key.message, HttpStatus.FORBIDDEN);
 
-    return key;
+    return this.privateKeysParser.toJSON(key);
   }
 
   @Get('private/keys')
   async findAllPrivateKeys() {
-    return await this.coreService.findAllPrivateKeys();
+    return (await this.coreService.findAllPrivateKeys()).map((key) =>
+      this.privateKeysParser.toJSON(key),
+    );
   }
 
   @Get('private/keys/:tag')
@@ -40,7 +46,7 @@ export class CoreController {
     if (key instanceof Error)
       throw new HttpException(key.message, HttpStatus.FORBIDDEN);
 
-    return key;
+    return this.privateKeysParser.toJSON(key);
   }
 
   @Patch('private/keys/:id')
@@ -56,7 +62,7 @@ export class CoreController {
     if (key instanceof Error)
       throw new HttpException(key.message, HttpStatus.FORBIDDEN);
 
-    return key;
+    return this.privateKeysParser.toJSON(key);
   }
 
   @Delete('private/keys/:id')
