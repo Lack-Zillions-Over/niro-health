@@ -24,7 +24,7 @@ export class PrivateKeyRepository {
   async validate(tag: string, secret: string, value: string) {
     const key = await this._findByTag(tag);
 
-    if (!key) new Error(`Key with tag "${tag}" not found!`);
+    if (!key) return new Error(`Key with tag "${tag}" not found!`);
 
     if (this.database.getDecryptedProperty(key.secret) !== secret)
       new Error(`Secret of key is invalid.`);
