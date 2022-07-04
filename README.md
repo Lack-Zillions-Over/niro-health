@@ -31,7 +31,7 @@ This project is intended to be used with the latest Active LTS release of [Node.
 To clone the repository, use the following commands:
 
 ```sh
-git clone https://github.com/GuilhermeSantos001/niro-health.git
+git clone https://github.com/Lack-Zillions-Over/niro-health.git
 ```
 
 ### Download latest release
@@ -39,7 +39,7 @@ git clone https://github.com/GuilhermeSantos001/niro-health.git
 Download and unzip the current **main** branch or one of the tags:
 
 ```sh
-wget https://github.com/guilhermesantos001/niro-health/archive/main.zip -O niro-health.zip
+wget https://github.com/Lack-Zillions-Over/niro-health/archive/main.zip -O niro-health.zip
 unzip niro-health.zip && rm niro-health.zip
 ```
 
@@ -70,7 +70,7 @@ Support this project by becoming a [sponsor][sponsor].
 
 ## License
 
-Licensed under the APLv2. See the [LICENSE](https://github.com/guilhermesantos001/niro-health/blob/main/LICENSE) file for details.
+Licensed under the APLv2. See the [LICENSE](https://github.com/Lack-Zillions-Over/niro-health/blob/main/LICENSE) file for details.
 
 [commitizen-badge]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
 [commitizen]: http://commitizen.github.io/cz-cli/
@@ -79,16 +79,16 @@ Licensed under the APLv2. See the [LICENSE](https://github.com/guilhermesantos00
 [nodejs]: https://nodejs.org/dist/latest-v16.x/docs/api/
 [typescript-4-6]: https://devblogs.microsoft.com/typescript/announcing-typescript-4-6/
 [license-badge]: https://img.shields.io/badge/license-APLv2-blue.svg
-[license]: https://github.com/guilhermesantos001/niro-health/blob/main/LICENSE
+[license]: https://github.com/Lack-Zillions-Over/niro-health/blob/main/LICENSE
 [sponsor-badge]: https://img.shields.io/badge/♥-Sponsor-fc0fb5.svg
 [sponsor]: https://github.com/sponsors/guilhermesantos001
 [lzo-badge]: https://img.shields.io/badge/Lack%20Zillions%20Over%20(LZO)-Engineering%20Team-fc0fb5.svg?color=blue&logo=Crowdsource&logoColor=white&style=for-the-badge
-[repo-link]: https://github.com/GuilhermeSantos001/
-[repo-badge-version]: https://img.shields.io/github/package-json/v/GuilhermeSantos001/niro-health?color=green&logo=git&logoColor=green&style=for-the-badge
-[repo-badge-size]: https://img.shields.io/github/languages/code-size/GuilhermeSantos001/niro-health?color=red&logo=github&logoColor=red&style=for-the-badge
-[repo-badge-downloads]: https://img.shields.io/github/downloads/GuilhermeSantos001/niro-health/total?color=red&logo=github&logoColor=red&style=for-the-badge
-[repo-badge-sponsors]: https://img.shields.io/github/sponsors/GuilhermeSantos001?label=SPONSORS%20%28LZO%29&logo=github&logoColor=green&style=for-the-badge
-[repo-badge-issues]: https://img.shields.io/github/issues/GuilhermeSantos001/niro-health?color=red&logo=git&style=for-the-badge
-[repo-badge-forks]: https://img.shields.io/github/forks/GuilhermeSantos001/niro-health?color=green&logo=git&logoColor=green&style=for-the-badge
-[repo-badge-stars]: https://img.shields.io/github/stars/GuilhermeSantos001/niro-health?color=green&logo=git&logoColor=green&style=for-the-badge
+[repo-link]: https://github.com/Lack-Zillions-Over/niro-health
+[repo-badge-version]: https://img.shields.io/github/package-json/v/Lack-Zillions-Over/niro-health?color=green&logo=git&logoColor=green&style=for-the-badge
+[repo-badge-size]: https://img.shields.io/github/languages/code-size/Lack-Zillions-Over/niro-health?color=red&logo=github&logoColor=red&style=for-the-badge
+[repo-badge-downloads]: https://img.shields.io/github/downloads/Lack-Zillions-Over/niro-health/total?color=red&logo=github&logoColor=red&style=for-the-badge
+[repo-badge-sponsors]: https://img.shields.io/github/sponsors/Lack-Zillions-Over?label=SPONSORS%20%28LZO%29&logo=github&logoColor=green&style=for-the-badge
+[repo-badge-issues]: https://img.shields.io/github/issues/Lack-Zillions-Over/niro-health?color=red&logo=git&style=for-the-badge
+[repo-badge-forks]: https://img.shields.io/github/forks/Lack-Zillions-Over/niro-health?color=green&logo=git&logoColor=green&style=for-the-badge
+[repo-badge-stars]: https://img.shields.io/github/stars/Lack-Zillions-Over/niro-health?color=green&logo=git&logoColor=green&style=for-the-badge
 [repo-badge-maintenance]: https://img.shields.io/maintenance/yes/2022?logo=github&logoColor=green&style=for-the-badge
