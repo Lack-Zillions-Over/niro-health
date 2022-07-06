@@ -251,6 +251,6 @@ export class Locale {
 
     if (parserValue instanceof Error) return parserValue.message;
 
-    return parserValue;
+    return parserValue as string;
   }
 }
