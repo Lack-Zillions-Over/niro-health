@@ -18,6 +18,8 @@ services:
       - ${PORT}:${PORT}
     volumes:
       - .:/app
+      - ./src/core/locales:/app/dist/core/locales
+      - ./src/core/niro.config.json:/app/dist/core/niro.config.json
       - niro-development:/app/node_modules
     env_file:
       - ./.env
