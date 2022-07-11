@@ -1,13 +1,26 @@
 import { writeFileSync, existsSync, readFileSync } from 'fs';
-import { LocalPath } from '@/core/libs/localPath.lib';
+import { dirname, resolve } from 'path';
 import { PropString } from '@/core/libs/prop-string.lib';
+import { NiroOptions } from '@/constants';
+import { NiroConfig } from '@/core/types/niro-config.type';
 
 export class Locale {
-  constructor(
-    private locale: string,
-    private locales: string[],
-    private path: string,
-  ) {
+  private locale: string;
+  private locales: string[];
+  private path: string;
+
+  constructor(private options?: NiroConfig) {
+    if (!this.options) this.options = { locale: {} } as NiroConfig;
+
+    if (!this.options.locale.main) this.locale = NiroOptions.locale.main;
+    else this.locale = this.options.locale.main;
+
+    if (!this.options.locale.path) this.locales = NiroOptions.locale.languages;
+    else this.locales = this.options.locale.languages;
+
+    if (!this.options.locale.path) this.path = NiroOptions.locale.path;
+    else this.path = this.options.locale.path;
+
     this._initialize();
   }
 
@@ -18,9 +31,11 @@ export class Locale {
   }
 
   private _relativeLocalePath(locale?: string) {
-    return `${LocalPath.local(this.path)}/${
-      locale ? locale : this.locale
-    }.json`;
+    return resolve(
+      dirname(__dirname),
+      `./${this.path}`,
+      `./${locale ? locale : this.locale}.json`,
+    );
   }
 
   private _fileLocaleExists() {
