@@ -1,5 +1,5 @@
-import { CoreDatabaseContract } from '../../core/contracts/core-database.contract';
-import { User } from '../entities/users.entity';
+import { CoreDatabaseContract } from '@/core/contracts/core-database.contract';
+import { User } from '@/users/entities/users.entity';
 
 export abstract class UserDatabaseContract extends CoreDatabaseContract<User> {
   abstract findByUsername(username: string): Promise<User | never>;
