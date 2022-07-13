@@ -1,15 +1,14 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { CoreService } from './core.service';
-import { CoreController } from './core.controller';
-import { PrivateKeysParser } from './parsers/private-keys.parser';
-import { AuthorizationMiddleware } from './middlewares/authorization.middleware';
+import { Module } from '@nestjs/common';
+
+import { CoreService } from '@/core/core.service';
+import { CoreController } from '@/core/core.controller';
+import { PrivateKeysParser } from '@/core/parsers/private-keys.parser';
+import { LocaleModule } from '@/core/i18n/i18n.module';
 
 @Module({
+  imports: [LocaleModule],
   controllers: [CoreController],
   providers: [CoreService, PrivateKeysParser],
+  exports: [CoreService],
 })
-export class CoreModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthorizationMiddleware).forRoutes('core');
-  }
-}
+export class CoreModule {}
