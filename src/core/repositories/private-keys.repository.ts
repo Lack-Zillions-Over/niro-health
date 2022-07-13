@@ -1,8 +1,12 @@
-import { PrivateKeyDatabaseContract } from '../contracts/private-keys-database.contract';
-import { PrivateKey } from '../entities/private-keys.entity';
+import { PrivateKeyDatabaseContract } from '@/core/contracts/private-keys-database.contract';
+import { PrivateKey } from '@/core/entities/private-keys.entity';
+import { Locale } from '@/core/libs/i18n.lib';
 
 export class PrivateKeyRepository {
-  constructor(protected database: PrivateKeyDatabaseContract) {}
+  constructor(
+    protected database: PrivateKeyDatabaseContract,
+    protected locale: Locale,
+  ) {}
 
   private async _findByTag(tag: string) {
     return await this.database.findByTag(tag);
@@ -16,7 +20,13 @@ export class PrivateKeyRepository {
 
   async register(key: PrivateKey): Promise<Error | PrivateKey> {
     if (await this._findByTag(key.tag))
-      return new Error(`Key with tag "${key.tag}" is already exists!`);
+      return new Error(
+        this.locale.translate(
+          'private-keys.repository.private_key_already_exists',
+          'tag',
+          key.tag,
+        ) as string,
+      );
 
     return await this.database.create(await this._beforeSave(key));
   }
@@ -24,10 +34,21 @@ export class PrivateKeyRepository {
   async validate(tag: string, secret: string, value: string) {
     const key = await this._findByTag(tag);
 
-    if (!key) return new Error(`Key with tag "${tag}" not found!`);
+    if (!key)
+      return new Error(
+        this.locale.translate(
+          'private-keys.repository.private_key_not_found',
+          'tag',
+          tag,
+        ) as string,
+      );
 
-    if (this.database.getDecryptedProperty(key.secret) !== secret)
-      new Error(`Secret of key is invalid.`);
+    if (!(await this.database.compareHashPassword(secret, key.secret)))
+      return new Error(
+        this.locale.translate(
+          'private-keys.repository.invalid_secret',
+        ) as string,
+      );
 
     return key.value === value;
   }
@@ -39,7 +60,14 @@ export class PrivateKeyRepository {
   async findById(id: string): Promise<Error | PrivateKey> {
     const key = await this.database.findOne(id);
 
-    if (!key) return new Error(`Key with id "${id}" not found!`);
+    if (!key)
+      return new Error(
+        this.locale.translate(
+          'private-keys.repository.private_key_not_found',
+          'id',
+          id,
+        ) as string,
+      );
 
     return key;
   }
@@ -47,7 +75,14 @@ export class PrivateKeyRepository {
   async findByTag(tag: string): Promise<Error | PrivateKey> {
     const key = await this.database.findByTag(tag);
 
-    if (!key) return new Error(`Key with tag "${tag}" not found!`);
+    if (!key)
+      return new Error(
+        this.locale.translate(
+          'private-keys.repository.private_key_not_found',
+          'tag',
+          tag,
+        ) as string,
+      );
 
     return key;
   }
@@ -58,13 +93,21 @@ export class PrivateKeyRepository {
         await this._findByTag(newData.tag),
       )
     )
-      return new Error(`Tag "${newData.tag} already in use!"`);
+      return new Error(
+        this.locale.translate(
+          'private-keys.repository.field_in_use',
+          'Tag',
+          newData.tag,
+        ) as string,
+      );
 
     return await this.database.update(id, await this._beforeSave(newData));
   }
 
   async remove(id: string): Promise<Error | boolean> {
-    await this.findById(id);
+    const key = await this.findById(id);
+
+    if (key instanceof Error) return new Error(key.message);
 
     return await this.database.remove(id);
   }
