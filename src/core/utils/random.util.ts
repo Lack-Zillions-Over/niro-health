@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { StringEx } from './string-ex.util';
+import { StringEx } from '@/core/utils/string-ex.util';
 
 declare function Occurrence(...args: number[]): string;
 
