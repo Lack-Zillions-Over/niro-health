@@ -1,5 +1,5 @@
-import { UserDatabaseContract } from '../contracts/users-database.contract';
-import { User } from '../entities/users.entity';
+import { UserDatabaseContract } from '@/users/contracts/users-database.contract';
+import { User } from '@/users/entities/users.entity';
 
 export class UserMemoryDB extends UserDatabaseContract {
   constructor(protected users: User[]) {
@@ -24,7 +24,9 @@ export class UserMemoryDB extends UserDatabaseContract {
     return this.users.find((user) => user.username === username);
   }
 
-  async findByEmail(hashed: string): Promise<User> {
+  async findByEmail(email: string): Promise<User> {
+    const hashed = this.hashByText(email);
+
     return this.users.find((user) => user.hash.email === hashed);
   }
 

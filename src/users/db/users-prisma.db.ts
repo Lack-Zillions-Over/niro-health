@@ -1,6 +1,6 @@
-import { UserDatabaseContract } from '../contracts/users-database.contract';
-import { User } from '../entities/users.entity';
-import prismaClient from '../../core/drivers/prisma-client.driver';
+import { UserDatabaseContract } from '@/users/contracts/users-database.contract';
+import { User } from '@/users/entities/users.entity';
+import prismaClient from '@/core/drivers/prisma-client.driver';
 
 export class UserPrismaDB extends UserDatabaseContract {
   async create(data: User): Promise<User> {
@@ -23,7 +23,9 @@ export class UserPrismaDB extends UserDatabaseContract {
       | never;
   }
 
-  async findByEmail(hashed: string): Promise<User | never> {
+  async findByEmail(email: string): Promise<User | never> {
+    const hashed = this.hashByText(email);
+
     return (await prismaClient.user.findFirst({
       where: {
         hash: {
