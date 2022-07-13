@@ -172,6 +172,8 @@ export class Locale {
     for (const [index, value] of values.entries()) {
       const key = keys[keys.length - 1];
 
+      if (!value) continue;
+
       if (value[0] === '.') {
         let value_deep;
 
