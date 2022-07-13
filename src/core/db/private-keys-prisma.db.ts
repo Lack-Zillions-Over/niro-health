@@ -1,6 +1,6 @@
-import { PrivateKeyDatabaseContract } from '../contracts/private-keys-database.contract';
-import { PrivateKey } from '../entities/private-keys.entity';
-import prismaClient from '../drivers/prisma-client.driver';
+import { PrivateKeyDatabaseContract } from '@/core/contracts/private-keys-database.contract';
+import { PrivateKey } from '@/core/entities/private-keys.entity';
+import prismaClient from '@/core/drivers/prisma-client.driver';
 
 export class PrivateKeyPrismaDB extends PrivateKeyDatabaseContract {
   async create(data: PrivateKey): Promise<PrivateKey> {

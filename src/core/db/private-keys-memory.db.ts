@@ -1,5 +1,5 @@
-import { PrivateKeyDatabaseContract } from '../contracts/private-keys-database.contract';
-import { PrivateKey } from '../entities/private-keys.entity';
+import { PrivateKeyDatabaseContract } from '@/core/contracts/private-keys-database.contract';
+import { PrivateKey } from '@/core/entities/private-keys.entity';
 
 export class PrivateKeyMemoryDB extends PrivateKeyDatabaseContract {
   constructor(protected keys: PrivateKey[]) {
