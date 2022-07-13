@@ -1,6 +1,6 @@
 import { createCipheriv, createDecipheriv } from 'crypto';
 
-import { Random } from '../utils/random.util';
+import { Random } from '@/core/utils/random.util';
 
 export interface Config {
   algorithm: 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
