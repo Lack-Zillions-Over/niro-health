@@ -1,6 +1,6 @@
 {
   "name": "@guilhermesantos001/grupomavedigital",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Software Backend for Grupo Mave Digital",
   "engines": {
     "node": ">= 16.15 <17"
@@ -33,6 +33,7 @@
     "prettier": "^2.3.2",
     "prisma": "^4.0.0",
     "source-map-support": "^0.5.20",
+    "standard-version": "^9.5.0",
     "supertest": "^6.2.4",
     "ts-jest": "28.0.5",
     "ts-loader": "^9.2.3",
