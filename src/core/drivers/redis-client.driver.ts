@@ -1,5 +1,5 @@
 import { createClient } from 'redis';
-import { redisOptions } from '../constants';
+import { redisOptions } from '@/core/constants';
 
 export class RedisClient {
   static async set(key: string, value: string) {
