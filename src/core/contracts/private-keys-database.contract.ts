@@ -1,6 +1,6 @@
-import { CoreDatabaseContract } from './core-database.contract';
-import { PrivateKey } from '../entities/private-keys.entity';
-import { Random } from '../utils/random.util';
+import { CoreDatabaseContract } from '@/core/contracts/core-database.contract';
+import { PrivateKey } from '@/core/entities/private-keys.entity';
+import { Random } from '@/core/utils/random.util';
 
 export abstract class PrivateKeyDatabaseContract extends CoreDatabaseContract<PrivateKey> {
   public generateValue() {
