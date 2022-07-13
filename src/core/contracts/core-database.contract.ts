@@ -1,6 +1,6 @@
-import { Crypto, Encrypted } from '../libs/crypto.lib';
-import { StringEx } from '../utils/string-ex.util';
-import { Random } from '../utils/random.util';
+import { Crypto, Encrypted } from '@/core/libs/crypto.lib';
+import { StringEx } from '@/core/utils/string-ex.util';
+import { Random } from '@/core/utils/random.util';
 
 export abstract class CoreDatabaseContract<Model> {
   public generateID() {
@@ -27,17 +27,18 @@ export abstract class CoreDatabaseContract<Model> {
     return StringEx.Compress(JSON.stringify(Crypto.Encrypt(data)));
   }
 
-  public decrypt(data: string): Encrypted {
-    return StringEx.Decompress<Encrypted>(data) as Encrypted;
-  }
-
-  public getDecryptedProperty(data: string): string {
-    const encrypted = this.decrypt(data);
+  public decrypt(data: string): string {
+    console.log(data);
+    const encrypted = this.getDecryptedProperty(data);
 
     return Crypto.Decrypt({
       ...encrypted,
       tag: Buffer.from(encrypted.tag),
     });
+  }
+
+  public getDecryptedProperty(data: string): Encrypted {
+    return StringEx.Decompress<Encrypted>(data) as Encrypted;
   }
 
   abstract create(data: Model): Promise<Model>;
