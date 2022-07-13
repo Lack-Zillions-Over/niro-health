@@ -10,10 +10,10 @@ import {
   Delete,
 } from '@nestjs/common';
 
-import { CoreService } from './core.service';
-import { CreatePrivateKeyDto } from './dto/create-private-keys.dto';
-import { UpdatePrivateKeyDto } from './dto/update-private-keys.dto';
-import { PrivateKeysParser } from './parsers/private-keys.parser';
+import { CoreService } from '@/core/core.service';
+import { CreatePrivateKeyDto } from '@/core/dto/create-private-keys.dto';
+import { UpdatePrivateKeyDto } from '@/core/dto/update-private-keys.dto';
+import { PrivateKeysParser } from '@/core/parsers/private-keys.parser';
 
 @Controller('core')
 export class CoreController {
