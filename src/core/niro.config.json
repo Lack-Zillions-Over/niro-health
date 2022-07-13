@@ -1,0 +1,7 @@
+{
+  "locale": {
+    "main": "en",
+    "languages": ["en", "pt_br"],
+    "path": "locales"
+  }
+}
