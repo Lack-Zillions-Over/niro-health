@@ -7,7 +7,7 @@
 [![Commitizen friendly][commitizen-badge]][commitizen]
 [![TypeScript version][ts-badge]][typescript-4-6]
 [![Node.js version][nodejs-badge]][nodejs]
-[![APLv2][license-badge]][license]
+[![GPLV3][license-badge]][license]
 [![Commitizen friendly][commitizen-badge]][commitizen]
 
 ## Team
@@ -78,7 +78,7 @@ GNU GENERAL PUBLIC LICENSE v3. See the [LICENSE](https://github.com/Lack-Zillion
 [nodejs-badge]: https://img.shields.io/badge/Node.js->=%2016.15-blue.svg
 [nodejs]: https://nodejs.org/dist/latest-v16.x/docs/api/
 [typescript-4-6]: https://devblogs.microsoft.com/typescript/announcing-typescript-4-6/
-[license-badge]: https://img.shields.io/badge/license-APLv2-blue.svg
+[license-badge]: https://img.shields.io/badge/license-GPLV3-blue.svg
 [license]: https://github.com/Lack-Zillions-Over/niro-health/blob/main/LICENSE
 [sponsor-badge]: https://img.shields.io/badge/♥-Sponsor-fc0fb5.svg
 [sponsor]: https://github.com/sponsors/guilhermesantos001
