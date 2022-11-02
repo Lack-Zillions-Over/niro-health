@@ -8,7 +8,6 @@
 [![TypeScript version][ts-badge]][typescript-4-6]
 [![Node.js version][nodejs-badge]][nodejs]
 [![GPLV3][license-badge]][license]
-[![Commitizen friendly][commitizen-badge]][commitizen]
 
 ## Team
 
