@@ -10,20 +10,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  username String
-  password String
-  hash     Json
-  session  Json?
+model PrivateKey {
+  id        String   @id @default(uuid())
+  tag       String   @unique
+  secret    String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
-  @@map("users")
+  @@map("private_keys")
 }
 
-model PrivateKey {
-  id     String @id @default(uuid())
-  tag    String @unique
-  secret String
-  value  String
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  roles     String[] @default(["common"]) // common, admin, owner
+  hash      Json
+  activate  Boolean  @default(false)
+  session   Json
+  metadata  Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("users")
 }
