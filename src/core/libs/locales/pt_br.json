@@ -1,0 +1,321 @@
+{
+  "middlewares": {
+    "authorization": {
+      "exception": "Chave de API está invalida. Tente novamente, mais tarde!"
+    },
+    "authorization-private-key": {
+      "exception": "Chave Secreta de API está invalida. Tente novamente, mais tarde!"
+    }
+  },
+  "customers": {
+    "repository": {
+      "session_inactive": "Sessões estão temporariamente inativas",
+      "customer_already_exists": "Usuário com $1 \"$2\" já existe",
+      "customer_not_exists": "Usuário com $1 \"$2\" não foi encontrado",
+      "customer_account_not_activate": "Conta do cliente não está ativada",
+      "field_in_use": "$1 \"$2\" já está em uso",
+      "password_incorrect": "Senha está incorreta",
+      "customer_is_banned": "Usuário com $1 \"$2\" está banido",
+      "customer_session_exceed_limit": "Usuário com $1 \"$2\" excedeu o limite de $3 conexões simultâneas",
+      "customer_session_ipAddress_not_allowed": "Endereço de IP \"$1\" não está liberado pelo cliente",
+      "customer_session_ipAddress_is_blocked": "Endereço de IP \"$1\" está bloqueado pelo cliente",
+      "customer_session_device_not_allowed": "Dispositivo \"$1\" não está liberado pelo cliente",
+      "customer_not_connected": "Usuário com $1 \"$2\" não está conectado",
+      "session_canceled": "Essa sessão foi cancelada. Por favor, conecte novamente!",
+      "session_geoip_not_equal_stored": "Sua GEO localização mudou. Por favor, conecte novamente!",
+      "session_access_token_is_not_same_ip_address": "Sessão confirmada em outro endereço de IP \"$1\"",
+      "session_device_is_not_same_in_history": "Dispositivo \"$1\" não foi encontrado para essa sessão",
+      "session_token_revalidate_is_invalid": "Seu token de revalidação está invalido. Por favor, reconecte!",
+      "session_token_revalidate_ipAddress_is_not_stored": "Endereço de IP \"$1\" não é igual ao IP armazenado para o seu token de revalidação",
+      "session_access_token_expired": "Sessão expirada. Por favor, reconecte!"
+    }
+  },
+  "companies": {
+    "repository": {
+      "company_already_exists": "Empresa com $1 \"$2\" já existe",
+      "company_not_exists": "Empresa com $1 \"$2\" não foi encontrada",
+      "host_already_exists": "Host com $1 \"$2\" já existe",
+      "host_not_exists": "Host com $1 \"$2\" não foi encontrado"
+    }
+  },
+  "subscriptions": {
+    "repository": {
+      "subscription_already_exists": "Assinatura com $1 \"$2\" já existe",
+      "subscription_not_exists": "Assinatura com $1 \"$2\" não foi encontrada"
+    }
+  },
+  "private-keys": {
+    "repository": {
+      "private_key_already_exists": "Chave privada com $1 \"$2\" já existe",
+      "private_key_not_found": "Chave privada com $1 \"$2\" não foi encontrada",
+      "invalid_secret": "Segredo da chave privada está invalido.",
+      "field_in_use": "$1 \"$2\" já está em uso"
+    }
+  },
+  "files": {
+    "controller": {
+      "file_not_supported": "Arquivo não suportado. Formatos suportados: $1"
+    },
+    "repository": {
+      "file_exists": "Arquivo com $1 \"$2\" já existe",
+      "file_not_exists": "Arquivo com $1 \"$2\" não foi encontrado",
+      "compress": {
+        "error": "Erro ao compactar arquivo. $1"
+      },
+      "decompress": {
+        "error": "Erro ao descompactar arquivo. $1"
+      },
+      "delete": {
+        "error": "Erro ao deletar arquivo. $1"
+      }
+    }
+  },
+  "cli": {
+    "aws": {
+      "getVersion": {
+        "error": "A execução do processo retornou ume erro. $1"
+      }
+    }
+  },
+  "api": {
+    "aws": {
+      "createKeyPair": {
+        "error": "Não foi possível criar a chave privada. $1"
+      },
+      "describeKeyPair": {
+        "error": "Não foi possível descrever a chave privada. $1"
+      },
+      "deleteKeyPair": {
+        "error": "Não foi possível deletar a chave privada. $1"
+      },
+      "createInstance": {
+        "error": "Não foi possível criar a instância. $1"
+      },
+      "describeInstance": {
+        "error": "Não foi possível descrever a instância. $1"
+      },
+      "terminateInstance": {
+        "error": "Não foi possível terminar a instância. $1"
+      }
+    },
+    "k3sup": {
+      "createCluster": {
+        "error": "Não foi possível criar o cluster. $1",
+        "sshKeyNotFound": "Chave SSH não encontrada. Por favor, crie a chave SSH primeiro."
+      }
+    }
+  },
+  "tests": {
+    "customers": {
+      "usecases": {
+        "create": {
+          "describe": "UseCases -> Criação de cliente",
+          "create_new_customer": "Deve criar um novo cliente com dados validos",
+          "not_create_customer_with_same_username": "Não deve criar um novo cliente com o mesmo nome de usuário",
+          "not_create_customer_with_same_email": "Não deve criar um novo cliente com o mesmo email"
+        },
+        "activate": {
+          "describe": "UseCases -> Ativação da conta do cliente",
+          "activate_customer_with_valid_data": "Deve ativar a conta do cliente com dados validos",
+          "not_activate_customer_with_invalid_data": "Não deve ativar a conta do cliente com dados invalidos",
+          "not_activate_without_customer": "Não deve ativar a conta do cliente sem informar o cliente"
+        },
+        "decryptFieldValue": {
+          "describe": "UseCases -> Retorna o valor de um campo criptografado",
+          "get_field_value": "Retorna um valor criptografado",
+          "not_get_field_value": "Não deve retornar um valor criptografado"
+        },
+        "find": {
+          "id": {
+            "describe": "UseCases -> Procurar um cliente por id",
+            "find_id_valid": "Deve encontrar um cliente com id válido",
+            "not_find_id_invalid": "Não deve encontrar um cliente com id inválido"
+          },
+          "all": {
+            "describe": "UseCases -> Procura todos os clientes",
+            "find_all_customers": "Deve encontrar todos os clientes"
+          }
+        },
+        "update": {
+          "describe": "UseCases -> Atualização de cliente",
+          "create_multiple_customers": "Deve criar vários clientes",
+          "update_valid_customer": "Deve atualizar um cliente com dados validos",
+          "not_update_without_customer": "Não deve atualizar um cliente que não existe",
+          "not_update_customer_with_same_username": "Não deve atualizar um cliente com o mesmo nome de usuário",
+          "not_update_customer_with_same_email": "Não deve atualizar um cliente com o mesmo nome"
+        },
+        "login": {
+          "describe": "UseCases -> Login de sessão",
+          "create_new_customer": "Deve criar um novo cliente com dados validos",
+          "login_without_register": "Não deve logar um cliente sem registro",
+          "login_with_password_incorrect": "Não deve logar um cliente com a senha invalida",
+          "login_with_password_incorrect_several_times": "Não deve fazer login com a senha incorreta várias vezes",
+          "login_with_session_inactive": "Não deve logar um cliente com sessão inativa",
+          "login_with_password_correct": "Deve logar o cliente com a senha valida",
+          "login_customer_banned": "Não deve logar um cliente banido",
+          "login_with_device_not_allowed_by_customer": "Não deve logar um cliente com um dispositivo não permitido",
+          "login_with_ipAddress_not_allowed_by_customer": "Não deve logar um cliente com um endereço de IP não permitido",
+          "login_with_ipAddress_blocked_by_customer": "Não deve logar um cliente com um endereço de IP bloqueado"
+        },
+        "session-validate": {
+          "describe": "UseCases -> Validação de sessão",
+          "validate_valid_session": "Deve validar uma sessão valida",
+          "validate_session_with_expired_token_using_revalidate_token": "Deve validar uma sessão com token expirado, usando um revalidate token",
+          "not_validate_session_with_invalid_id": "Não deve validar a sessão com email de cliente invalido",
+          "not_validate_session_with_invalid_token_value": "Não deve validar a sessão com um valor invalido de token",
+          "not_validate_session_with_invalid_token_signature": "Não deve validar a sessão com uma assinatura invalida de token",
+          "not_validate_session_with_invalid_token_revalidate_value": "Não deve validar a sessão com um valor invalido de token",
+          "not_validate_session_with_invalid_token_revalidate_signature": "Não deve validar a sessão com uma assinatura invalida de token de revalidação",
+          "not_validate_session_with_geoip_not_same_stored": "Não deve validar a sessão com uma GEO localização diferente da armazenada",
+          "not_validate_session_with_device_not_same_stored": "Não deve validar a sessão com um dispositivo diferente do armazenado",
+          "not_validate_session_with_token_revalidate_ipAddress_not_same_stored": "Não deve validar a sessão com um endereço de IP diferente do armazenado no token de revalidação",
+          "not_validate_session_with_expired_token_revalidate": "Não deve validar a sessão com um token de revalidação expirado"
+        },
+        "logout": {
+          "describe": "UseCases -> Logout de Sessão",
+          "logout_valid_session": "Deve desconectar uma sessão valida",
+          "not_logout_session_without_customer": "Não deve desconectar uma sessão sem cliente",
+          "not_logout_session_not_connected": "Não deve desconectar uma sessão não conectada"
+        },
+        "remove": {
+          "describe": "UseCases -> Remoção de cliente",
+          "not_remove_without_customer": "Não deve remover um cliente que não existe",
+          "remove_valid_customer": "Deve remover um cliente valido"
+        }
+      },
+      "controller": {
+        "describe": "Controllers -> Clientes",
+        "create": {
+          "valid": "Deve criar um cliente com dados validos",
+          "invalid": "Não deve criar um cliente sem uma empresa"
+        }
+      }
+    },
+    "companies": {
+      "usecases": {
+        "create": {
+          "describe": "UseCases -> Criação de empresa",
+          "create_new_company": "Deve criar uma nova empresa com dados validos",
+          "not_create_company_with_same_name": "Não deve criar uma nova empresa com o mesmo nome",
+          "not_create_company_with_same_domain": "Não deve criar uma nova empresa com o mesmo domínio",
+          "not_create_company_with_same_subdomain": "Não deve criar uma nova empresa com o mesmo subdomínio",
+          "not_create_company_with_same_identifier": "Não deve criar uma nova empresa com o mesmo identificador (AWS)"
+        },
+        "decryptFieldValue": {
+          "describe": "UseCases -> Retorna o valor de um campo criptografado",
+          "get_field_value": "Retorna um valor criptografado",
+          "not_get_field_value": "Não deve retornar um valor criptografado"
+        },
+        "find": {
+          "all": {
+            "describe": "UseCases -> Procura todas as empresas",
+            "find_all_companies": "Deve encontrar todas as empresas"
+          },
+          "id": {
+            "describe": "UseCases -> Procura uma empresa por id",
+            "find_id_valid": "Deve encontrar uma empresa com id válido",
+            "not_find_id_invalid": "Não deve encontrar uma empresa com id inválido"
+          }
+        },
+        "remove": {
+          "describe": "UseCases -> Remoção de empresa",
+          "not_remove_without_company": "Não deve remover uma empresa que não existe",
+          "remove_valid_company": "Deve remover uma empresa valida"
+        },
+        "update": {
+          "describe": "UseCases -> Atualização de empresa",
+          "create_multiple_companies": "Deve criar várias empresas",
+          "not_update_without_company": "Não deve atualizar uma empresa que não existe"
+        }
+      }
+    },
+    "subscriptions": {
+      "usecases": {
+        "create": {
+          "describe": "UseCases -> Criação de assinatura",
+          "create_new_subscription": "Deve criar uma nova assinatura com dados validos",
+          "not_create_subscription_with_same_provider": "Não deve criar uma nova assinatura com o mesmo provedor"
+        },
+        "update": {
+          "describe": "UseCases -> Atualização de assinatura",
+          "create_multiple_subscriptions": "Deve criar várias assinaturas",
+          "update_valid_subscription": "Deve atualizar uma assinatura valida",
+          "not_update_without_subscription": "Não deve atualizar uma assinatura que não existe"
+        },
+        "remove": {
+          "describe": "UseCases -> Remoção de assinatura",
+          "not_remove_without_subscription": "Não deve remover uma assinatura que não existe",
+          "remove_valid_subscription": "Deve remover uma assinatura valida"
+        },
+        "decryptFieldValue": {
+          "describe": "UseCases -> Retorna o valor de um campo criptografado",
+          "get_field_value": "Retorna um valor criptografado",
+          "not_get_field_value": "Não deve retornar um valor criptografado"
+        },
+        "find": {
+          "all": {
+            "describe": "UseCases -> Procura todas as assinaturas",
+            "find_all_subscriptions": "Deve encontrar todas as assinaturas"
+          },
+          "id": {
+            "describe": "UseCases -> Procura uma assinatura por id",
+            "find_id_valid": "Deve encontrar uma assinatura com id válido",
+            "not_find_id_invalid": "Não deve encontrar uma assinatura com id inválido"
+          },
+          "accountId": {
+            "describe": "UseCases -> Procura uma assinatura por id da conta",
+            "find_accountId_valid": "Deve encontrar uma assinatura com id da conta válida",
+            "not_find_accountId_invalid": "Não deve encontrar uma assinatura com id da conta inválida"
+          },
+          "identifier": {
+            "describe": "UseCases -> Procura uma assinatura por identificador",
+            "find_identifier_valid": "Deve encontrar uma assinatura com identificador válido",
+            "not_find_identifier_invalid": "Não deve encontrar uma assinatura com identificador inválido"
+          }
+        }
+      }
+    },
+    "private-keys": {
+      "usecases": {
+        "create": {
+          "describe": "UseCases -> Criação de chave privada",
+          "create_new_key": "Deve criar uma nova chave com dados validos",
+          "create_new_key_same_tag": "Não deve criar uma chave com a mesmo tag"
+        },
+        "validate": {
+          "describe": "UseCases -> Validação de chave privada",
+          "validate_valid_key": "Deve validar uma chave privada valida",
+          "not_validate_key_with_invalid_tag": "Não deve validar uma chave privada com tag invalida",
+          "not_validate_key_with_invalid_secret": "Não deve validar uma chave privada com segredo invalido"
+        },
+        "update": {
+          "describe": "UseCases -> Atualização de chave privada",
+          "update_valid_key": "Deve atualizar uma chave privada com dados validos",
+          "not_update_key_without_register": "Não deve atualizar uma chave privada sem registro",
+          "not_update_key_with_same_tag": "Não deve atualizar uma chave privada com uma tag igual"
+        },
+        "remove": {
+          "describe": "UseCases -> Remoção de chave privada",
+          "remove_valid_key": "Deve remover uma chave privada valida",
+          "not_remove_key_without_register": "Não deve remover uma chave privada sem registro"
+        },
+        "decryptFieldValue": {
+          "describe": "UseCases -> Retorna o valor de um campo criptografado",
+          "get_field_value": "Retorna um valor criptografado",
+          "not_get_field_value": "Não deve retornar um valor criptografado"
+        },
+        "find": {
+          "all": {
+            "describe": "UseCases -> Busca de todas as chaves privadas",
+            "find_all_keys": "Deve buscar todas as chaves privadas"
+          },
+          "tag": {
+            "describe": "UseCases -> Busca de chave privada por tag",
+            "find_key_with_valid_tag": "Deve buscar uma chave privada com tag valida",
+            "not_find_key_with_invalid_tag": "Não deve buscar uma chave privada com tag invalida"
+          }
+        }
+      }
+    }
+  }
+}

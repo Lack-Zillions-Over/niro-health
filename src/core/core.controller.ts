@@ -1,77 +1,9 @@
-import {
-  HttpException,
-  HttpStatus,
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
-import { CoreService } from '@/core/core.service';
-import { CreatePrivateKeyDto } from '@/core/dto/create-private-keys.dto';
-import { UpdatePrivateKeyDto } from '@/core/dto/update-private-keys.dto';
-import { PrivateKeysParser } from '@/core/parsers/private-keys.parser';
-
-@Controller('core')
+@Controller('api/core')
 export class CoreController {
-  constructor(
-    private readonly coreService: CoreService,
-    private readonly privateKeysParser: PrivateKeysParser,
-  ) {}
-
-  @Post('private/keys')
-  async create(@Body() createPrivateKeyDto: CreatePrivateKeyDto) {
-    const key = await this.coreService.createPrivateKey(createPrivateKeyDto);
-
-    if (key instanceof Error)
-      throw new HttpException(key.message, HttpStatus.FORBIDDEN);
-
-    return this.privateKeysParser.toJSON(key);
-  }
-
-  @Get('private/keys')
-  async findAllPrivateKeys() {
-    return (await this.coreService.findAllPrivateKeys()).map((key) =>
-      this.privateKeysParser.toJSON(key),
-    );
-  }
-
-  @Get('private/keys/:tag')
-  async findByTagPrivateKey(@Param('tag') tag: string) {
-    const key = await this.coreService.findByTagPrivateKey(tag);
-
-    if (key instanceof Error)
-      throw new HttpException(key.message, HttpStatus.FORBIDDEN);
-
-    return this.privateKeysParser.toJSON(key);
-  }
-
-  @Patch('private/keys/:id')
-  async updatePrivateKey(
-    @Param('id') id: string,
-    @Body() updatePrivateKeyDto: UpdatePrivateKeyDto,
-  ) {
-    const key = await this.coreService.updatePrivateKey(
-      id,
-      updatePrivateKeyDto,
-    );
-
-    if (key instanceof Error)
-      throw new HttpException(key.message, HttpStatus.FORBIDDEN);
-
-    return this.privateKeysParser.toJSON(key);
-  }
-
-  @Delete('private/keys/:id')
-  async removePrivateKey(@Param('id') id: string) {
-    const deleted = await this.coreService.removePrivateKey(id);
-
-    if (deleted instanceof Error)
-      throw new HttpException(deleted.message, HttpStatus.FORBIDDEN);
-
-    return deleted;
+  @Get()
+  async version() {
+    return '1.0.0';
   }
 }

@@ -7,17 +7,26 @@ import {
 
 import { Request, Response, NextFunction } from 'express';
 
-import { ValidatePrivateKeyFactory } from '@/core/factories/validate-private-keys.factory';
+import { ValidatePrivateKeyFactory } from '@/privateKeys/factories/validate';
 
-import { LocaleService } from '@/core/i18n/i18n.service';
-import { StringEx } from '@/core/utils/string-ex.util';
+import { PrismaService } from '@/core/prisma/prisma.service';
+import { LibsService } from '@/core/libs/libs.service';
+import { UtilsService } from '@/core/utils/utils.service';
 
 @Injectable()
 export class AuthorizationMiddleware implements NestMiddleware {
-  constructor(private readonly localeService: LocaleService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly libsService: LibsService,
+    private readonly utilsService: UtilsService,
+  ) {}
 
   private async _invalidMasterKey(authorization: string) {
-    if (StringEx.Hash(process.env.MASTER_KEY, 'sha1', 'hex') !== authorization)
+    if (
+      this.utilsService
+        .stringEx()
+        .hash(process.env.MASTER_KEY, 'sha1', 'hex') !== authorization
+    )
       return true;
 
     return false;
@@ -28,7 +37,9 @@ export class AuthorizationMiddleware implements NestMiddleware {
       tag as string,
       secret as string,
       value as string,
-      this.localeService.locale,
+      this.prismaService,
+      this.libsService,
+      this.utilsService,
     );
 
     if (!key || key instanceof Error) return true;
@@ -50,9 +61,9 @@ export class AuthorizationMiddleware implements NestMiddleware {
         (await this._invalidPrivateKey(tag, secret, value)))
     )
       throw new HttpException(
-        this.localeService.translate(
-          'middlewares.authorization.exception',
-        ) as string,
+        this.libsService
+          .i18n()
+          .translate('middlewares.authorization.exception') as string,
         HttpStatus.UNAUTHORIZED,
       );
 

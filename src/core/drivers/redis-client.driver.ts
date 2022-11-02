@@ -2,6 +2,10 @@ import { createClient } from 'redis';
 import { redisOptions } from '@/core/constants';
 
 export class RedisClient {
+  constructor() {
+    throw new Error('this is static class');
+  }
+
   static async set(key: string, value: string) {
     const client = createClient(redisOptions);
 

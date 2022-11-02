@@ -1,9 +1,11 @@
 # compiled output
 /dist
 /node_modules
-
+/uploads
+configmap.yml
 # Security
 .env
+.*env
 
 # Logs
 logs

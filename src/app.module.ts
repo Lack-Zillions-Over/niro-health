@@ -1,20 +1,32 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { BullModule } from '@nestjs/bull';
 
+import { redisOptions } from '@/core/constants';
 import { AuthorizationMiddleware } from '@/core/middlewares/authorization.middleware';
 
 import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
-import { LocaleModule } from './core/i18n/i18n.module';
+
 import { CoreModule } from '@/core/core.module';
-import { UsersModule } from '@/users/users.module';
+import { PrivateKeysModule } from '@/privateKeys/privateKeys.module';
 
 @Module({
-  imports: [LocaleModule, CoreModule, UsersModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    BullModule.forRoot({
+      url: redisOptions.url,
+    }),
+    CoreModule,
+    PrivateKeysModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthorizationMiddleware).forRoutes('core', 'users');
+    consumer.apply(AuthorizationMiddleware).forRoutes('api');
   }
 }

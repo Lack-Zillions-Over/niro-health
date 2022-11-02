@@ -1,0 +1,321 @@
+{
+  "middlewares": {
+    "authorization": {
+      "exception": "API Key is invalid. Try again, later!"
+    },
+    "authorization-private-key": {
+      "exception": "Private Key is invalid. Try again, later 2022"
+    }
+  },
+  "customers": {
+    "repository": {
+      "session_inactive": "Session is temporary inactive",
+      "customer_already_exists": "User with $1 \"$2\" is already exists",
+      "customer_not_exists": "User with $1 \"$2\" not found",
+      "customer_account_not_activate": "Account of customer is not activated",
+      "field_in_use": "$1 \"$2\" already in use",
+      "password_incorrect": "Password is incorrect",
+      "customer_is_banned": "User with $1 \"$2\" is banned",
+      "customer_session_exceed_limit": "User with $1 \"$2\" exceed limit of $3 simultaneous connections",
+      "customer_session_ipAddress_not_allowed": "IP Address \"$1\" is not allowed by customer",
+      "customer_session_ipAddress_is_blocked": "IP Address \"$1\" is blocked by customer",
+      "customer_session_device_not_allowed": "Device \"$1\" is not allowed by customer",
+      "customer_not_connected": "User with $1 \"$2\" is not connected",
+      "session_canceled": "This session is canceled. Please connect again!",
+      "session_geoip_not_equal_stored": "Your GEO Localization is changed. Please connect again!",
+      "session_access_token_is_not_same_ip_address": "Session confirmed in other IP Address \"$1\"",
+      "session_device_is_not_same_in_history": "Device \"$1\" is not found for this session",
+      "session_token_revalidate_is_invalid": "Your revalidate token is invalid. Please reconnect!",
+      "session_token_revalidate_ipAddress_is_not_stored": "IP Address \"$1\" is not equal ip stored for your revalidate token",
+      "session_access_token_expired": "Session expired. Please reconnect!"
+    }
+  },
+  "companies": {
+    "repository": {
+      "company_already_exists": "Company with $1 \"$2\" is already exists",
+      "company_not_exists": "Company with $1 \"$2\" not found",
+      "host_already_exists": "Host with $1 \"$2\" is already exists",
+      "host_not_exists": "Host with $1 \"$2\" not found"
+    }
+  },
+  "subscriptions": {
+    "repository": {
+      "subscription_already_exists": "Subscription is already exists",
+      "subscription_not_exists": "Subscription with $1 \"$2\" not found"
+    }
+  },
+  "private-keys": {
+    "repository": {
+      "private_key_already_exists": "Private Key with $1 \"$2\" is already exists",
+      "private_key_not_found": "Private Key with $1 \"$2\" not found",
+      "invalid_secret": "Secret of key is invalid.",
+      "field_in_use": "$1 \"$2\" already in use"
+    }
+  },
+  "files": {
+    "controller": {
+      "file_not_supported": "File type is not supported. Supported types: $1"
+    },
+    "repository": {
+      "file_exists": "File with $1 \"$2\" is already exists",
+      "file_not_exists": "File with $1 \"$2\" not found",
+      "compress": {
+        "error": "Error while compress file. $1"
+      },
+      "decompress": {
+        "error": "Error while decompress file. $1"
+      },
+      "delete": {
+        "error": "Error while delete file. $1"
+      }
+    }
+  },
+  "cli": {
+    "aws": {
+      "getVersion": {
+        "error": "The process run returned an error. $1"
+      }
+    }
+  },
+  "api": {
+    "aws": {
+      "createKeyPair": {
+        "error": "Not possible to create key pair. $1"
+      },
+      "describeKeyPair": {
+        "error": "Not possible to describe key pair. $1"
+      },
+      "deleteKeyPair": {
+        "error": "Not possible to create key pair. $1"
+      },
+      "createInstance": {
+        "error": "Not possible to create instance. $1"
+      },
+      "describeInstance": {
+        "error": "Not possible to describe instance. $1"
+      },
+      "terminateInstance": {
+        "error": "Not possible to terminate instance. $1"
+      }
+    },
+    "k3sup": {
+      "createCluster": {
+        "error": "Not possible to create cluster. $1",
+        "sshKeyNotFound": "SSH Key not found. Please create SSH Key first."
+      }
+    }
+  },
+  "tests": {
+    "customers": {
+      "usecases": {
+        "create": {
+          "describe": "UseCases -> Create customer",
+          "create_new_customer": "Should create new customer with valid data",
+          "not_create_customer_with_same_username": "Should not create customer with same username",
+          "not_create_customer_with_same_email": "Should not create customer with same email"
+        },
+        "activate": {
+          "describe": "UseCases -> Activate account customer",
+          "activate_customer_with_valid_data": "Should activate account customer with valid data",
+          "not_activate_customer_with_invalid_data": "Should not activate account without customer with invalid data",
+          "not_activate_without_customer": "Should not activate account without customer"
+        },
+        "decryptFieldValue": {
+          "describe": "UseCases -> Returns the value of an encrypted field",
+          "get_field_value": "Returns an encrypted value",
+          "not_get_field_value": "Should not return an encrypted value"
+        },
+        "find": {
+          "id": {
+            "describe": "UseCases -> Find By ID customer",
+            "find_id_valid": "Should find customer with valid id",
+            "not_find_id_invalid": "Should not find customer by id"
+          },
+          "all": {
+            "describe": "UseCases -> Find All Customers",
+            "find_all_customers": "Should find all customers"
+          }
+        },
+        "update": {
+          "describe": "UseCases -> Update customer",
+          "create_multiple_customers": "Should create multiple customers",
+          "update_valid_customer": "Should update customer with valid data",
+          "not_update_without_customer": "Should not update customer without register",
+          "not_update_customer_with_same_username": "Should not update customer with same username",
+          "not_update_customer_with_same_email": "Should not update customer with same email"
+        },
+        "login": {
+          "describe": "UseCases -> Login session",
+          "create_new_customer": "Should create a new customer with valid data",
+          "login_without_register": "Should customer not login without register",
+          "login_with_password_incorrect": "Should customer not login with password incorrect",
+          "login_with_password_incorrect_several_times": "Should customer not login with password incorrect several times",
+          "login_with_session_inactive": "Should customer not login with session inactive",
+          "login_with_password_correct": "Should be login customer with password correct",
+          "login_customer_banned": "Should not login customer banned",
+          "login_with_device_not_allowed_by_customer": "Should not login with device not allowed by customer",
+          "login_with_ipAddress_not_allowed_by_customer": "Should not login with IP Address not allowed by customer",
+          "login_with_ipAddress_blocked_by_customer": "Should not login with IP Address blocked by customer"
+        },
+        "session-validate": {
+          "describe": "UseCases -> Session validate",
+          "validate_valid_session": "Should validate a valid session",
+          "validate_session_with_expired_token_using_revalidate_token": "Should validate a session with expired token using revalidate token",
+          "not_validate_session_with_invalid_id": "Should not validate a session with invalid email",
+          "not_validate_session_with_invalid_token_value": "Should not validate a session with invalid value of token",
+          "not_validate_session_with_invalid_token_signature": "Should not validate a session with invalid signature of token",
+          "not_validate_session_with_invalid_token_revalidate_value": "Should not validate a session with invalid value of token revalidate",
+          "not_validate_session_with_invalid_token_revalidate_signature": "Should not validate a session with invalid signature of token revalidate",
+          "not_validate_session_with_geoip_not_same_stored": "Should not validate a session with geoip not same stored",
+          "not_validate_session_with_device_not_same_stored": "Should not validate a session with device not same stored",
+          "not_validate_session_with_token_revalidate_ipAddress_not_same_stored": "Should not validate a session with token revalidate IP Address not same stored",
+          "not_validate_session_with_expired_token_revalidate": "Should not validate a session with expired token revalidate"
+        },
+        "logout": {
+          "describe": "UseCases -> Logout session",
+          "logout_valid_session": "Should logout a valid session",
+          "not_logout_session_without_customer": "Should not logout a session without customer",
+          "not_logout_session_not_connected": "Should not logout a session not connected"
+        },
+        "remove": {
+          "describe": "UseCases -> Remove customer",
+          "not_remove_without_customer": "Should not remove customer without register",
+          "remove_valid_customer": "Should remove a valid customer"
+        }
+      },
+      "controller": {
+        "describe": "Controllers -> Customers",
+        "create": {
+          "valid": "Should create a new customer with valid data",
+          "invalid": "Should not create a new customer without company"
+        }
+      }
+    },
+    "companies": {
+      "usecases": {
+        "create": {
+          "describe": "UseCases -> Create company",
+          "create_new_company": "Should create new company with valid data",
+          "not_create_company_with_same_name": "Should not create company with same name",
+          "not_create_company_with_same_domain": "Should not create company with same domain",
+          "not_create_company_with_same_subdomain": "Should not create company with same subdomain",
+          "not_create_company_with_same_identifier": "Should not create company with same identifier (AWS)"
+        },
+        "decryptFieldValue": {
+          "describe": "UseCases -> Returns the value of an encrypted field",
+          "get_field_value": "Returns an encrypted value",
+          "not_get_field_value": "Should not return an encrypted value"
+        },
+        "find": {
+          "all": {
+            "describe": "UseCases -> Find All Companies",
+            "find_all_companies": "Should find all companies"
+          },
+          "id": {
+            "describe": "UseCases -> Find By ID company",
+            "find_id_valid": "Should find company with valid id",
+            "not_find_id_invalid": "Should not find company by id"
+          }
+        },
+        "remove": {
+          "describe": "UseCases -> Remove company",
+          "not_remove_without_company": "Should not remove company without register",
+          "remove_valid_company": "Should remove a valid company"
+        },
+        "update": {
+          "describe": "UseCases -> Update company",
+          "create_multiple_companies": "Should create multiple companies",
+          "not_update_without_company": "Should not update company without register"
+        }
+      }
+    },
+    "subscriptions": {
+      "usecases": {
+        "create": {
+          "describe": "UseCases -> Create subscription",
+          "create_new_subscription": "Should create new subscription with valid data",
+          "not_create_subscription_with_same_provider": "Should not create subscription with same provider"
+        },
+        "update": {
+          "describe": "UseCases -> Update subscription",
+          "create_multiple_subscriptions": "Should create multiple subscriptions",
+          "update_valid_subscription": "Should update subscription with valid data",
+          "not_update_without_subscription": "Should not update subscription without register"
+        },
+        "remove": {
+          "describe": "UseCases -> Remove subscription",
+          "not_remove_without_subscription": "Should not remove subscription without register",
+          "remove_valid_subscription": "Should remove a valid subscription"
+        },
+        "decryptFieldValue": {
+          "describe": "UseCases -> Returns the value of an encrypted field",
+          "get_field_value": "Returns an encrypted value",
+          "not_get_field_value": "Should not return an encrypted value"
+        },
+        "find": {
+          "all": {
+            "describe": "UseCases -> Find All Subscriptions",
+            "find_all_subscriptions": "Should find all subscriptions"
+          },
+          "id": {
+            "describe": "UseCases -> Find By ID subscription",
+            "find_id_valid": "Should find subscription with valid id",
+            "not_find_id_invalid": "Should not find subscription by id"
+          },
+          "accountId": {
+            "describe": "UseCases -> Find By Account ID subscription",
+            "find_accountId_valid": "Should find subscription with valid account id",
+            "not_find_accountId_invalid": "Should not find subscription by account id"
+          },
+          "identifier": {
+            "describe": "UseCases -> Find By Identifier subscription",
+            "find_identifier_valid": "Should find subscription with valid identifier",
+            "not_find_identifier_invalid": "Should not find subscription by identifier"
+          }
+        }
+      }
+    },
+    "private-keys": {
+      "usecases": {
+        "create": {
+          "describe": "UseCases -> Create private keys",
+          "create_new_key": "Should create new key with valid data",
+          "create_new_key_same_tag": "Should not create new key with same tag"
+        },
+        "validate": {
+          "describe": "UseCases -> Validate private keys",
+          "validate_valid_key": "Should validate a valid key",
+          "not_validate_key_with_invalid_tag": "Should not validate a key with invalid tag",
+          "not_validate_key_with_invalid_secret": "Should not validate a key with invalid secret"
+        },
+        "update": {
+          "describe": "UseCases -> Update private keys",
+          "update_valid_key": "Should update a valid key",
+          "not_update_key_without_register": "Should not update a key without register",
+          "not_update_key_with_same_tag": "Should not update key with same tag"
+        },
+        "remove": {
+          "describe": "UseCases -> Remove private keys",
+          "remove_valid_key": "Should remove a valid key",
+          "not_remove_key_without_register": "Should not remove a key without register"
+        },
+        "decryptFieldValue": {
+          "describe": "UseCases -> Returns the value of an encrypted field",
+          "get_field_value": "Returns an encrypted value",
+          "not_get_field_value": "Should not return an encrypted value"
+        },
+        "find": {
+          "all": {
+            "describe": "UseCases -> Find all private keys",
+            "find_all_keys": "Should find all keys"
+          },
+          "tag": {
+            "describe": "UseCases -> Find private keys by tag",
+            "find_key_with_valid_tag": "Should find key with valid tag",
+            "not_find_key_with_invalid_tag": "Should not find key with invalid tag"
+          }
+        }
+      }
+    }
+  }
+}

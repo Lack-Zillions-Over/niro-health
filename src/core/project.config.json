@@ -1,0 +1,46 @@
+{
+  "locale": {
+    "main": "en",
+    "languages": [
+      "en",
+      "pt_br"
+    ],
+    "path": "locales"
+  },
+  "log": {
+    "path": "logs"
+  },
+  "files": {
+    "path": "uploads",
+    "avatar": {
+      "path": "avatar",
+      "fieldname": "file",
+      "mimetypes": [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "image/gif",
+        "image/webp",
+        "image/bmp",
+        "image/tiff",
+        "image/ico"
+      ],
+      "limit": 5242880,
+      "aws": {
+        "bucket": "testing-230593ae-ce31-490f-9d8f-6b461de3bb86"
+      }
+    }
+  },
+  "redis": {
+    "database": 1
+  },
+  "aws": {
+    "apiVersion": "latest",
+    "region": "us-east-1",
+    "httpsAgent": {
+      "maxSockets": 25,
+      "keepAlive": true,
+      "keepAliveMsecs": 30000
+    }
+  }
+}

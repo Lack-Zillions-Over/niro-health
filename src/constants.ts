@@ -1,14 +1,14 @@
 import { readFileSync } from 'fs';
 import { dirname, resolve } from 'path';
 
-import { NiroConfig } from '@/core/types/niro-config.type';
+import { ProjectConfig } from '@/core/types/project-config.type';
 
-export const NiroConfigFilePath = resolve(
+export const ProjectConfigFilePath = resolve(
   dirname(__dirname),
   './src',
   './core',
-  './niro.config.json',
+  './project.config.json',
 );
-export const NiroOptions: NiroConfig = JSON.parse(
-  readFileSync(NiroConfigFilePath, 'utf8'),
+export const ProjectOptions: ProjectConfig = JSON.parse(
+  readFileSync(ProjectConfigFilePath, 'utf8'),
 );
