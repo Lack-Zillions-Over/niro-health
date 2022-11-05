@@ -5,7 +5,9 @@ services:
     container_name: nestjs-preview
     depends_on:
       - postgres
-    command: yarn start:debug
+    command: >
+        sh -c "yarn prisma db push
+        && yarn start:debug"
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,7 +21,7 @@ services:
     volumes:
       - .:/app
       - ./src/core/libs/locales:/app/dist/core/libs/locales
-      - ./src/core/templates:/app/dist/core/templates
+      - ./src/core/libs/templates:/app/dist/core/libs/templates
       - ./src/core/project.config.json:/app/dist/core/project.config.json
       - project_development:/app/node_modules
     env_file:
