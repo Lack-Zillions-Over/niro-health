@@ -192,7 +192,7 @@ export class UserRepository extends RepositoryContract<
   ) {
     for (const field of fields) {
       if (
-        beforeData[field] !== beforeData[field] &&
+        beforeData[field] !== nextData[field] &&
         !this.database.compareHashText(nextData[field], beforeData.hash[field])
       ) {
         nextData[field] = this.database.encrypt(nextData[field]);
