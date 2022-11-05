@@ -9,6 +9,9 @@
 [![Node.js version][nodejs-badge]][nodejs]
 [![GPLV3][license-badge]][license]
 
+## Discord
+https://discord.gg/m6QaHFuUXB
+
 ## Team
 
 [![Lack Zillions Over (LZO) Team][lzo-badge]][sponsor]
