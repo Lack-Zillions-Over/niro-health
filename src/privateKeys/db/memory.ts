@@ -5,6 +5,8 @@ import { PrivateKey } from '@/privateKeys/entities';
 
 import { SimilarityFilter as SimilarityFilterTypes } from '@/core/utils/similarityFilter/types';
 
+import * as _ from 'lodash';
+
 export class PrivateKeyMemoryDB extends PrivateKeyDatabaseContract {
   constructor(
     protected readonly libsService: LibsService,
@@ -45,7 +47,7 @@ export class PrivateKeyMemoryDB extends PrivateKeyDatabaseContract {
 
   async update(id: string, newData: PrivateKey): Promise<PrivateKey> {
     this.keys = this.keys.map((key) =>
-      key.id === id ? { ...key, ...newData } : key,
+      key.id === id ? { ...key, ..._.omitBy(newData, _.isNil) } : key,
     );
 
     return this.findOne(id);

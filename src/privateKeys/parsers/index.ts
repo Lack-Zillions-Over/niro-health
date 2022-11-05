@@ -8,6 +8,8 @@ export class PrivateKeysParser {
       id: key.id,
       tag: key.tag,
       value: key.value,
+      createdAt: key.createdAt,
+      updatedAt: key.updatedAt,
     };
   }
 }

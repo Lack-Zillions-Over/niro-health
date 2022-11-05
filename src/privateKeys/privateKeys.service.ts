@@ -28,9 +28,9 @@ import { UtilsService } from '@/core/utils/utils.service';
 @Injectable()
 export class PrivateKeysService {
   constructor(
-    private readonly prismaService: PrismaService,
-    private readonly libsService: LibsService,
-    private readonly utilsService: UtilsService,
+    public readonly prismaService: PrismaService,
+    public readonly libsService: LibsService,
+    public readonly utilsService: UtilsService,
   ) {}
 
   async getClientGeoIP(req: Request) {

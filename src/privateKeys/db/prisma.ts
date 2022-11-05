@@ -6,6 +6,8 @@ import { PrismaService } from '@/core/prisma/prisma.service';
 
 import { SimilarityFilter as SimilarityFilterTypes } from '@/core/utils/similarityFilter/types';
 
+import * as _ from 'lodash';
+
 export class PrivateKeyPrismaDB extends PrivateKeyDatabaseContract {
   constructor(
     protected readonly libsService: LibsService,
@@ -47,7 +49,7 @@ export class PrivateKeyPrismaDB extends PrivateKeyDatabaseContract {
   async update(id: string, newData: PrivateKey): Promise<PrivateKey> {
     return await this.prismaService.privateKey.update({
       where: { id },
-      data: { ...newData },
+      data: { ..._.omitBy(newData, _.isNil) },
     });
   }
 

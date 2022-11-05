@@ -33,7 +33,7 @@ export class PrivateKeyRepository extends RepositoryContract<
     return this.database.decrypt(value);
   }
 
-  async register(key: PrivateKey): Promise<Error | PrivateKey> {
+  public async register(key: PrivateKey): Promise<Error | PrivateKey> {
     if (await this._findByTag(key.tag))
       return new Error(
         this.libsService
@@ -48,7 +48,7 @@ export class PrivateKeyRepository extends RepositoryContract<
     return await this.database.create(await this.beforeSave(key));
   }
 
-  async validate(tag: string, secret: string, value: string) {
+  public async validate(tag: string, secret: string, value: string) {
     const key = await this._findByTag(tag);
 
     if (!key)
@@ -72,18 +72,18 @@ export class PrivateKeyRepository extends RepositoryContract<
     return key.value === value;
   }
 
-  async findMany(): Promise<PrivateKey[]> {
+  public async findMany(): Promise<PrivateKey[]> {
     return await this.database.findAll();
   }
 
-  async findBy(
+  public async findBy(
     filter: RecursivePartial<PrivateKey>,
     similarity?: SimilarityFilterTypes.SimilarityType,
   ): Promise<PrivateKey[]> {
     return await this.database.findBy(filter, similarity);
   }
 
-  async findById(id: string): Promise<Error | PrivateKey> {
+  public async findById(id: string): Promise<Error | PrivateKey> {
     const key = await this.database.findOne(id);
 
     if (!key)
@@ -100,7 +100,7 @@ export class PrivateKeyRepository extends RepositoryContract<
     return key;
   }
 
-  async findByTag(tag: string): Promise<Error | PrivateKey> {
+  public async findByTag(tag: string): Promise<Error | PrivateKey> {
     const key = await this.database.findByTag(tag);
 
     if (!key)
@@ -117,7 +117,10 @@ export class PrivateKeyRepository extends RepositoryContract<
     return key;
   }
 
-  async update(id: string, newData: PrivateKey): Promise<Error | PrivateKey> {
+  public async update(
+    id: string,
+    newData: PrivateKey,
+  ): Promise<Error | PrivateKey> {
     const key = await this.findById(id);
 
     if (key instanceof Error) return new Error(key.message);
@@ -143,7 +146,7 @@ export class PrivateKeyRepository extends RepositoryContract<
     );
   }
 
-  async remove(id: string): Promise<Error | boolean> {
+  public async remove(id: string): Promise<Error | boolean> {
     const key = await this.findById(id);
 
     if (key instanceof Error) return new Error(key.message);
