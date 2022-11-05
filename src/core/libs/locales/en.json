@@ -7,20 +7,20 @@
       "exception": "Private Key is invalid. Try again, later 2022"
     }
   },
-  "customers": {
+  "users": {
     "repository": {
       "session_inactive": "Session is temporary inactive",
-      "customer_already_exists": "User with $1 \"$2\" is already exists",
-      "customer_not_exists": "User with $1 \"$2\" not found",
-      "customer_account_not_activate": "Account of customer is not activated",
+      "user_already_exists": "User with $1 \"$2\" is already exists",
+      "user_not_exists": "User with $1 \"$2\" not found",
+      "user_account_not_activate": "Account of user is not activated",
       "field_in_use": "$1 \"$2\" already in use",
       "password_incorrect": "Password is incorrect",
-      "customer_is_banned": "User with $1 \"$2\" is banned",
-      "customer_session_exceed_limit": "User with $1 \"$2\" exceed limit of $3 simultaneous connections",
-      "customer_session_ipAddress_not_allowed": "IP Address \"$1\" is not allowed by customer",
-      "customer_session_ipAddress_is_blocked": "IP Address \"$1\" is blocked by customer",
-      "customer_session_device_not_allowed": "Device \"$1\" is not allowed by customer",
-      "customer_not_connected": "User with $1 \"$2\" is not connected",
+      "user_is_banned": "User with $1 \"$2\" is banned",
+      "user_session_exceed_limit": "User with $1 \"$2\" exceed limit of $3 simultaneous connections",
+      "user_session_ipAddress_not_allowed": "IP Address \"$1\" is not allowed by user",
+      "user_session_ipAddress_is_blocked": "IP Address \"$1\" is blocked by user",
+      "user_session_device_not_allowed": "Device \"$1\" is not allowed by user",
+      "user_not_connected": "User with $1 \"$2\" is not connected",
       "session_canceled": "This session is canceled. Please connect again!",
       "session_geoip_not_equal_stored": "Your GEO Localization is changed. Please connect again!",
       "session_access_token_is_not_same_ip_address": "Session confirmed in other IP Address \"$1\"",
@@ -106,19 +106,19 @@
     }
   },
   "tests": {
-    "customers": {
+    "users": {
       "usecases": {
         "create": {
-          "describe": "UseCases -> Create customer",
-          "create_new_customer": "Should create new customer with valid data",
-          "not_create_customer_with_same_username": "Should not create customer with same username",
-          "not_create_customer_with_same_email": "Should not create customer with same email"
+          "describe": "UseCases -> Create user",
+          "create_new_user": "Should create new user with valid data",
+          "not_create_user_with_same_username": "Should not create user with same username",
+          "not_create_user_with_same_email": "Should not create user with same email"
         },
         "activate": {
-          "describe": "UseCases -> Activate account customer",
-          "activate_customer_with_valid_data": "Should activate account customer with valid data",
-          "not_activate_customer_with_invalid_data": "Should not activate account without customer with invalid data",
-          "not_activate_without_customer": "Should not activate account without customer"
+          "describe": "UseCases -> Activate account user",
+          "activate_user_with_valid_data": "Should activate account user with valid data",
+          "not_activate_user_with_invalid_data": "Should not activate account without user with invalid data",
+          "not_activate_without_user": "Should not activate account without user"
         },
         "decryptFieldValue": {
           "describe": "UseCases -> Returns the value of an encrypted field",
@@ -127,35 +127,35 @@
         },
         "find": {
           "id": {
-            "describe": "UseCases -> Find By ID customer",
-            "find_id_valid": "Should find customer with valid id",
-            "not_find_id_invalid": "Should not find customer by id"
+            "describe": "UseCases -> Find By ID user",
+            "find_id_valid": "Should find user with valid id",
+            "not_find_id_invalid": "Should not find user by id"
           },
           "all": {
-            "describe": "UseCases -> Find All Customers",
-            "find_all_customers": "Should find all customers"
+            "describe": "UseCases -> Find All Users",
+            "find_all_users": "Should find all users"
           }
         },
         "update": {
-          "describe": "UseCases -> Update customer",
-          "create_multiple_customers": "Should create multiple customers",
-          "update_valid_customer": "Should update customer with valid data",
-          "not_update_without_customer": "Should not update customer without register",
-          "not_update_customer_with_same_username": "Should not update customer with same username",
-          "not_update_customer_with_same_email": "Should not update customer with same email"
+          "describe": "UseCases -> Update user",
+          "create_multiple_users": "Should create multiple users",
+          "update_valid_user": "Should update user with valid data",
+          "not_update_without_user": "Should not update user without register",
+          "not_update_user_with_same_username": "Should not update user with same username",
+          "not_update_user_with_same_email": "Should not update user with same email"
         },
         "login": {
           "describe": "UseCases -> Login session",
-          "create_new_customer": "Should create a new customer with valid data",
-          "login_without_register": "Should customer not login without register",
-          "login_with_password_incorrect": "Should customer not login with password incorrect",
-          "login_with_password_incorrect_several_times": "Should customer not login with password incorrect several times",
-          "login_with_session_inactive": "Should customer not login with session inactive",
-          "login_with_password_correct": "Should be login customer with password correct",
-          "login_customer_banned": "Should not login customer banned",
-          "login_with_device_not_allowed_by_customer": "Should not login with device not allowed by customer",
-          "login_with_ipAddress_not_allowed_by_customer": "Should not login with IP Address not allowed by customer",
-          "login_with_ipAddress_blocked_by_customer": "Should not login with IP Address blocked by customer"
+          "create_new_user": "Should create a new user with valid data",
+          "login_without_register": "Should user not login without register",
+          "login_with_password_incorrect": "Should user not login with password incorrect",
+          "login_with_password_incorrect_several_times": "Should user not login with password incorrect several times",
+          "login_with_session_inactive": "Should user not login with session inactive",
+          "login_with_password_correct": "Should be login user with password correct",
+          "login_user_banned": "Should not login user banned",
+          "login_with_device_not_allowed_by_user": "Should not login with device not allowed by user",
+          "login_with_ipAddress_not_allowed_by_user": "Should not login with IP Address not allowed by user",
+          "login_with_ipAddress_blocked_by_user": "Should not login with IP Address blocked by user"
         },
         "session-validate": {
           "describe": "UseCases -> Session validate",
@@ -174,20 +174,20 @@
         "logout": {
           "describe": "UseCases -> Logout session",
           "logout_valid_session": "Should logout a valid session",
-          "not_logout_session_without_customer": "Should not logout a session without customer",
+          "not_logout_session_without_user": "Should not logout a session without user",
           "not_logout_session_not_connected": "Should not logout a session not connected"
         },
         "remove": {
-          "describe": "UseCases -> Remove customer",
-          "not_remove_without_customer": "Should not remove customer without register",
-          "remove_valid_customer": "Should remove a valid customer"
+          "describe": "UseCases -> Remove user",
+          "not_remove_without_user": "Should not remove user without register",
+          "remove_valid_user": "Should remove a valid user"
         }
       },
       "controller": {
-        "describe": "Controllers -> Customers",
+        "describe": "Controllers -> Users",
         "create": {
-          "valid": "Should create a new customer with valid data",
-          "invalid": "Should not create a new customer without company"
+          "valid": "Should create a new user with valid data",
+          "invalid": "Should not create a new user without company"
         }
       }
     },

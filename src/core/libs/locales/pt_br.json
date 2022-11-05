@@ -7,20 +7,20 @@
       "exception": "Chave Secreta de API está invalida. Tente novamente, mais tarde!"
     }
   },
-  "customers": {
+  "users": {
     "repository": {
       "session_inactive": "Sessões estão temporariamente inativas",
-      "customer_already_exists": "Usuário com $1 \"$2\" já existe",
-      "customer_not_exists": "Usuário com $1 \"$2\" não foi encontrado",
-      "customer_account_not_activate": "Conta do cliente não está ativada",
+      "user_already_exists": "Usuário com $1 \"$2\" já existe",
+      "user_not_exists": "Usuário com $1 \"$2\" não foi encontrado",
+      "user_account_not_activate": "Conta do usuário não está ativada",
       "field_in_use": "$1 \"$2\" já está em uso",
       "password_incorrect": "Senha está incorreta",
-      "customer_is_banned": "Usuário com $1 \"$2\" está banido",
-      "customer_session_exceed_limit": "Usuário com $1 \"$2\" excedeu o limite de $3 conexões simultâneas",
-      "customer_session_ipAddress_not_allowed": "Endereço de IP \"$1\" não está liberado pelo cliente",
-      "customer_session_ipAddress_is_blocked": "Endereço de IP \"$1\" está bloqueado pelo cliente",
-      "customer_session_device_not_allowed": "Dispositivo \"$1\" não está liberado pelo cliente",
-      "customer_not_connected": "Usuário com $1 \"$2\" não está conectado",
+      "user_is_banned": "Usuário com $1 \"$2\" está banido",
+      "user_session_exceed_limit": "Usuário com $1 \"$2\" excedeu o limite de $3 conexões simultâneas",
+      "user_session_ipAddress_not_allowed": "Endereço de IP \"$1\" não está liberado pelo usuário",
+      "user_session_ipAddress_is_blocked": "Endereço de IP \"$1\" está bloqueado pelo usuário",
+      "user_session_device_not_allowed": "Dispositivo \"$1\" não está liberado pelo usuário",
+      "user_not_connected": "Usuário com $1 \"$2\" não está conectado",
       "session_canceled": "Essa sessão foi cancelada. Por favor, conecte novamente!",
       "session_geoip_not_equal_stored": "Sua GEO localização mudou. Por favor, conecte novamente!",
       "session_access_token_is_not_same_ip_address": "Sessão confirmada em outro endereço de IP \"$1\"",
@@ -106,19 +106,19 @@
     }
   },
   "tests": {
-    "customers": {
+    "users": {
       "usecases": {
         "create": {
-          "describe": "UseCases -> Criação de cliente",
-          "create_new_customer": "Deve criar um novo cliente com dados validos",
-          "not_create_customer_with_same_username": "Não deve criar um novo cliente com o mesmo nome de usuário",
-          "not_create_customer_with_same_email": "Não deve criar um novo cliente com o mesmo email"
+          "describe": "UseCases -> Criação de usuário",
+          "create_new_user": "Deve criar um novo usuário com dados validos",
+          "not_create_user_with_same_username": "Não deve criar um novo usuário com o mesmo nome de usuário",
+          "not_create_user_with_same_email": "Não deve criar um novo usuário com o mesmo email"
         },
         "activate": {
-          "describe": "UseCases -> Ativação da conta do cliente",
-          "activate_customer_with_valid_data": "Deve ativar a conta do cliente com dados validos",
-          "not_activate_customer_with_invalid_data": "Não deve ativar a conta do cliente com dados invalidos",
-          "not_activate_without_customer": "Não deve ativar a conta do cliente sem informar o cliente"
+          "describe": "UseCases -> Ativação da conta do usuário",
+          "activate_user_with_valid_data": "Deve ativar a conta do usuário com dados validos",
+          "not_activate_user_with_invalid_data": "Não deve ativar a conta do usuário com dados invalidos",
+          "not_activate_without_user": "Não deve ativar a conta do usuário sem informar o usuário"
         },
         "decryptFieldValue": {
           "describe": "UseCases -> Retorna o valor de um campo criptografado",
@@ -127,41 +127,41 @@
         },
         "find": {
           "id": {
-            "describe": "UseCases -> Procurar um cliente por id",
-            "find_id_valid": "Deve encontrar um cliente com id válido",
-            "not_find_id_invalid": "Não deve encontrar um cliente com id inválido"
+            "describe": "UseCases -> Procurar um usuário por id",
+            "find_id_valid": "Deve encontrar um usuário com id válido",
+            "not_find_id_invalid": "Não deve encontrar um usuário com id inválido"
           },
           "all": {
-            "describe": "UseCases -> Procura todos os clientes",
-            "find_all_customers": "Deve encontrar todos os clientes"
+            "describe": "UseCases -> Procura todos os usuários",
+            "find_all_users": "Deve encontrar todos os usuários"
           }
         },
         "update": {
-          "describe": "UseCases -> Atualização de cliente",
-          "create_multiple_customers": "Deve criar vários clientes",
-          "update_valid_customer": "Deve atualizar um cliente com dados validos",
-          "not_update_without_customer": "Não deve atualizar um cliente que não existe",
-          "not_update_customer_with_same_username": "Não deve atualizar um cliente com o mesmo nome de usuário",
-          "not_update_customer_with_same_email": "Não deve atualizar um cliente com o mesmo nome"
+          "describe": "UseCases -> Atualização de usuário",
+          "create_multiple_users": "Deve criar vários usuários",
+          "update_valid_user": "Deve atualizar um usuário com dados validos",
+          "not_update_without_user": "Não deve atualizar um usuário que não existe",
+          "not_update_user_with_same_username": "Não deve atualizar um usuário com o mesmo nome de usuário",
+          "not_update_user_with_same_email": "Não deve atualizar um usuário com o mesmo nome"
         },
         "login": {
           "describe": "UseCases -> Login de sessão",
-          "create_new_customer": "Deve criar um novo cliente com dados validos",
-          "login_without_register": "Não deve logar um cliente sem registro",
-          "login_with_password_incorrect": "Não deve logar um cliente com a senha invalida",
+          "create_new_user": "Deve criar um novo usuário com dados validos",
+          "login_without_register": "Não deve logar um usuário sem registro",
+          "login_with_password_incorrect": "Não deve logar um usuário com a senha invalida",
           "login_with_password_incorrect_several_times": "Não deve fazer login com a senha incorreta várias vezes",
-          "login_with_session_inactive": "Não deve logar um cliente com sessão inativa",
-          "login_with_password_correct": "Deve logar o cliente com a senha valida",
-          "login_customer_banned": "Não deve logar um cliente banido",
-          "login_with_device_not_allowed_by_customer": "Não deve logar um cliente com um dispositivo não permitido",
-          "login_with_ipAddress_not_allowed_by_customer": "Não deve logar um cliente com um endereço de IP não permitido",
-          "login_with_ipAddress_blocked_by_customer": "Não deve logar um cliente com um endereço de IP bloqueado"
+          "login_with_session_inactive": "Não deve logar um usuário com sessão inativa",
+          "login_with_password_correct": "Deve logar o usuário com a senha valida",
+          "login_user_banned": "Não deve logar um usuário banido",
+          "login_with_device_not_allowed_by_user": "Não deve logar um usuário com um dispositivo não permitido",
+          "login_with_ipAddress_not_allowed_by_user": "Não deve logar um usuário com um endereço de IP não permitido",
+          "login_with_ipAddress_blocked_by_user": "Não deve logar um usuário com um endereço de IP bloqueado"
         },
         "session-validate": {
           "describe": "UseCases -> Validação de sessão",
           "validate_valid_session": "Deve validar uma sessão valida",
           "validate_session_with_expired_token_using_revalidate_token": "Deve validar uma sessão com token expirado, usando um revalidate token",
-          "not_validate_session_with_invalid_id": "Não deve validar a sessão com email de cliente invalido",
+          "not_validate_session_with_invalid_id": "Não deve validar a sessão com email de usuário invalido",
           "not_validate_session_with_invalid_token_value": "Não deve validar a sessão com um valor invalido de token",
           "not_validate_session_with_invalid_token_signature": "Não deve validar a sessão com uma assinatura invalida de token",
           "not_validate_session_with_invalid_token_revalidate_value": "Não deve validar a sessão com um valor invalido de token",
@@ -174,20 +174,20 @@
         "logout": {
           "describe": "UseCases -> Logout de Sessão",
           "logout_valid_session": "Deve desconectar uma sessão valida",
-          "not_logout_session_without_customer": "Não deve desconectar uma sessão sem cliente",
+          "not_logout_session_without_user": "Não deve desconectar uma sessão sem usuário",
           "not_logout_session_not_connected": "Não deve desconectar uma sessão não conectada"
         },
         "remove": {
-          "describe": "UseCases -> Remoção de cliente",
-          "not_remove_without_customer": "Não deve remover um cliente que não existe",
-          "remove_valid_customer": "Deve remover um cliente valido"
+          "describe": "UseCases -> Remoção de usuário",
+          "not_remove_without_user": "Não deve remover um usuário que não existe",
+          "remove_valid_user": "Deve remover um usuário valido"
         }
       },
       "controller": {
-        "describe": "Controllers -> Clientes",
+        "describe": "Controllers -> Usuários",
         "create": {
-          "valid": "Deve criar um cliente com dados validos",
-          "invalid": "Não deve criar um cliente sem uma empresa"
+          "valid": "Deve criar um usuário com dados validos",
+          "invalid": "Não deve criar um usuário sem uma empresa"
         }
       }
     },
