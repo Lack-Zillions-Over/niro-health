@@ -10,6 +10,7 @@ import { AppService } from '@/app.service';
 
 import { CoreModule } from '@/core/core.module';
 import { PrivateKeysModule } from '@/privateKeys/privateKeys.module';
+import { UsersModule } from '@/users/users.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PrivateKeysModule } from '@/privateKeys/privateKeys.module';
     }),
     CoreModule,
     PrivateKeysModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
