@@ -21,7 +21,7 @@ export class EmailSend implements Types.Class {
   ): Promise<SMTPTransport.SentMessageInfo> {
     try {
       const options: Types.Options = {
-        from: '"Niro Health(✉)" <luizgp120@hotmail.com>',
+        from: '"Niro Health" <noreply@nirohealth.com>',
         email: email,
         subject: 'Niro Health - Account Activation',
         title: `Dear ${username}, please click on the link below to activate your account!`,

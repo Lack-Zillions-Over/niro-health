@@ -10,6 +10,9 @@
   "log": {
     "path": "logs"
   },
+  "email": {
+    "provider": "smtp"
+  },
   "files": {
     "path": "uploads",
     "avatar": {

@@ -5,6 +5,7 @@ import { pugEngine } from 'nodemailer-pug-engine';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 import { Nodemailer as Types } from '@/core/libs/nodemailer/types';
+import { ProjectOptions } from '@/constants';
 import { awsConfiguration } from '@/core/constants';
 
 export const Templates = {
@@ -38,9 +39,28 @@ export class Nodemailer implements Types.Class {
         ctx: variables,
       };
 
-      const transporter = nodemailer.createTransport({
-        SES: { ses: new SES(awsConfiguration), aws: SES },
-      });
+      let transporter;
+
+      if (ProjectOptions.email.provider === 'aws') {
+        transporter = nodemailer.createTransport({
+          SES: { ses: new SES(awsConfiguration), aws: SES },
+        });
+      } else if (ProjectOptions.email.provider === 'smtp') {
+        transporter = nodemailer.createTransport({
+          host: String(process.env.SMTP_HOST),
+          port: parseInt(process.env.SMTP_PORT),
+          secure: eval(String(process.env.SMTP_SECURE)),
+          auth: {
+            user: String(process.env.SMTP_USERNAME),
+            pass: String(process.env.SMTP_PASSWORD),
+          },
+        });
+      }
+
+      if (!transporter)
+        return reject(
+          new Error('No transporter was created. Check your configuration.'),
+        );
 
       transporter.verify((err, info) => {
         if (err) return reject(err);

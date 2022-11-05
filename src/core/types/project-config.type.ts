@@ -11,6 +11,9 @@ export type ProjectConfig = {
   logs: {
     path: string;
   };
+  email: {
+    provider: 'aws' | 'smtp';
+  };
   files: {
     path: string;
     avatar: {
