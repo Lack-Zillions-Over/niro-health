@@ -29,8 +29,7 @@ model User {
   roles     String[] @default(["common"]) // common, admin, owner
   hash      Json
   activate  Boolean  @default(false)
-  session   Json
-  metadata  Json
+  session   Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
