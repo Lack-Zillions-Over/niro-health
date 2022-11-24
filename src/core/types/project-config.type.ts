@@ -1,5 +1,6 @@
 declare type AWSS3 = {
   bucket: string;
+  encryptAlgorithm: string;
 };
 
 export type ProjectConfig = {
@@ -16,12 +17,18 @@ export type ProjectConfig = {
   };
   files: {
     path: string;
-    avatar: {
-      path: string;
+    single: {
       fieldname: string;
       mimetypes: string[];
       limit: number;
       aws: AWSS3;
+    };
+    multiple: {
+      fieldname: string;
+      mimetypes: string[];
+      limit: number;
+      aws: AWSS3;
+      maxFiles: number;
     };
   };
   redis: {

@@ -15,8 +15,7 @@
   },
   "files": {
     "path": "uploads",
-    "avatar": {
-      "path": "avatar",
+    "single": {
       "fieldname": "file",
       "mimetypes": [
         "image/png",
@@ -30,8 +29,28 @@
       ],
       "limit": 5242880,
       "aws": {
-        "bucket": "testing-230593ae-ce31-490f-9d8f-6b461de3bb86"
+        "bucket": "niro-health-single",
+        "encryptAlgorithm": "AES256"
       }
+    },
+    "multiple": {
+      "fieldname": "files",
+      "mimetypes": [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "image/gif",
+        "image/webp",
+        "image/bmp",
+        "image/tiff",
+        "image/ico"
+      ],
+      "limit": 5242880,
+      "aws": {
+        "bucket": "niro-health-multiple",
+        "encryptAlgorithm": "AES256"
+      },
+      "maxFiles": 10
     }
   },
   "redis": {
