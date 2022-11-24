@@ -4,6 +4,7 @@ import { EmailSend } from '@/core/utils/emailSend';
 import { Random } from '@/core/utils/random';
 import { StringEx } from '@/core/utils/stringEx';
 import { SimilarityFilter } from '@/core/utils/similarityFilter';
+import { LocalPath } from '@/core/utils/localPath';
 
 @Injectable()
 export class UtilsService {
@@ -21,5 +22,9 @@ export class UtilsService {
 
   public similarityFilter() {
     return new SimilarityFilter();
+  }
+
+  public localPath() {
+    return new LocalPath();
   }
 }
