@@ -67,6 +67,6 @@ export abstract class CoreDatabaseContract<Model>
     filter: RecursivePartial<Model>,
     similarity?: SimilarityFilterTypes.SimilarityType,
   ): Promise<Model[]>;
-  abstract update(id: string, newData: Model): Promise<Model | null>;
+  abstract update(id: string, newData: Partial<Model>): Promise<Model | null>;
   abstract remove(id: string): Promise<boolean>;
 }
