@@ -35,3 +35,22 @@ model User {
 
   @@map("users")
 }
+
+model File {
+  id             String    @id @default(uuid())
+  authorId       String
+  name           String
+  mimetype       String
+  description    String
+  size           Int
+  compressedSize Int
+  version        Int
+  temporary      Boolean   @default(false)
+  tags           String[]
+  meta           Json
+  expiredAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now())
+
+  @@map("files")
+}
