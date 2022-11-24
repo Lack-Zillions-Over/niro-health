@@ -23,8 +23,11 @@ export class UserPrismaDB extends UserDatabaseContract {
     })) as unknown as User;
   }
 
-  async findAll(): Promise<User[]> {
-    return (await this.prismaService.user.findMany()) as unknown as User[];
+  async findAll(limit?: number, offset?: number): Promise<User[]> {
+    return (await this.prismaService.user.findMany({
+      take: limit,
+      skip: offset,
+    })) as unknown as User[];
   }
 
   async findOne(id: string): Promise<User | null> {

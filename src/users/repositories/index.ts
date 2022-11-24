@@ -284,8 +284,8 @@ export class UserRepository extends RepositoryContract<
     return await this.database.create(await this.beforeSave(user));
   }
 
-  public async findMany(): Promise<User[]> {
-    return await this.database.findAll();
+  public async findMany(limit?: number, offset?: number): Promise<User[]> {
+    return await this.database.findAll(limit, offset);
   }
 
   public async findById(id: string): Promise<User | Error> {

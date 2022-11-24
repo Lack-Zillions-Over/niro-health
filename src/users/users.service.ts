@@ -102,8 +102,12 @@ export class UsersService {
     );
   }
 
-  async findAll() {
+  async findAll(limit?: number, offset?: number) {
     return await FindAllUsersFactory.run(
+      {
+        limit,
+        offset,
+      },
       this.prismaService,
       this.libsService,
       this.utilsService,

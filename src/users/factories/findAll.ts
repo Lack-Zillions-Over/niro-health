@@ -8,12 +8,21 @@ import { UtilsService } from '@/core/utils/utils.service';
 
 export class FindAllUsersFactory {
   static async run(
+    query: {
+      limit?: number;
+      offset?: number;
+    },
     prismaService: PrismaService,
     libsService: LibsService,
     utilsService: UtilsService,
   ) {
     const database = new UserPrismaDB(libsService, utilsService, prismaService);
 
-    return await FindAllUsers.execute(database, libsService, utilsService);
+    return await FindAllUsers.execute(
+      query,
+      database,
+      libsService,
+      utilsService,
+    );
   }
 }

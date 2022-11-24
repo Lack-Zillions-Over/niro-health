@@ -9,6 +9,7 @@ import {
   Body,
   Req,
   Patch,
+  Query,
   Param,
   Delete,
 } from '@nestjs/common';
@@ -184,10 +185,16 @@ export class UsersController {
   }
 
   @Get()
-  async findAll() {
-    return (await this.usersService.findAll()).map((user) =>
-      this.usersParser.toJSON(user),
-    );
+  async findAll(
+    @Query('limit') limit: string,
+    @Query('offset') offset: string,
+  ) {
+    return (
+      await this.usersService.findAll(
+        limit && parseInt(limit),
+        offset && parseInt(offset),
+      )
+    ).map((user) => this.usersParser.toJSON(user));
   }
 
   @Get(':id')

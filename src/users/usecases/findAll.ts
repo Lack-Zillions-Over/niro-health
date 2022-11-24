@@ -6,12 +6,16 @@ import { UtilsService } from '@/core/utils/utils.service';
 
 export class FindAllUsers {
   static async execute(
+    query: {
+      limit?: number;
+      offset?: number;
+    },
     database: UserDatabaseContract,
     libsService: LibsService,
     utilsService: UtilsService,
   ) {
     const repository = new UserRepository(database, libsService, utilsService);
 
-    return await repository.findMany();
+    return await repository.findMany(query.limit, query.offset);
   }
 }

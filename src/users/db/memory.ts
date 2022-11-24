@@ -22,8 +22,8 @@ export class UserMemoryDB extends UserDatabaseContract {
     return data;
   }
 
-  async findAll(): Promise<User[]> {
-    return this.users;
+  async findAll(limit?: number, offset?: number): Promise<User[]> {
+    return this.users.slice(offset || 0, limit || this.users.length);
   }
 
   async findOne(id: string): Promise<User | null> {
