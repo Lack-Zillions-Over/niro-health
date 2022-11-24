@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.0...v1.2.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* **contracts:** added support for limit and offset in find many (method) ([5cf8f21](https://github.com/Lack-Zillions-Over/niro-health/commit/5cf8f210e8810eeafed96ddcee9a9e1e52189cee))
+* **files:** added support for limit and offset ([7a0617c](https://github.com/Lack-Zillions-Over/niro-health/commit/7a0617ce9a56b190dad6706e7c3b267a189b88d0))
+* **privatekeys:** added support for limit and offset ([c2a8d4a](https://github.com/Lack-Zillions-Over/niro-health/commit/c2a8d4abfeb32d3e421518ca22dc298c4845684a))
+* **users:** added support for limit and offset ([1f0f6fb](https://github.com/Lack-Zillions-Over/niro-health/commit/1f0f6fbaec739199f3407e03512244b5a214f974))
+
 ## [1.2.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.1.1...v1.2.0) (2022-11-24)
 
 
