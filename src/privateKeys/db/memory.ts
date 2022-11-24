@@ -16,7 +16,7 @@ export class PrivateKeyMemoryDB extends PrivateKeyDatabaseContract {
     super(libsService, utilsService);
   }
 
-  async create(data: PrivateKey): Promise<PrivateKey> {
+  async create(data: PrivateKey): Promise<PrivateKey | null> {
     this.keys.push(data);
 
     return data;
@@ -45,7 +45,7 @@ export class PrivateKeyMemoryDB extends PrivateKeyDatabaseContract {
     return this.keys.find((key) => key.tag === tag);
   }
 
-  async update(id: string, newData: PrivateKey): Promise<PrivateKey> {
+  async update(id: string, newData: PrivateKey): Promise<PrivateKey | null> {
     this.keys = this.keys.map((key) =>
       key.id === id ? { ...key, ..._.omitBy(newData, _.isNil) } : key,
     );

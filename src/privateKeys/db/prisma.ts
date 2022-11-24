@@ -46,7 +46,7 @@ export class PrivateKeyPrismaDB extends PrivateKeyDatabaseContract {
     return await this.prismaService.privateKey.findFirst({ where: { tag } });
   }
 
-  async update(id: string, newData: PrivateKey): Promise<PrivateKey> {
+  async update(id: string, newData: PrivateKey): Promise<PrivateKey | null> {
     return await this.prismaService.privateKey.update({
       where: { id },
       data: { ..._.omitBy(newData, _.isNil) },

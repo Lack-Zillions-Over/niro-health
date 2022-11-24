@@ -59,7 +59,7 @@ export class UserPrismaDB extends UserDatabaseContract {
     })) as unknown as User;
   }
 
-  async update(id: string, newData: User): Promise<User> {
+  async update(id: string, newData: User): Promise<User | null> {
     return (await this.prismaService.user.update({
       where: { id },
       data: { ..._.omitBy(newData, _.isNil) },
