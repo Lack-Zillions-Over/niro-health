@@ -10,7 +10,7 @@ export declare namespace CoreRepository {
     beforeUpdate(beforeData: Model, nextData: Model): Promise<Model>;
     decryptFieldValue(value: string): Promise<string>;
     register(model: Model): Promise<Model | Error>;
-    findMany(): Promise<Model[]>;
+    findMany(limit?: number, offset?: number): Promise<Model[]>;
     findBy(
       filter: RecursivePartial<Model>,
       similarity?: SimilarityFilterTypes.SimilarityType,

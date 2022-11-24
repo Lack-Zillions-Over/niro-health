@@ -31,7 +31,7 @@ export abstract class RepositoryContract<Model, ModelDatabaseContract>
   abstract beforeUpdate(beforeData: Model, nextData: Model): Promise<Model>;
   abstract decryptFieldValue(value: string): Promise<string>;
   abstract register(model: Model): Promise<Model | Error>;
-  abstract findMany(): Promise<Model[]>;
+  abstract findMany(limit?: number, offset?: number): Promise<Model[]>;
   abstract findBy(
     filter: RecursivePartial<Model>,
     similarity?: SimilarityFilterTypes.SimilarityType,

@@ -61,7 +61,7 @@ export abstract class CoreDatabaseContract<Model>
   }
 
   abstract create(data: Model): Promise<Model>;
-  abstract findAll(): Promise<Model[]>;
+  abstract findAll(limit?: number, offset?: number): Promise<Model[]>;
   abstract findOne(id: string): Promise<Model | null>;
   abstract findBy(
     filter: RecursivePartial<Model>,
