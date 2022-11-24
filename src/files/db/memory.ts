@@ -22,8 +22,8 @@ export class FileMemoryDB extends FileDatabaseContract {
     return data;
   }
 
-  async findAll(): Promise<File[]> {
-    return this.files;
+  async findAll(limit?: number, offset?: number): Promise<File[]> {
+    return this.files.slice(offset || 0, limit || this.files.length);
   }
 
   async findOne(id: string): Promise<File | null> {

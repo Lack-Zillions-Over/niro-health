@@ -317,6 +317,19 @@ export class FilesController {
     }
   }
 
+  @Get()
+  async findAll(
+    @Query('limit') limit: string,
+    @Query('offset') offset: string,
+  ) {
+    return (
+      await this.filesService.findAll(
+        limit && parseInt(limit),
+        offset && parseInt(offset),
+      )
+    ).map((file) => this.filesParser.toJSON(file));
+  }
+
   @Post('local/single')
   @UseInterceptors(
     FileInterceptor(ProjectOptions.files.single.fieldname, {

@@ -4,6 +4,7 @@ import { CreateFileDto } from '@/files/dto/create';
 import { UpdateFileDto } from '@/files/dto/update';
 
 import { CreateFileFactory } from '@/files/factories/create';
+import { FindAllFilesFactory } from '@/files/factories/findAll';
 import { FindByIdFactory } from '@/files/factories/findById';
 import { FindByTemporaryFactory } from '@/files/factories/findByTemporary';
 import { UpdateFileFactory } from '@/files/factories/update';
@@ -34,6 +35,18 @@ export class FilesService {
     return await UpdateFileFactory.run(
       id,
       newData,
+      this.prismaService,
+      this.libsService,
+      this.utilsService,
+    );
+  }
+
+  async findAll(limit?: number, offset?: number) {
+    return await FindAllFilesFactory.run(
+      {
+        limit,
+        offset,
+      },
       this.prismaService,
       this.libsService,
       this.utilsService,

@@ -60,8 +60,8 @@ export class FileRepository extends RepositoryContract<
     return await this.database.create(model);
   }
 
-  public async findMany(): Promise<File[]> {
-    return await this.database.findAll();
+  public async findMany(limit?: number, offset?: number): Promise<File[]> {
+    return await this.database.findAll(limit, offset);
   }
 
   public async findBy(

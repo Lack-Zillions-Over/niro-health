@@ -21,8 +21,11 @@ export class FilePrismaDB extends FileDatabaseContract {
     return (await this.prismaService.file.create({ data })) as unknown as File;
   }
 
-  async findAll(): Promise<File[]> {
-    return (await this.prismaService.file.findMany()) as unknown as File[];
+  async findAll(limit?: number, offset?: number): Promise<File[]> {
+    return (await this.prismaService.file.findMany({
+      take: limit,
+      skip: offset,
+    })) as unknown as File[];
   }
 
   async findOne(id: string): Promise<File | null> {
