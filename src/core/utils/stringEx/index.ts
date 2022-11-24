@@ -85,6 +85,20 @@ export class StringEx implements Types.Class {
   }
 
   /**
+   * @description Get name of file
+   */
+  public getFilename(name: string): string {
+    return name.slice(0, name.lastIndexOf('.'));
+  }
+
+  /**
+   * @description Get extension of file
+   */
+  getFileExtension(name: string): string {
+    return name.slice(name.lastIndexOf('.'));
+  }
+
+  /**
    * @description Convert a string to money format
    */
   public maskMoney(value: number): string {
@@ -103,7 +117,7 @@ export class StringEx implements Types.Class {
       case 'cell':
         return value
           .toString()
-          .replace(/[\D]/g, '')
+          .replace(/\D/g, '')
           .replace(/(\d{2})(\d)/, '($1) $2')
           .replace(/(\d{5})(\d)/, '$1-$2')
           .replace(/(-\d{4})(\d+?)/, '$1');
@@ -111,7 +125,7 @@ export class StringEx implements Types.Class {
       case 'tel':
         return value
           .toString()
-          .replace(/[\D]/g, '')
+          .replace(/\D/g, '')
           .replace(/(\d{2})(\d)/, '($1) $2')
           .replace(/(\d{4})(\d)/, '$1-$2')
           .replace(/(-\d{4})(\d+?)/, '$1');
@@ -124,7 +138,7 @@ export class StringEx implements Types.Class {
   public maskZipcode(value: string): string {
     const formatter = value
       .toString()
-      .replace(/[\D]/g, '')
+      .replace(/\D/g, '')
       .replace(/(\d{5})(\d+?)/, '$1-$2')
       .replace(/(-\d{3})(\d+?)/, '$1');
 
@@ -137,7 +151,7 @@ export class StringEx implements Types.Class {
   public maskCNPJ(value: string): string {
     const formatter = value
       .toString()
-      .replace(/[\D]/g, '')
+      .replace(/\D/g, '')
       .replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
       .replace(/(-\d{2})(\d+?)/, '$1');
 
@@ -150,7 +164,7 @@ export class StringEx implements Types.Class {
   public maskCPF(value: string): string {
     const formatter = value
       .toString()
-      .replace(/[\D]/g, '')
+      .replace(/\D/g, '')
       .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
       .replace(/(-\d{2})(\d+?)/, '$1');
 
@@ -163,7 +177,7 @@ export class StringEx implements Types.Class {
   public maskRG(value: string): string {
     const formatter = value
       .toString()
-      .replace(/[\D]/g, '')
+      .replace(/\D/g, '')
       .replace(/(\d{2})(\d{3})(\d{3})(\d{1})/, '$1.$2.$3-$4')
       .replace(/(-\d{1})(\d+?)/, '$1');
 

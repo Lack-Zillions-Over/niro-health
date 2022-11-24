@@ -14,6 +14,8 @@ export declare namespace StringEx {
     compareHashPassword(password: string, hashed: string): Promise<boolean>;
     hash(txt: string, algorithm: Hash.algorithm, digest: Hash.digest): string;
     bytesToString(bytes: string | number): string;
+    getFilename(name: string): string;
+    getFileExtension(name: string): string;
     maskMoney(value: string | number): string;
     maskPhone(value: string | number, type: MaskPhoneType): string;
     maskZipcode(value: string | number): string;
