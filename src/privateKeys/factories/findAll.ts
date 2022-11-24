@@ -8,6 +8,10 @@ import { UtilsService } from '@/core/utils/utils.service';
 
 export class FindAllPrivateKeysFactory {
   static async run(
+    query: {
+      limit?: number;
+      offset?: number;
+    },
     prismaService: PrismaService,
     libsService: LibsService,
     utilsService: UtilsService,
@@ -19,6 +23,7 @@ export class FindAllPrivateKeysFactory {
     );
 
     return await FindAllPrivateKeys.execute(
+      query,
       database,
       libsService,
       utilsService,

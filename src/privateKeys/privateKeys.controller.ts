@@ -6,6 +6,7 @@ import {
   Post,
   Body,
   Patch,
+  Query,
   Param,
   Delete,
   UsePipes,
@@ -43,10 +44,16 @@ export class PrivateKeysController {
   }
 
   @Get('private/keys')
-  async findAllPrivateKeys() {
-    return (await this.privateKeysService.findAllPrivateKeys()).map((key) =>
-      this.privateKeysParser.toJSON(key),
-    );
+  async findAllPrivateKeys(
+    @Query('limit') limit: string,
+    @Query('offset') offset: string,
+  ) {
+    return (
+      await this.privateKeysService.findAllPrivateKeys(
+        limit && parseInt(limit),
+        offset && parseInt(offset),
+      )
+    ).map((key) => this.privateKeysParser.toJSON(key));
   }
 
   @Get('private/keys/id/:id')

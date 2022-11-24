@@ -21,8 +21,11 @@ export class PrivateKeyPrismaDB extends PrivateKeyDatabaseContract {
     return await this.prismaService.privateKey.create({ data });
   }
 
-  async findAll(): Promise<PrivateKey[]> {
-    return await this.prismaService.privateKey.findMany();
+  async findAll(limit?: number, offset?: number): Promise<PrivateKey[]> {
+    return await this.prismaService.privateKey.findMany({
+      take: limit,
+      skip: offset,
+    });
   }
 
   async findOne(id: string): Promise<PrivateKey | null> {

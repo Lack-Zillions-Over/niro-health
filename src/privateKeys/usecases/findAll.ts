@@ -6,6 +6,10 @@ import { UtilsService } from '@/core/utils/utils.service';
 
 export class FindAllPrivateKeys {
   static async execute(
+    query: {
+      limit?: number;
+      offset?: number;
+    },
     database: PrivateKeyDatabaseContract,
     libsService: LibsService,
     utilsService: UtilsService,
@@ -16,6 +20,6 @@ export class FindAllPrivateKeys {
       utilsService,
     );
 
-    return await repository.findMany();
+    return await repository.findMany(query.limit, query.offset);
   }
 }

@@ -72,8 +72,11 @@ export class PrivateKeyRepository extends RepositoryContract<
     return key.value === value;
   }
 
-  public async findMany(): Promise<PrivateKey[]> {
-    return await this.database.findAll();
+  public async findMany(
+    limit?: number,
+    offset?: number,
+  ): Promise<PrivateKey[]> {
+    return await this.database.findAll(limit, offset);
   }
 
   public async findBy(

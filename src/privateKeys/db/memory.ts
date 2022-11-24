@@ -22,8 +22,8 @@ export class PrivateKeyMemoryDB extends PrivateKeyDatabaseContract {
     return data;
   }
 
-  async findAll(): Promise<PrivateKey[]> {
-    return this.keys;
+  async findAll(limit?: number, offset?: number): Promise<PrivateKey[]> {
+    return this.keys.slice(offset || 0, limit || this.keys.length);
   }
 
   async findOne(id: string): Promise<PrivateKey | null> {

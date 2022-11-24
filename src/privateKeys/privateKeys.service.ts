@@ -67,8 +67,12 @@ export class PrivateKeysService {
     );
   }
 
-  async findAllPrivateKeys() {
+  async findAllPrivateKeys(limit?: number, offset?: number) {
     return await FindAllPrivateKeysFactory.run(
+      {
+        limit,
+        offset,
+      },
       this.prismaService,
       this.libsService,
       this.utilsService,
