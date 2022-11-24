@@ -13,30 +13,73 @@ export class S3AWService {
 
   public async upload(
     file: Express.Multer.File,
+    filename: string,
+    mimetype: string,
+    version: number,
     bucket: string,
-  ): Promise<string> {
-    const { originalname, buffer } = file;
-    const { Key, Bucket } = await this.client
-      .upload({
-        Bucket: bucket,
-        Key: `${Date.now()}-${originalname}`,
-        Body: buffer,
-      })
-      .promise();
+    serverSideEncryption: string,
+  ): Promise<string | Error> {
+    try {
+      const { buffer } = file;
+      const { Key, Bucket } = await this.client
+        .upload({
+          Bucket: bucket,
+          Key: `${filename}_v${version}${mimetype}`,
+          ServerSideEncryption: serverSideEncryption,
+          Body: buffer,
+        })
+        .promise();
 
-    return `https://${Bucket}.s3.amazonaws.com/${Key}`;
+      return await this.client.getSignedUrlPromise('getObject', {
+        Bucket,
+        Key,
+      });
+    } catch (error) {
+      return new Error(error.message);
+    }
   }
 
-  public async delete(key: string, bucket: string): Promise<boolean | Error> {
-    const { $response } = await this.client
-      .deleteObject({
-        Bucket: bucket,
-        Key: key,
-      })
-      .promise();
+  public async get(
+    filename: string,
+    mimetype: string,
+    version: number,
+    bucket: string,
+  ): Promise<S3.GetObjectOutput | Error> {
+    try {
+      const res = await this.client
+        .getObject({
+          Bucket: bucket,
+          Key: `${filename}_v${version}${mimetype}`,
+        })
+        .promise();
 
-    if ($response.error) return new Error($response.error.message);
+      if (res.$response.error) throw new Error(res.$response.error.message);
 
-    return true;
+      return res;
+    } catch (error) {
+      return new Error(error.message);
+    }
+  }
+
+  public async delete(
+    filename: string,
+    mimetype: string,
+    version: number,
+    bucket: string,
+  ): Promise<boolean | Error> {
+    try {
+      const res = await this.client
+        .deleteObject({
+          Bucket: bucket,
+          Key: `${filename}_v${version}${mimetype}`,
+        })
+        .promise();
+
+      if (res.$response.error) throw new Error(res.$response.error.message);
+
+      return true;
+    } catch (error) {
+      return new Error(error.message);
+    }
   }
 }
