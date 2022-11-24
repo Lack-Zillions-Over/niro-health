@@ -1,5 +1,6 @@
 database:
 	docker compose -f docker-compose.yml up -d postgres
+	docker compose -f docker-compose.yml up -d mongodb
 	docker compose -f docker-compose.yml up -d redis
 
 db-push:

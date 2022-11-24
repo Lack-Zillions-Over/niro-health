@@ -5,9 +5,9 @@ services:
     container_name: nestjs-preview
     depends_on:
       - postgres
-    command: >
-        sh -c "yarn prisma db push
-        && yarn start:debug"
+      - mongodb
+      - redis
+    command: yarn start:debug
     build:
       context: .
       dockerfile: Dockerfile
@@ -44,6 +44,22 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE_NAME}
       PG_DATA: /var/lib/postgresql/data
+  mongodb:
+    container_name: mongodb-preview
+    image: mongo:latest
+    restart: always
+    networks:
+      project_development:
+        aliases:
+          - mongodb
+        ipv4_address: 172.18.0.4
+    ports:
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
   redis:
     container_name: redis-preview
     image: redis:latest
@@ -52,7 +68,7 @@ services:
       project_development:
         aliases:
           - redis
-        ipv4_address: 172.18.0.4
+        ipv4_address: 172.18.0.5
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
@@ -68,3 +84,4 @@ networks:
 volumes:
   project_development:
   pg_data:
+  mongodb_data:
