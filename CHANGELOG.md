@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.1.1...v1.2.0) (2022-11-24)
+
+
+### Features
+
+* **driver:** added support for MongoDB ([e1fc2bc](https://github.com/Lack-Zillions-Over/niro-health/commit/e1fc2bc401679b402dcfd86bd3d09eda4da9283a))
+* **files:** added support for upload/download the files ([472d346](https://github.com/Lack-Zillions-Over/niro-health/commit/472d3469e20fea16e502fa565a9552cff6c2c637))
+* **libs:** added lib: Archive ([e328829](https://github.com/Lack-Zillions-Over/niro-health/commit/e328829c70ab726dacb3a768be0a05eed7e74c41))
+* **libs:** added lib: FileGridFS ([586cd5b](https://github.com/Lack-Zillions-Over/niro-health/commit/586cd5b784edde26cb7ca61cc8d831651250f6d6))
+* **libs:** added lib: Pino ([458eb6a](https://github.com/Lack-Zillions-Over/niro-health/commit/458eb6a11327e771781453769788d6e925b85203))
+* **libs:** added new libs ([27ac01f](https://github.com/Lack-Zillions-Over/niro-health/commit/27ac01fc0bfe04be1a03f1871e9da536861992e7))
+* **schedules:** added schedule for clear temporary files ([1f5b1df](https://github.com/Lack-Zillions-Over/niro-health/commit/1f5b1dfa942703d3f00ef8aa2650a482c96fc398))
+* **utils:** added new utils ([0d8659b](https://github.com/Lack-Zillions-Over/niro-health/commit/0d8659b70cc6150b0cd1c1b363e47d9964d20d5a))
+* **utils:** added util: LocalPath ([997056b](https://github.com/Lack-Zillions-Over/niro-health/commit/997056bcdd59597636cdd18c6273712ddb3207ae))
+* **utils:** added Util: StringEx ([ca57c16](https://github.com/Lack-Zillions-Over/niro-health/commit/ca57c168089a73c1aa4b2ce09636063dd3da9984))
+
+
+### Bug Fixes
+
+* **configuration:** fixed all configurations ([17de757](https://github.com/Lack-Zillions-Over/niro-health/commit/17de757a0d6f39d5603ee1f852f086daddcf419b))
+* **contracts:** fixed contract: Core Database ([09fa781](https://github.com/Lack-Zillions-Over/niro-health/commit/09fa781648decc9e29671e3679cfc2bf6b956019))
+* **libs:** fixed lib: Moment ([8448be4](https://github.com/Lack-Zillions-Over/niro-health/commit/8448be4daf78f046604f626431fde28d1b579e65))
+* **services:** fixed all services ([590c1aa](https://github.com/Lack-Zillions-Over/niro-health/commit/590c1aab980b2603c428931144c8a11868516605))
+
+
+### Others
+
+* **update packages:** update packages ([b5f8bd4](https://github.com/Lack-Zillions-Over/niro-health/commit/b5f8bd419972f91b300580608d245a5f8e303702))
+
+
+### Build System
+
+* **added support for mongodb:** new configuration for MongoDB ([b5d15c9](https://github.com/Lack-Zillions-Over/niro-health/commit/b5d15c97e95fc3a78e789cebb1371117e5f0fdee))
+* **added support for new node version:** new node version ([17cc89f](https://github.com/Lack-Zillions-Over/niro-health/commit/17cc89fe6778b8db84d2d77a3fa6414230eb6eaf))
+
+
+### Styling
+
+* **privatekeys and users:** change value returned in promise ([711f510](https://github.com/Lack-Zillions-Over/niro-health/commit/711f5102e39898fee17a3341adb25814c2291a36))
+
 ### [1.1.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.1.0...v1.1.1) (2022-11-05)
 
 
