@@ -1,8 +1,12 @@
-import moment from 'moment';
+import * as moment from 'moment';
 
 import { Moment as Types } from '@/core/libs/moment/types';
 
 export class Moment implements Types.Class {
+  instance() {
+    return moment();
+  }
+
   /**
    * @description Formats a date for the system locality with the options of layout and deleting some parts
    */
