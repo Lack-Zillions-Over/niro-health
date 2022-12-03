@@ -7,7 +7,7 @@ export declare namespace CoreRepository {
     updatedAt(): Date;
     deletedAt(): Date;
     beforeSave(data: Model): Promise<Model>;
-    beforeUpdate(beforeData: Model, nextData: Model): Promise<Model>;
+    beforeUpdate(beforeData: Model, nextData: Partial<Model>): Promise<Model>;
     decryptFieldValue(value: string): Promise<string>;
     register(data: Model): Promise<Model | Error>;
     findMany(limit?: number, offset?: number): Promise<Model[]>;
@@ -16,7 +16,7 @@ export declare namespace CoreRepository {
       similarity?: SimilarityFilterTypes.SimilarityType,
     ): Promise<Model[]>;
     findById(id: string): Promise<Model | Error>;
-    update(id: string, newData: Model): Promise<Model | Error>;
+    update(id: string, newData: Partial<Model>): Promise<Model | Error>;
     remove(id: string): Promise<boolean | Error>;
   }
 }

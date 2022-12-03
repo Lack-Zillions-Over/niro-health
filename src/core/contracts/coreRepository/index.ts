@@ -28,7 +28,10 @@ export abstract class RepositoryContract<Model, ModelDatabaseContract>
   }
 
   abstract beforeSave(model: Model): Promise<Model>;
-  abstract beforeUpdate(beforeData: Model, nextData: Model): Promise<Model>;
+  abstract beforeUpdate(
+    beforeData: Model,
+    nextData: Partial<Model>,
+  ): Promise<Model>;
   abstract decryptFieldValue(value: string): Promise<string>;
   abstract register(model: Model): Promise<Model | Error>;
   abstract findMany(limit?: number, offset?: number): Promise<Model[]>;
@@ -37,6 +40,6 @@ export abstract class RepositoryContract<Model, ModelDatabaseContract>
     similarity?: SimilarityFilterTypes.SimilarityType,
   ): Promise<Model[]>;
   abstract findById(id: string): Promise<Model | Error>;
-  abstract update(id: string, newData: Model): Promise<Model | Error>;
+  abstract update(id: string, newData: Partial<Model>): Promise<Model | Error>;
   abstract remove(id: string): Promise<boolean | Error>;
 }
