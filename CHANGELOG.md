@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.5](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.4...v1.2.5) (2022-12-03)
+
+
+### Bug Fixes
+
+* **contracts:** now the model parameters in the update methods can be passed on optionally ([39db5a5](https://github.com/Lack-Zillions-Over/niro-health/commit/39db5a5fb2a5ad967b78bb5b97210c135a50a151))
+
 ### [1.2.4](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.3...v1.2.4) (2022-12-03)
 
 
