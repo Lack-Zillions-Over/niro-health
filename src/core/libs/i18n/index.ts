@@ -7,31 +7,30 @@ import { ProjectOptions } from '@/constants';
 import { ProjectConfig } from '@/core/types/project-config.type';
 
 export class Locale implements Types.Class {
-  private readonly propString: PropString;
-
-  private locale: string;
-  private locales: string[];
-  private path: string;
+  private readonly _propString: PropString;
+  private _locale: string;
+  private _locales: string[];
+  private _path: string;
 
   constructor(private options?: ProjectConfig) {
     if (!this.options) this.options = { locale: {} } as ProjectConfig;
 
-    if (!this.options.locale.main) this.locale = ProjectOptions.locale.main;
-    else this.locale = this.options.locale.main;
+    if (!this.options.locale.main) this._locale = ProjectOptions.locale.main;
+    else this._locale = this.options.locale.main;
 
     if (!this.options.locale.path)
-      this.locales = ProjectOptions.locale.languages;
-    else this.locales = this.options.locale.languages;
+      this._locales = ProjectOptions.locale.languages;
+    else this._locales = this.options.locale.languages;
 
-    if (!this.options.locale.path) this.path = ProjectOptions.locale.path;
-    else this.path = this.options.locale.path;
+    if (!this.options.locale.path) this._path = ProjectOptions.locale.path;
+    else this._path = this.options.locale.path;
 
-    this.propString = new PropString();
+    this._propString = new PropString();
     this._initialize();
   }
 
   private _initialize() {
-    for (const locale of this.locales) {
+    for (const locale of this._locales) {
       this._writeFileLocale(locale);
     }
   }
@@ -39,8 +38,8 @@ export class Locale implements Types.Class {
   private _relativeLocalePath(locale?: string) {
     return resolve(
       dirname(__dirname),
-      `./${this.path}`,
-      `./${locale ? locale : this.locale}.json`,
+      `./${this._path}`,
+      `./${locale ? locale : this._locale}.json`,
     );
   }
 
@@ -57,9 +56,9 @@ export class Locale implements Types.Class {
   }
 
   private _readFileLocale() {
-    return JSON.parse(readFileSync(this._relativeLocalePath(), 'utf8')) as {
-      [x: string]: string;
-    };
+    return JSON.parse(
+      readFileSync(this._relativeLocalePath(), 'utf8'),
+    ) as Record<string, string>;
   }
 
   private _extractParserKeys(text: string) {
@@ -237,36 +236,36 @@ export class Locale implements Types.Class {
   }
 
   public getLocale(): string {
-    return this.locale;
+    return this._locale;
   }
 
   public getLocales(): string[] {
-    return this.locales;
+    return this._locales;
   }
 
   public getPath(): string {
-    return this.path;
+    return this._path;
   }
 
   public setLocale(locale: string) {
-    if (!this.locales.find((_locale) => _locale === locale)) {
+    if (!this._locales.find((_locale) => _locale === locale)) {
       this._writeFileLocale(locale);
 
-      this.locales.push(locale);
+      this._locales.push(locale);
     }
 
-    this.locale = locale;
+    this._locale = locale;
   }
 
   public removeLocale(locale: string) {
-    this.locales = this.locales.filter((_locale) => _locale !== locale);
+    this._locales = this._locales.filter((_locale) => _locale !== locale);
 
-    if (this.locale === locale)
-      this.locale = this.locales[this.locales.length - 1];
+    if (this._locale === locale)
+      this._locale = this._locales[this._locales.length - 1];
   }
 
   public setPath(path: string) {
-    this.path = path;
+    this._path = path;
   }
 
   public translate(phrase: string, ...params: string[]) {
@@ -274,11 +273,11 @@ export class Locale implements Types.Class {
 
     if (!this._fileLocaleExists())
       return new Error(
-        `Locale "${this.locale}" not found in locales folder: ${filePath}`,
+        `Locale "${this._locale}" not found in locales folder: ${filePath}`,
       );
 
     const locale = this._readFileLocale(),
-      value = this.propString.execute(phrase, locale);
+      value = this._propString.execute(phrase, locale);
 
     if (value instanceof Error) return value.message;
 

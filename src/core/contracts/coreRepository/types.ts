@@ -6,10 +6,10 @@ export declare namespace CoreRepository {
     createdAt(): Date;
     updatedAt(): Date;
     deletedAt(): Date;
-    beforeSave(model: Model): Promise<Model>;
+    beforeSave(data: Model): Promise<Model>;
     beforeUpdate(beforeData: Model, nextData: Model): Promise<Model>;
     decryptFieldValue(value: string): Promise<string>;
-    register(model: Model): Promise<Model | Error>;
+    register(data: Model): Promise<Model | Error>;
     findMany(limit?: number, offset?: number): Promise<Model[]>;
     findBy(
       filter: RecursivePartial<Model>,
