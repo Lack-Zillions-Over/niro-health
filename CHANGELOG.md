@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.6](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.5...v1.2.6) (2022-12-04)
+
+
+### Bug Fixes
+
+* **crypto:** fixed length of key for encrypt ([b1fd0e3](https://github.com/Lack-Zillions-Over/niro-health/commit/b1fd0e3b8f24f8aa0794a223a39b0d3c06cfbbc9))
+
 ### [1.2.5](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.4...v1.2.5) (2022-12-03)
 
 
