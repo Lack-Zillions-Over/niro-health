@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.7](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.6...v1.2.7) (2022-12-04)
+
+
+### Styling
+
+* **crypto:** remove console.log ([6de6ab8](https://github.com/Lack-Zillions-Over/niro-health/commit/6de6ab8ee3604b75c6dec445762de3888fff9303))
+
 ### [1.2.6](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.5...v1.2.6) (2022-12-04)
 
 
