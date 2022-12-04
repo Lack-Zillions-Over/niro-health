@@ -18,7 +18,6 @@ export class Crypto implements Types.Class {
    * @description Encrypts a string
    */
   public encrypt(txt: string, password?: string): Types.Encrypted {
-    console.log(process.env.CRYPTO_PASSWORD);
     const config: Types.Config = {
         algorithm: 'aes-256-gcm',
         password: process.env.CRYPTO_PASSWORD || '',
