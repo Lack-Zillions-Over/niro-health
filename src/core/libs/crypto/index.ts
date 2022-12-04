@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv } from 'crypto';
+import { createHash, createCipheriv, createDecipheriv } from 'crypto';
 
 import { Random } from '@/core/utils/random';
 import { Crypto as Types } from '@/core/libs/crypto/types';
@@ -10,19 +10,24 @@ export class Crypto implements Types.Class {
     this.random = new Random();
   }
 
+  private _createHash(data: string) {
+    return createHash('sha256').update(data).digest('base64').slice(0, 32);
+  }
+
   /**
    * @description Encrypts a string
    */
   public encrypt(txt: string, password?: string): Types.Encrypted {
+    console.log(process.env.CRYPTO_PASSWORD);
     const config: Types.Config = {
         algorithm: 'aes-256-gcm',
         password: process.env.CRYPTO_PASSWORD || '',
         authTagLength: 16,
       },
-      iv = this.random.string(64),
+      iv = this._createHash(this.random.hash(24, 'hex')),
       cipher = createCipheriv(
         config.algorithm,
-        password || config.password,
+        this._createHash(password || config.password),
         iv,
         { authTagLength: config.authTagLength },
       );
@@ -53,7 +58,7 @@ export class Crypto implements Types.Class {
         iv = encrypted.iv,
         decipher = createDecipheriv(
           config.algorithm,
-          password || config.password,
+          this._createHash(password || config.password),
           iv,
           { authTagLength: config.authTagLength },
         );
