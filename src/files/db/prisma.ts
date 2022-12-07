@@ -5,6 +5,7 @@ import { File } from '@/files/entities';
 import { PrismaService } from '@/core/prisma/prisma.service';
 
 import { SimilarityFilter as SimilarityFilterTypes } from '@/core/utils/similarityFilter/types';
+import { EntityWithRelation } from '@/files/types/entityWithRelation';
 
 import * as _ from 'lodash';
 
@@ -17,79 +18,122 @@ export class FilePrismaDB extends FileDatabaseContract {
     super(libsService, utilsService);
   }
 
-  async create(data: File): Promise<File> {
-    return (await this.prismaService.file.create({ data })) as unknown as File;
+  async create(data: File): Promise<EntityWithRelation> {
+    return (await this.prismaService.file.create({
+      data,
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation;
   }
 
-  async findAll(limit?: number, offset?: number): Promise<File[]> {
+  async findAll(
+    limit?: number,
+    offset?: number,
+  ): Promise<EntityWithRelation[]> {
     return (await this.prismaService.file.findMany({
       take: limit,
       skip: offset,
-    })) as unknown as File[];
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation[];
   }
 
-  async findOne(id: string): Promise<File | null> {
+  async findOne(id: string): Promise<EntityWithRelation | null> {
     return (await this.prismaService.file.findFirst({
       where: { id },
-    })) as unknown as File;
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation;
   }
 
   async findBy(
-    filter: Partial<File>,
+    filter: Partial<EntityWithRelation>,
     similarity?: SimilarityFilterTypes.SimilarityType,
-  ): Promise<File[]> {
-    const users = await this.prismaService.file.findMany();
+  ): Promise<EntityWithRelation[]> {
+    const files = await this.prismaService.file.findMany({
+      include: {
+        author: true,
+      },
+    });
 
-    return users.filter((user) =>
+    return files.filter((file) =>
       this.utilsService
         .similarityFilter()
-        .execute<File>(filter, user as unknown as File, similarity || 'full'),
-    ) as unknown as File[];
+        .execute<EntityWithRelation>(
+          filter,
+          file as EntityWithRelation,
+          similarity || 'full',
+        ),
+    ) as EntityWithRelation[];
   }
 
-  async findByTag(tag: string): Promise<File[]> {
+  async findByTag(tag: string): Promise<EntityWithRelation[]> {
     return (await this.prismaService.file.findMany({
       where: {
         tags: {
           hasSome: [tag],
         },
       },
-    })) as unknown as File[];
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation[];
   }
 
-  async findByName(name: string): Promise<File[]> {
+  async findByName(name: string): Promise<EntityWithRelation[]> {
     return (await this.prismaService.file.findMany({
       where: { name },
-    })) as unknown as File[];
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation[];
   }
 
-  async findByVersion(name: string, version: number): Promise<File | null> {
+  async findByVersion(
+    name: string,
+    version: number,
+  ): Promise<EntityWithRelation | null> {
     return (await this.prismaService.file.findFirst({
       where: { name, version },
-    })) as unknown as File;
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation;
   }
 
-  async findByAuthorId(authorId: string): Promise<File[]> {
+  async findByAuthorId(authorId: string): Promise<EntityWithRelation[]> {
     return (await this.prismaService.file.findMany({
       where: { authorId },
-    })) as unknown as File[];
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation[];
   }
 
-  async findByTemporary(): Promise<File[]> {
+  async findByTemporary(): Promise<EntityWithRelation[]> {
     return (await this.prismaService.file.findMany({
       where: {
         temporary: {
           equals: true,
         },
       },
-    })) as unknown as File[];
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation[];
   }
 
-  async update(id: string, newData: File): Promise<File | null> {
+  async update(id: string, newData: File): Promise<EntityWithRelation | null> {
     return (await this.prismaService.file.update({
       where: { id },
       data: { ..._.omitBy(newData, _.isNil) },
-    })) as unknown as File;
+      include: {
+        author: true,
+      },
+    })) as EntityWithRelation;
   }
 
   async removeVersion(name: string, version: number): Promise<boolean> {

@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { File } from '@/files/entities';
+
+import { EntityWithRelation } from '@/files/types/entityWithRelation';
+import { RecursivePartial } from '@/core/common/types/recursive-partial.type';
 
 @Injectable()
 export class FilesParser {
-  toJSON(file: File): Partial<File> {
+  toJSON(file: EntityWithRelation): RecursivePartial<EntityWithRelation> {
     return {
       id: file.id,
       authorId: file.authorId,
@@ -16,6 +18,8 @@ export class FilesParser {
       tags: file.tags,
       temporary: file.temporary,
       expiredAt: file.expiredAt,
+      meta: file.meta,
+      author: file.author,
       createdAt: file.createdAt,
       updatedAt: file.updatedAt,
     };

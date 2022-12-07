@@ -3,6 +3,7 @@ import { RepositoryContract } from '@/core/contracts/coreRepository';
 import { File } from '@/files/entities';
 import { RecursivePartial } from '@/core/common/types/recursive-partial.type';
 import { SimilarityFilter } from '@/core/utils/similarityFilter/types';
+import { EntityWithRelation } from '@/files/types/entityWithRelation';
 
 export class FileRepository extends RepositoryContract<
   File,
@@ -58,45 +59,53 @@ export class FileRepository extends RepositoryContract<
     return this.database.decrypt(data);
   }
 
-  public async register(model: File): Promise<File | Error> {
+  public async register(model: File): Promise<EntityWithRelation | Error> {
     model = await this.beforeSave(model);
 
-    return await this.database.create(model);
+    return (await this.database.create(model)) as EntityWithRelation;
   }
 
-  public async findMany(limit?: number, offset?: number): Promise<File[]> {
-    return await this.database.findAll(limit, offset);
+  public async findMany(
+    limit?: number,
+    offset?: number,
+  ): Promise<EntityWithRelation[]> {
+    return (await this.database.findAll(limit, offset)) as EntityWithRelation[];
   }
 
   public async findBy(
-    filter: RecursivePartial<File>,
+    filter: RecursivePartial<EntityWithRelation>,
     similarity?: SimilarityFilter.SimilarityType,
-  ): Promise<File[]> {
-    return await this.database.findBy(filter, similarity);
+  ): Promise<EntityWithRelation[]> {
+    return (await this.database.findBy(
+      filter,
+      similarity,
+    )) as EntityWithRelation[];
   }
 
-  public async findById(id: string): Promise<File | Error> {
+  public async findById(id: string): Promise<EntityWithRelation | Error> {
     const file = await this.database.findOne(id);
 
-    return file ? file : new Error('File not found');
+    return file ? (file as EntityWithRelation) : new Error('File not found');
   }
 
-  public async findByTemporary(): Promise<File[]> {
-    return await this.database.findBy({ temporary: true });
+  public async findByTemporary(): Promise<EntityWithRelation[]> {
+    return (await this.database.findBy({
+      temporary: true,
+    })) as EntityWithRelation[];
   }
 
   public async update(
     id: string,
     newData: Partial<File>,
-  ): Promise<File | Error> {
+  ): Promise<EntityWithRelation | Error> {
     const file = await this.findById(id);
 
     if (file instanceof Error) return file;
 
-    return await this.database.update(
+    return (await this.database.update(
       id,
       await this.beforeUpdate(file, newData),
-    );
+    )) as EntityWithRelation;
   }
 
   public async remove(id: string): Promise<boolean | Error> {
