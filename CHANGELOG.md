@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.7...v1.3.0) (2022-12-07)
+
+
+### Features
+
+* **encrypt:** added requirement encryption to the repositories ([86c41e8](https://github.com/Lack-Zillions-Over/niro-health/commit/86c41e84a6110e1737f90a0ed1aa9f36a13fc497))
+
+
+### Others
+
+* **packages:** update packages ([17283f8](https://github.com/Lack-Zillions-Over/niro-health/commit/17283f8cf0993d1653aef36fcd935128a86d84af))
+
 ### [1.2.7](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.6...v1.2.7) (2022-12-04)
 
 
