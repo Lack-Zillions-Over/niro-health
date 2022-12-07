@@ -4,6 +4,7 @@ import { User } from '@/users/entities';
 
 import { RecursivePartial } from '@/core/common/types/recursive-partial.type';
 import { SimilarityFilter as SimilarityFilterTypes } from '@/core/utils/similarityFilter/types';
+import { EntityWithRelation } from '@/users/types/entityWithRelation';
 
 import { GeoIP } from '@/core/types/geo-ip.type';
 
@@ -263,7 +264,7 @@ export class UserRepository extends RepositoryContract<
     return this.database.decrypt(data);
   }
 
-  public async register(user: User): Promise<User | Error> {
+  public async register(user: User): Promise<EntityWithRelation | Error> {
     const findByUsername = await this._findBySameField(
       'username',
       user.username,
@@ -285,14 +286,19 @@ export class UserRepository extends RepositoryContract<
           ) as string,
       );
 
-    return await this.database.create(await this.beforeSave(user));
+    return (await this.database.create(
+      await this.beforeSave(user),
+    )) as EntityWithRelation;
   }
 
-  public async findMany(limit?: number, offset?: number): Promise<User[]> {
-    return await this.database.findAll(limit, offset);
+  public async findMany(
+    limit?: number,
+    offset?: number,
+  ): Promise<EntityWithRelation[]> {
+    return (await this.database.findAll(limit, offset)) as EntityWithRelation[];
   }
 
-  public async findById(id: string): Promise<User | Error> {
+  public async findById(id: string): Promise<EntityWithRelation | Error> {
     const user = await this.database.findOne(id);
 
     if (!user)
@@ -302,17 +308,23 @@ export class UserRepository extends RepositoryContract<
           .translate('users.repository.user_not_exists', 'id', id) as string,
       );
 
-    return user;
+    return user as EntityWithRelation;
   }
 
   public async findBy(
-    filter: RecursivePartial<User>,
+    filter: RecursivePartial<EntityWithRelation>,
     similarity?: SimilarityFilterTypes.SimilarityType,
-  ): Promise<User[]> {
-    return await this.database.findBy(filter, similarity);
+  ): Promise<EntityWithRelation[]> {
+    return (await this.database.findBy(
+      filter,
+      similarity,
+    )) as EntityWithRelation[];
   }
 
-  public async update(id: string, newData: User): Promise<User | Error> {
+  public async update(
+    id: string,
+    newData: User,
+  ): Promise<EntityWithRelation | Error> {
     const user = await this.findById(id);
 
     if (user instanceof Error) return new Error(user.message);
@@ -341,10 +353,10 @@ export class UserRepository extends RepositoryContract<
           ) as string,
       );
 
-    return await this.database.update(
+    return (await this.database.update(
       id,
       await this.beforeUpdate(user, { ...newData }),
-    );
+    )) as EntityWithRelation;
   }
 
   public async remove(id: string): Promise<boolean | Error> {
@@ -360,7 +372,7 @@ export class UserRepository extends RepositoryContract<
     password: string,
     device_name: string,
     geo_ip: GeoIP,
-  ): Promise<User | Error> {
+  ): Promise<EntityWithRelation | Error> {
     let user = await this.database.findByEmail(email);
 
     if (!user)
@@ -534,7 +546,7 @@ export class UserRepository extends RepositoryContract<
       user.session.history.loginInNewIpAddressAlerts.push(geo_ip.ipAddress);
     }
 
-    return await this.database.update(user.id, user);
+    return (await this.database.update(user.id, user)) as EntityWithRelation;
   }
 
   public async sessionValidate(

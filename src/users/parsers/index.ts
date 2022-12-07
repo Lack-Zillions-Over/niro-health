@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import { User } from '@/users/entities';
+import { EntityWithRelation } from '@/users/types/entityWithRelation';
 import { RecursivePartial } from '@/core/common/types/recursive-partial.type';
 
 @Injectable()
 export class UsersParser {
-  toJSON(user: User): RecursivePartial<User> {
+  toJSON(user: EntityWithRelation): RecursivePartial<EntityWithRelation> {
     return {
       id: user.id,
       username: user.username,
@@ -21,6 +21,7 @@ export class UsersParser {
           }
         : {},
       activate: user.activate,
+      files: user.files,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };

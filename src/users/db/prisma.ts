@@ -5,6 +5,7 @@ import { User } from '@/users/entities';
 import { PrismaService } from '@/core/prisma/prisma.service';
 
 import { SimilarityFilter as SimilarityFilterTypes } from '@/core/utils/similarityFilter/types';
+import { EntityWithRelation } from '@/users/types/entityWithRelation';
 
 import * as _ from 'lodash';
 
@@ -17,39 +18,59 @@ export class UserPrismaDB extends UserDatabaseContract {
     super(libsService, utilsService);
   }
 
-  async create(data): Promise<User> {
+  async create(data: User): Promise<EntityWithRelation> {
     return (await this.prismaService.user.create({
       data,
-    })) as unknown as User;
+      include: {
+        files: true,
+      },
+    })) as EntityWithRelation;
   }
 
-  async findAll(limit?: number, offset?: number): Promise<User[]> {
+  async findAll(
+    limit?: number,
+    offset?: number,
+  ): Promise<EntityWithRelation[]> {
     return (await this.prismaService.user.findMany({
       take: limit,
       skip: offset,
-    })) as unknown as User[];
+      include: {
+        files: true,
+      },
+    })) as EntityWithRelation[];
   }
 
-  async findOne(id: string): Promise<User | null> {
+  async findOne(id: string): Promise<EntityWithRelation | null> {
     return (await this.prismaService.user.findFirst({
       where: { id },
-    })) as unknown as User;
+      include: {
+        files: true,
+      },
+    })) as EntityWithRelation;
   }
 
   async findBy(
-    filter: Partial<User>,
+    filter: Partial<EntityWithRelation>,
     similarity?: SimilarityFilterTypes.SimilarityType,
-  ): Promise<User[]> {
-    const users = await this.prismaService.user.findMany();
+  ): Promise<EntityWithRelation[]> {
+    const users = await this.prismaService.user.findMany({
+      include: {
+        files: true,
+      },
+    });
 
     return users.filter((user) =>
       this.utilsService
         .similarityFilter()
-        .execute<User>(filter, user as unknown as User, similarity || 'full'),
-    ) as unknown as User[];
+        .execute<EntityWithRelation>(
+          filter,
+          user as EntityWithRelation,
+          similarity || 'full',
+        ),
+    ) as EntityWithRelation[];
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<EntityWithRelation | null> {
     const hash = this.hashByText(email);
 
     return (await this.prismaService.user.findFirst({
@@ -59,14 +80,20 @@ export class UserPrismaDB extends UserDatabaseContract {
           equals: hash,
         },
       },
-    })) as unknown as User;
+      include: {
+        files: true,
+      },
+    })) as EntityWithRelation;
   }
 
-  async update(id: string, newData: User): Promise<User | null> {
+  async update(id: string, newData: User): Promise<EntityWithRelation | null> {
     return (await this.prismaService.user.update({
       where: { id },
       data: { ..._.omitBy(newData, _.isNil) },
-    })) as unknown as User;
+      include: {
+        files: true,
+      },
+    })) as EntityWithRelation;
   }
 
   async remove(id: string): Promise<boolean> {
