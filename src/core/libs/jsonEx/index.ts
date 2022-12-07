@@ -22,7 +22,7 @@ export class JsonEx implements Types.Class {
 
       for (const key of Object.keys(value)) {
         value[key] = this._encode(
-          value[key] as unknown as Types.Value<string>,
+          value[key] as Types.Value<string>,
           depth + 1,
         ) as unknown as string;
       }
