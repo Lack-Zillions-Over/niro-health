@@ -32,7 +32,8 @@ export abstract class RepositoryContract<Model, ModelDatabaseContract>
     beforeData: Model,
     nextData: Partial<Model>,
   ): Promise<Model>;
-  abstract decryptFieldValue(value: string): Promise<string>;
+  abstract encrypt(data: string): Promise<string>;
+  abstract decrypt(data: string): Promise<string>;
   abstract register(model: Model): Promise<Model | Error>;
   abstract findMany(limit?: number, offset?: number): Promise<Model[]>;
   abstract findBy(

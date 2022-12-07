@@ -3,12 +3,10 @@ import { RecursivePartial } from '@/core/common/types/recursive-partial.type';
 
 export declare namespace CoreRepository {
   export interface Class<Model> {
-    createdAt(): Date;
-    updatedAt(): Date;
-    deletedAt(): Date;
     beforeSave(data: Model): Promise<Model>;
     beforeUpdate(beforeData: Model, nextData: Partial<Model>): Promise<Model>;
-    decryptFieldValue(value: string): Promise<string>;
+    encrypt(data: string): Promise<string>;
+    decrypt(data: string): Promise<string>;
     register(data: Model): Promise<Model | Error>;
     findMany(limit?: number, offset?: number): Promise<Model[]>;
     findBy(
@@ -18,5 +16,8 @@ export declare namespace CoreRepository {
     findById(id: string): Promise<Model | Error>;
     update(id: string, newData: Partial<Model>): Promise<Model | Error>;
     remove(id: string): Promise<boolean | Error>;
+    createdAt(): Date;
+    updatedAt(): Date;
+    deletedAt(): Date;
   }
 }

@@ -29,8 +29,12 @@ export class PrivateKeyRepository extends RepositoryContract<
     return nextData;
   }
 
-  public async decryptFieldValue(value: string): Promise<string> {
-    return this.database.decrypt(value);
+  public async encrypt(data: string): Promise<string> {
+    return this.database.encrypt(data);
+  }
+
+  public async decrypt(data: string): Promise<string> {
+    return this.database.decrypt(data);
   }
 
   public async register(key: PrivateKey): Promise<Error | PrivateKey> {

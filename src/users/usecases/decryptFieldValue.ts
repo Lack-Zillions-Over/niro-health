@@ -13,6 +13,6 @@ export class DecryptFieldValueUser {
   ) {
     const repository = new UserRepository(database, libsService, utilsService);
 
-    return await repository.decryptFieldValue(value);
+    return await repository.decrypt(value);
   }
 }

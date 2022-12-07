@@ -17,6 +17,6 @@ export class DecryptFieldValuePrivateKey {
       utilsService,
     );
 
-    return await repository.decryptFieldValue(value);
+    return await repository.decrypt(value);
   }
 }
