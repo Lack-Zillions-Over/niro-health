@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.3.0...v1.4.0) (2022-12-07)
+
+
+### Features
+
+* **files:** added support of author for file ([3c51bf9](https://github.com/Lack-Zillions-Over/niro-health/commit/3c51bf94fe883300719a8abf8053b9637307ca19))
+* **prisma schema:** added authors in files ([c453a03](https://github.com/Lack-Zillions-Over/niro-health/commit/c453a032058476bf745d698544f8d8cc2c577ceb))
+* **users:** added support of files ([80c1742](https://github.com/Lack-Zillions-Over/niro-health/commit/80c1742ead0e50e83671f823c902b60c82ea1446))
+
+
+### Bug Fixes
+
+* **jsonex:** fixed declared type ([ade51dd](https://github.com/Lack-Zillions-Over/niro-health/commit/ade51dd90ae3dd6fc7f14ee026daf2de34e28e16))
+
 ## [1.3.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.2.7...v1.3.0) (2022-12-07)
 
 
