@@ -1,4 +1,6 @@
-FROM node:18-alpine AS builder
+ARG NODE_VERSION=18-alpine
+
+FROM node:${NODE_VERSION} AS builder
 
 WORKDIR /app
 

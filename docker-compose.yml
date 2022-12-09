@@ -22,7 +22,7 @@ services:
       - .:/app
       - ./src/core/libs/locales:/app/dist/core/libs/locales
       - ./src/core/libs/templates:/app/dist/core/libs/templates
-      - ./src/core/project.config.json:/app/dist/core/project.config.json
+      - ./src/project.config.json:/app/dist/project.config.json
       - project_development:/app/node_modules
     env_file:
       - ./.env

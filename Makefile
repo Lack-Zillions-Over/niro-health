@@ -12,5 +12,8 @@ up:
 down:
 	docker compose -f docker-compose.yml down
 
+client-up:
+	cd ./client; yarn dev
+
 prune:
 	docker system prune -af --volumes --force
