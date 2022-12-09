@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.4.0...v1.4.1) (2022-12-09)
+
+
+### Bug Fixes
+
+* **files:** fixed problem when saving file data in Prisma ([8abcbdf](https://github.com/Lack-Zillions-Over/niro-health/commit/8abcbdf041e2e9f01c27c1c03b1cc9946cb647db))
+* **pino:** fixed support for the Pino plugin ([90f972e](https://github.com/Lack-Zillions-Over/niro-health/commit/90f972e67acb639bc4dd3759853e51655f7df2fc))
+* **users:** fixed problem when updating user data using Prisma ([4d5730b](https://github.com/Lack-Zillions-Over/niro-health/commit/4d5730b28b9eea920808e6c8d20b917af9bdbb1a))
+
+
+### Build System
+
+* **docker:** fixed environment running problem ([e7aa7a2](https://github.com/Lack-Zillions-Over/niro-health/commit/e7aa7a2df0bdf43e2a4dd3e08a9f37e5830cf426))
+
+
+### Others
+
+* **packages:** updated Packages ([8f87acb](https://github.com/Lack-Zillions-Over/niro-health/commit/8f87acbde37e113e5cdb2a70466a298794452605))
+
 ## [1.4.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.3.0...v1.4.0) (2022-12-07)
 
 
