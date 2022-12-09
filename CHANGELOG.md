@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.4.1...v1.5.0) (2022-12-09)
+
+
+### Features
+
+* **client:** added a graphical interface for testability of the Niro Health ecosystem ([1ea2441](https://github.com/Lack-Zillions-Over/niro-health/commit/1ea2441123ec8dd9b51228573cbe05ae154be229))
+
+
+### Others
+
+* **env:** added example for env vars ([6600cbc](https://github.com/Lack-Zillions-Over/niro-health/commit/6600cbc98c57f62cdd6d65bec226b5cee01dfe57))
+
 ### [1.4.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.4.0...v1.4.1) (2022-12-09)
 
 
