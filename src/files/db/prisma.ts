@@ -127,9 +127,11 @@ export class FilePrismaDB extends FileDatabaseContract {
   }
 
   async update(id: string, newData: File): Promise<EntityWithRelation | null> {
+    let data = _.omitBy<File>(newData, _.isNil);
+    data = _.omit(data, ['author']);
     return (await this.prismaService.file.update({
       where: { id },
-      data: { ..._.omitBy(newData, _.isNil) },
+      data,
       include: {
         author: true,
       },
