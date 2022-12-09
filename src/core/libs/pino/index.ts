@@ -12,27 +12,27 @@ export class Pino {
     return this._logger;
   }
 
-  public info(message: string, ...args: any[]): void {
-    this.logger.info(message, ...args);
+  public info<T>(obj: T, msg: string, ...args: any[]): void {
+    this.logger.info(obj, msg, ...args);
   }
 
-  public warn(message: string, ...args: any[]): void {
-    this.logger.warn(message, ...args);
+  public warn<T>(obj: T, msg: string, ...args: any[]): void {
+    this.logger.warn(obj, msg, ...args);
   }
 
-  public error(message: string, ...args: any[]): void {
-    this.logger.error(message, ...args);
+  public error<T>(obj: T, msg: string, ...args: any[]): void {
+    this.logger.error(obj, msg, ...args);
   }
 
-  public debug(message: string, ...args: any[]): void {
-    this.logger.debug(message, ...args);
+  public debug<T>(obj: T, msg: string, ...args: any[]): void {
+    this.logger.debug(obj, msg, ...args);
   }
 
-  public trace(message: string, ...args: any[]): void {
-    this.logger.trace(message, ...args);
+  public trace<T>(obj: T, msg: string, ...args: any[]): void {
+    this.logger.trace(obj, msg, ...args);
   }
 
-  public fatal(message: string, ...args: any[]): void {
-    this.logger.fatal(message, ...args);
+  public fatal<T>(obj: T, msg: string, ...args: any[]): void {
+    this.logger.fatal(obj, msg, ...args);
   }
 }

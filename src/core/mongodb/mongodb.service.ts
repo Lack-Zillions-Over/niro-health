@@ -71,19 +71,19 @@ export class MongoDBService implements OnModuleInit {
     const pino = this.pino;
 
     connection.on('connected', function () {
-      pino.info('Mongoose default connection is open');
+      pino.info({}, 'Mongoose default connection is open');
     });
 
     connection.on('error', function (err) {
-      pino.error(`Mongoose default connection has occurred ${err} error`);
+      pino.error({}, `Mongoose default connection has occurred ${err} error`);
     });
 
     connection.on('disconnected', function () {
-      pino.warn('Mongoose default connection is disconnected');
+      pino.warn({}, 'Mongoose default connection is disconnected');
     });
 
     connection.on('open', function () {
-      pino.info('Mongoose default connection is open');
+      pino.info({}, 'Mongoose default connection is open');
     });
   }
 
@@ -94,12 +94,13 @@ export class MongoDBService implements OnModuleInit {
       connection.close(function (error) {
         if (error) {
           return pino.error(
-            `Mongoose default connection has occurred ${error} error`,
+            error,
+            `Mongoose default connection has occurred error`,
           );
         }
 
         if (connection.readyState == 0) {
-          return pino.info('Mongoose default connection is disconnected');
+          return pino.info({}, 'Mongoose default connection is disconnected');
         }
 
         process.exit(0);
@@ -124,11 +125,12 @@ export class MongoDBService implements OnModuleInit {
           connection.close(true);
 
           return pino.info(
+            err,
             'Mongoose default connection is disconnected due to error',
           );
         }
 
-        return pino.info('Mongoose default connection is open');
+        return pino.info({}, 'Mongoose default connection is open');
       },
     );
   }
@@ -143,12 +145,13 @@ export class MongoDBService implements OnModuleInit {
     return connection.close(async function (error) {
       if (error) {
         return pino.error(
-          `Mongoose default connection has occurred ${error} error`,
+          error,
+          `Mongoose default connection has occurred error`,
         );
       }
 
       if (connection.readyState == 0) {
-        return pino.info('Mongoose default connection is disconnected');
+        return pino.info({}, 'Mongoose default connection is disconnected');
       }
 
       await app.close();
