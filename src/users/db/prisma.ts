@@ -87,9 +87,11 @@ export class UserPrismaDB extends UserDatabaseContract {
   }
 
   async update(id: string, newData: User): Promise<EntityWithRelation | null> {
+    let data = _.omitBy<User>(newData, _.isNil);
+    data = _.omit(data, ['files']);
     return (await this.prismaService.user.update({
       where: { id },
-      data: { ..._.omitBy(newData, _.isNil) },
+      data,
       include: {
         files: true,
       },
