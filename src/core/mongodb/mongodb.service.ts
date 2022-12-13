@@ -1,6 +1,7 @@
 import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common';
 import { connection, connect } from 'mongoose';
 import { Pino } from '@/core/libs/pino';
+import MongoDbURL from '@/core/common/functions/MongoDbURL';
 
 export interface User {
   username: string;
@@ -42,13 +43,15 @@ export class MongoDBService implements OnModuleInit {
   }
 
   private _uri() {
-    return `mongodb://${this._mongoConfig.username}:${encodeURIComponent(
-      this._mongoConfig.password,
-    )}@${this._mongoConfig.host}:${this._mongoConfig.port}/${
-      this._mongoConfig.database
-    }?authSource=admin&readPreference=primary&appname=${
-      this._mongoConfig.project.name
-    }D&directConnection=true&ssl=${this._mongoConfig.connection.ssl}`;
+    return MongoDbURL({
+      username: this._mongoConfig.username,
+      password: this._mongoConfig.password,
+      host: this._mongoConfig.host,
+      port: this._mongoConfig.port,
+      database: this._mongoConfig.database,
+      appname: this._mongoConfig.project.name,
+      ssl: this._mongoConfig.connection.ssl,
+    });
   }
 
   private async _connectionConfig() {
