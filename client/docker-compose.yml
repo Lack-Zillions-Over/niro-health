@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  nextjs:
+    container_name: nextjs-preview
+    restart: always
+    command: yarn dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - /node_modules
+    env_file:
+      - ./.env
+
+volumes:
+  project_development:
+  pg_data:
+  mongodb_data:

@@ -13,7 +13,10 @@ down:
 	docker compose -f docker-compose.yml down
 
 client-up:
-	cd ./client; yarn dev
+	cd ./client; docker compose -f docker-compose.yml up
+
+client-down:
+	cd ./client; docker compose -f docker-compose.yml down
 
 prune:
 	docker system prune -af --volumes --force
