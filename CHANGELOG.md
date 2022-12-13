@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0-alpha.2](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.1...v1.6.0-alpha.2) (2022-12-13)
+
+
+### Build System
+
+* **docker:** added support for front-end development environment ([fc19f8c](https://github.com/Lack-Zillions-Over/niro-health/commit/fc19f8cee5a699bd79cd66e52f6c8177f48326aa))
+
 ## [1.6.0-alpha.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.5.1...v1.6.0-alpha.1) (2022-12-13)
 
 
