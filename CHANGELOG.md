@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.5.0...v1.5.1) (2022-12-13)
+
+
+### Build System
+
+* **docker:** change scripting of the development and production environment ([63b0a09](https://github.com/Lack-Zillions-Over/niro-health/commit/63b0a095f3a8e70ca8eac8c4d0552723806733df))
+* **packages:** updated Packages ([6633cfc](https://github.com/Lack-Zillions-Over/niro-health/commit/6633cfc13ee48c697e738e1b6ed63ff3c64a0d70))
+* **prisma:** added support for node-alpine in docker ([1648f26](https://github.com/Lack-Zillions-Over/niro-health/commit/1648f263f3e1c553855708f6941f7b13111da84b))
+* **webpack:** implemented support for Hot Reload using webpack ([fb07dbe](https://github.com/Lack-Zillions-Over/niro-health/commit/fb07dbe76870cacdb2a9c60eb58ffbd22c58475d))
+
 ## [1.5.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.4.1...v1.5.0) (2022-12-09)
 
 
