@@ -1,31 +1,6 @@
 version: '3.9'
 
 services:
-  nestjs:
-    container_name: nestjs-preview
-    depends_on:
-      - postgres
-      - mongodb
-      - redis
-    command: yarn start:debug
-    build:
-      context: .
-      dockerfile: Dockerfile
-    networks:
-      project_development:
-        aliases:
-          - backend
-        ipv4_address: 172.18.0.2
-    ports:
-      - ${PORT}:${PORT}
-    volumes:
-      - .:/app
-      - ./src/core/libs/locales:/app/dist/core/libs/locales
-      - ./src/core/libs/templates:/app/dist/core/libs/templates
-      - ./src/project.config.json:/app/dist/project.config.json
-      - project_development:/app/node_modules
-    env_file:
-      - ./.env
   postgres:
     container_name: postgres-preview
     image: postgres:latest
@@ -73,6 +48,38 @@ services:
       - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
       - project_development:/data
+  nestjs:
+    container_name: nestjs-preview
+    restart: always
+    links:
+      - postgres
+      - mongodb
+      - redis
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
+    command: yarn start:debug
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    networks:
+      project_development:
+        aliases:
+          - backend
+        ipv4_address: 172.18.0.2
+    ports:
+      - ${PORT}:${PORT}
+      - 9229:9229 # Debug port
+    volumes:
+      - .:/app
+      - /node_modules
+      - ./src/core/libs/locales:/app/dist/core/libs/locales
+      - ./src/core/libs/templates:/app/dist/core/libs/templates
+      - ./src/project.config.json:/app/dist/project.config.json
+    env_file:
+      - ./.env
 
 networks:
   project_development:

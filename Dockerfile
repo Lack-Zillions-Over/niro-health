@@ -1,17 +1,34 @@
 ARG NODE_VERSION=18-alpine
 
-FROM node:${NODE_VERSION} AS builder
+#################
+## DEVELOPMENT ##
+#################
+FROM node:${NODE_VERSION} AS development
 
 WORKDIR /app
 
-COPY . .
-
-RUN yarn add @nestjs/cli
+COPY package*.json ./
 
 RUN yarn install
 
+COPY . .
+
+RUN yarn prisma generate
+
 RUN yarn build
+
+################
+## PRODUCTION ##
+################
+FROM node:${NODE_VERSION} AS production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /app
+
+COPY --from=development /app/ .
 
 EXPOSE ${PORT}
 
-CMD ["sh", "-c", "yarn start:prod"]
+CMD [ "node", "dist/main" ]
