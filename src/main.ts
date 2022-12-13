@@ -7,11 +7,14 @@ import * as passport from 'passport';
 import * as cookieParser from 'cookie-parser';
 
 import { AppModule } from '@/app.module';
+import { RedisIoAdapter } from '@/websockets/adapters/redis-io.adapter';
 
 import { PrismaService } from '@/core/prisma/prisma.service';
 import { MongoDBService } from '@/core/mongodb/mongodb.service';
 
-(async () => {
+declare const module: any;
+
+async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
   app.use(cookieParser());
@@ -20,6 +23,10 @@ import { MongoDBService } from '@/core/mongodb/mongodb.service';
   const mongoDBService = app.get(MongoDBService);
   await prismaService.enableShutdownHooks(app);
   await mongoDBService.enableShutdownHooks(app);
+
+  const redisIoAdapter = new RedisIoAdapter(app);
+  await redisIoAdapter.connectToRedis();
+  app.useWebSocketAdapter(redisIoAdapter);
 
   const bullBoardUserName = process.env.BULL_BOARD_USERNAME;
   const bullBoardPassword = process.env.BULL_BOARD_PASSWORD;
@@ -53,4 +60,11 @@ import { MongoDBService } from '@/core/mongodb/mongodb.service';
   );
 
   await app.listen(4000, '0.0.0.0');
-})();
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
+}
+
+bootstrap();
