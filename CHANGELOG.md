@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0-alpha.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.5.1...v1.6.0-alpha.1) (2022-12-13)
+
+
+### Features
+
+* **websockets:** started websockets support ([b1074ca](https://github.com/Lack-Zillions-Over/niro-health/commit/b1074cad6c0aa0bf2ebacb51ced0095a0c07ecdf))
+
+
+### Others
+
+* **release:** 1.6.0-alpha.0 ([ce2aa15](https://github.com/Lack-Zillions-Over/niro-health/commit/ce2aa1530630b561a45c542950142b5a41767755))
+
 ## [1.6.0-alpha.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.5.1...v1.6.0-alpha.0) (2022-12-13)
 
 
