@@ -1,6 +1,6 @@
 {
   "name": "niro-health",
-  "version": "1.5.1",
+  "version": "1.6.0-alpha.0",
   "engines": {
     "yarn": ">=1.22.19",
     "npm": ">=8.19.2 <=9.0.0",
@@ -56,7 +56,9 @@
   },
   "scripts": {
     "commit": "cz",
-    "release": "standard-version && git push --follow-tags origin main",
+    "prerelease": "standard-version --prerelease alpha && yarn postrelease",
+    "release": "standard-version && yarn postrelease",
+    "postrelease": "git push --follow-tags origin main",
     "audit-fix": "npx yarn-audit-fix",
     "update": "npx yarn upgrade-interactive --latest",
     "project-copy-config": "cpx \"src/project.config.json\" dist",
