@@ -77,22 +77,22 @@ export class UsersController {
       throw new HttpException(user.message, HttpStatus.FORBIDDEN);
 
     try {
-      // const jwt = this.coreService.libsService.jwt({
-      //   id: user.id,
-      //   username: user.username,
-      //   timestamp: new Date().getTime(),
-      // });
+      const jwt = this.coreService.libsService.jwt({
+        id: user.id,
+        username: user.username,
+        timestamp: new Date().getTime(),
+      });
 
-      // await this.emailQueue.add(
-      //   AccountActivateProcess,
-      //   {
-      //     email: createUserDto.email,
-      //     username: createUserDto.username,
-      //     token: jwt.save(null, `7d`) as string,
-      //     temporarypass: null,
-      //   },
-      //   AccountActivateOptions,
-      // );
+      await this.emailQueue.add(
+        AccountActivateProcess,
+        {
+          email: createUserDto.email,
+          username: createUserDto.username,
+          token: jwt.save(null, `7d`) as string,
+          temporarypass: null,
+        },
+        AccountActivateOptions,
+      );
 
       return this.usersParser.toJSON(user);
     } catch (error) {
