@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
-import { ChatUser } from '@/mongoose/chat/schemas/chat-users';
-import { ChatMessage } from '@/mongoose/chat/schemas/chat-messages';
+import { ChatUser } from '@/mongoose/schemas/models/chat/chat-users';
+import { ChatMessage } from '@/mongoose/schemas/models/chat/chat-messages';
 
 export type ChatRoomDocument = HydratedDocument<ChatRoom>;
 
@@ -12,7 +12,14 @@ export type ChatRoomDocument = HydratedDocument<ChatRoom>;
 })
 export class ChatRoom {
   @Prop({
-    required: [true, '{PATH} este campo é obrigatório para sua segurança'],
+    required: [true, '{PATH} this field is required'],
+    unique: true,
+    trim: true,
+  })
+  cid: string;
+
+  @Prop({
+    required: [true, '{PATH} this field is required'],
     trim: true,
     unique: true,
   })
@@ -36,3 +43,8 @@ export class ChatRoom {
 }
 
 export const ChatRoomSchema = SchemaFactory.createForClass(ChatRoom);
+
+export const ChatRoomDocument = {
+  entity: ChatRoom,
+  schema: ChatRoomSchema,
+};
