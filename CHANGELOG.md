@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0-alpha.3](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.2...v1.6.0-alpha.3) (2022-12-29)
+
+
+### Features
+
+* **websockets:** added new routes for gateway: Chat ([7478ffe](https://github.com/Lack-Zillions-Over/niro-health/commit/7478ffe941b4537b93a4a66f70d0abd55b31db3b))
+
+
+### Bug Fixes
+
+* **users:** fixed sending e-mail to users ([93f10dd](https://github.com/Lack-Zillions-Over/niro-health/commit/93f10dd99e1af12cc1dcc14d7df78837d363686a))
+
+
+### Build System
+
+* **packages:** updated Dependencies ([f13fd7c](https://github.com/Lack-Zillions-Over/niro-health/commit/f13fd7cfb8d58aaa5aad61bedddf426a7cd54a23))
+
+
+### Code Refactoring
+
+* **mongoose:** improved Mongoose implementation ([4d3394e](https://github.com/Lack-Zillions-Over/niro-health/commit/4d3394ee9b5e29a6c20d4aacf93a232b33eb0c32))
+
+
+### CI
+
+* **docker:** added support for MX Linux ([ee01339](https://github.com/Lack-Zillions-Over/niro-health/commit/ee01339e146a3894c909e29e1ef546db98c13e9d))
+
 ## [1.6.0-alpha.2](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.1...v1.6.0-alpha.2) (2022-12-13)
 
 
