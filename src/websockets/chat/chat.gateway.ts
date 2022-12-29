@@ -1,64 +1,97 @@
-import {
-  MessageBody,
-  SubscribeMessage,
-  WebSocketGateway,
-  WebSocketServer,
-  WsResponse,
-} from '@nestjs/websockets';
+import { MessageBody, SubscribeMessage, WsResponse } from '@nestjs/websockets';
 
-import { UseGuards } from '@nestjs/common';
-
-import { Server } from 'socket.io';
+import { ContractGateway } from '@/websockets/contracts/contract.gateway';
 
 import { CoreService } from '@/core/core.service';
-import { ChatService } from '@/mongoose/chat/chat.service';
-import { TokenGuard } from '@/websockets/guards/token.guard';
+import { ChatService } from '@/mongoose/services/chat.service';
 import { Token } from '@/users/guards/token.decorator';
 
-import WebSocketConstants from '@/websockets/constants';
-
 import { WebSocketsResponse } from '@/core/common/types/websockets-response.type';
-import { ChatRoom } from '@/mongoose/chat/schemas/chat-rooms';
+import { ChatRoom } from '@/mongoose/schemas/models/chat/chat-rooms';
 
-import * as _ from 'lodash';
-
-@WebSocketGateway({
-  cors: {
-    origin: WebSocketConstants.cors.origin,
-  },
-})
-@UseGuards(TokenGuard)
-export class ChatGateway {
+export class ChatGateway extends ContractGateway {
   constructor(
-    private readonly coreService: CoreService,
-    private readonly chatService: ChatService,
-  ) {}
-  @WebSocketServer()
-  server: Server;
+    protected readonly coreService: CoreService,
+    protected readonly chatService: ChatService,
+  ) {
+    super(coreService, chatService);
+  }
 
   @Token(true)
   @SubscribeMessage('rooms:create')
-  async identity(
+  async roomCreate(
     @MessageBody() name: string,
   ): Promise<WsResponse<WebSocketsResponse<ChatRoom | string>>> {
-    try {
-      return {
-        data: {
-          error: false,
+    return await this.handleMessageResponse(
+      async () => await this.chatService.create(name),
+      {
+        success: {
           message: 'Room created',
-          data: await this.chatService.createRoom(name),
+          event: 'rooms:create:response',
         },
-        event: 'rooms:create:response',
-      };
-    } catch (error) {
-      return {
-        data: {
-          error: true,
+        error: {
           message: 'Room not created',
-          data: _(error).toString(),
+          event: 'rooms:create:response',
         },
-        event: 'rooms:create:response',
-      };
-    }
+      },
+    );
+  }
+
+  @Token(true)
+  @SubscribeMessage('rooms:rename')
+  async roomRename(@MessageBody() query: { id: string; name: string }) {
+    return await this.handleMessageResponseAllSockets(
+      async () => await this.chatService.rename(query.id, query.name),
+      {
+        success: {
+          message: 'Room renamed',
+          event: 'rooms:renamed:response',
+        },
+        error: {
+          message: 'Room not renamed',
+          event: 'rooms:renamed:response',
+        },
+      },
+    );
+  }
+
+  @Token(true)
+  @SubscribeMessage('rooms:findAll')
+  async roomFindAll(): Promise<
+    WsResponse<WebSocketsResponse<ChatRoom[] | string>>
+  > {
+    return await this.handleMessageResponse(
+      async () => await this.chatService.findAll(),
+      {
+        success: {
+          message: 'Found all rooms',
+          event: 'rooms:findAll:response',
+        },
+        error: {
+          message: 'Rooms not found',
+          event: 'rooms:findAll:response',
+        },
+      },
+    );
+  }
+
+  @Token(true)
+  @SubscribeMessage('rooms:delete')
+  async roomDelete(
+    @MessageBody() _id: string,
+  ): Promise<WsResponse<WebSocketsResponse<boolean | string>>> {
+    return await this.handleMessageResponse(
+      async () => ((await this.chatService.deleteRoom(_id)) ? _id : false),
+      {
+        success: {
+          message: 'Room deleted',
+          event: 'rooms:delete:response',
+        },
+        error: {
+          message: 'Room not deleted',
+          event: 'rooms:delete:response',
+        },
+      },
+    );
   }
 }
