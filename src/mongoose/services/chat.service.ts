@@ -48,29 +48,25 @@ export class ChatService {
     return { room, user };
   }
 
-  private async _verifyRoomAndUserAndMessageExist(
-    roomId: string,
-    userId: string,
-    messageId: string,
-  ) {
+  private async _verifyRoomAndMessageExist(roomId: string, messageId: string) {
     const room = await this.chatRoomDocument.findById(roomId);
-    const user = await this.chatUserDocument.findById(userId);
     const message = await this.chatMessageDocument.findById(messageId);
 
-    if (!room || !user || !message)
+    if (!room || !message)
       return {
         room: null,
-        user: null,
         message: null,
       };
 
-    return { room, user, message };
+    return { room, message };
   }
 
   async create(name: string): Promise<ChatRoom> {
     const room = new this.chatRoomDocument({
       cid: this._cid,
       name,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     return await room.save();
@@ -82,6 +78,7 @@ export class ChatService {
     if (!room) return false;
 
     room.name = name;
+    room.updatedAt = new Date();
     await room.save();
     return true;
   }
@@ -102,6 +99,7 @@ export class ChatService {
 
     if (room.users.filter((_user) => _user.cid == _user.cid).length < 0) {
       room.users.push(user);
+      room.updatedAt = new Date();
       await room.save();
       return true;
     }
@@ -118,6 +116,7 @@ export class ChatService {
 
     if (index > -1) {
       room.users.splice(index, 1);
+      room.updatedAt = new Date();
       await room.save();
       return true;
     }
@@ -125,21 +124,20 @@ export class ChatService {
     return false;
   }
 
-  async appendMessage(
-    id: string,
-    userId: string,
-    messageId: string,
-  ): Promise<boolean> {
-    const { room, user, message } =
-      await this._verifyRoomAndUserAndMessageExist(id, userId, messageId);
+  async appendMessage(id: string, messageId: string): Promise<boolean> {
+    const { room, message } = await this._verifyRoomAndMessageExist(
+      id,
+      messageId,
+    );
 
-    if (!room || !user || !message) return false;
+    if (!room || !message) return false;
 
     if (
       room.messages.filter((_message) => _message.cid == _message.cid).length <
       0
     ) {
       room.messages.push(message);
+      room.updatedAt = new Date();
       await room.save();
       return true;
     }
@@ -147,15 +145,13 @@ export class ChatService {
     return false;
   }
 
-  async removeMessage(
-    id: string,
-    userId: string,
-    messageId: string,
-  ): Promise<boolean> {
-    const { room, user, message } =
-      await this._verifyRoomAndUserAndMessageExist(id, userId, messageId);
+  async removeMessage(id: string, messageId: string): Promise<boolean> {
+    const { room, message } = await this._verifyRoomAndMessageExist(
+      id,
+      messageId,
+    );
 
-    if (!room || !user || !message) return false;
+    if (!room || !message) return false;
 
     const index = room.messages.findIndex(
       (_message) => _message.cid == _message.cid,
@@ -163,6 +159,7 @@ export class ChatService {
 
     if (index > -1) {
       room.messages.splice(index, 1);
+      room.updatedAt = new Date();
       await room.save();
       return true;
     }
