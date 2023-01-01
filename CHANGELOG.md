@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0-alpha.5](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.4...v1.6.0-alpha.5) (2023-01-01)
+
+
+### Features
+
+* **buttonconfirm:** added new button ([888f206](https://github.com/Lack-Zillions-Over/niro-health/commit/888f20681b7fc7b2b52e4379cda42fc519eaa72b))
+* **buttoncopytexttoclipboard:** added new button ([edfbc52](https://github.com/Lack-Zillions-Over/niro-health/commit/edfbc520b27820003c9ff3c0c606acb60e25801b))
+* **client:chat:** added new chat system in front-end ([6ec1669](https://github.com/Lack-Zillions-Over/niro-health/commit/6ec166964beeee142d2177128ee84e7419957c93))
+
+
+### Bug Fixes
+
+* **layout:** fixed layout ([6d2dcd6](https://github.com/Lack-Zillions-Over/niro-health/commit/6d2dcd64ef87116395ab9ee3eb8ae93e6bc6ea7d))
+
 ## [1.6.0-alpha.4](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.3...v1.6.0-alpha.4) (2023-01-01)
 
 
