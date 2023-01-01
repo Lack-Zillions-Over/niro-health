@@ -5,7 +5,6 @@ export const Loading = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e3e3e3;
 
   @media only screen and (max-width: 576px) {
     flexdirection: column;

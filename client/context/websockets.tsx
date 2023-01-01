@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import { message } from 'antd';
 
 import useUser from '@/atom/user';
 import UserCookies from '@/cache/cookies/user';
@@ -42,9 +43,31 @@ const WebSocketProvider = (props: Props) => {
     }
 
     return () => {
-      socket && socket.disconnect();
+      socket?.disconnect();
     };
-  }, [socket, cookies, user]);
+  }, [socket, user, cookies]);
+
+  useEffect(() => {
+    socket?.on('connect_error', (error) => {
+      message.error(`Connection with server failed: ${error}`);
+    });
+
+    socket?.io.on('reconnect', () => {
+      message.success(`Reconnected to server`);
+    });
+
+    socket?.io.on('reconnect_error', (error) => {
+      message.error(`Reconnection to server failed: ${error}`);
+    });
+
+    socket?.io.on('reconnect_failed', () => {
+      message.error(`Reconnection to server failed`);
+    });
+
+    return () => {
+      socket?.off('connect');
+    };
+  }, [socket]);
 
   return (
     <SocketContext.Provider
