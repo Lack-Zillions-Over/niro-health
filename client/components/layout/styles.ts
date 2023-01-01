@@ -1,9 +1,9 @@
-import { Layout } from 'antd'
-import styled from '@emotion/styled'
+import { Layout } from 'antd';
+import styled from '@emotion/styled';
 
 export const LayoutWrapper = styled(Layout)`
   transition: all 400ms;
-`
+`;
 
 export const LogoutWrapper = styled.div`
   display: flex;
@@ -13,4 +13,4 @@ export const LogoutWrapper = styled.div`
   color: #1c1c1c;
   cursor: pointer;
   transition: all 400ms;
-`
+`;

@@ -50,7 +50,9 @@ function Container(props: Props) {
   }, [loading]);
 
   return (
-    <Styles.LayoutWrapper style={{ marginLeft: !collapsed ? 200 : 80 }}>
+    <Styles.LayoutWrapper
+      style={{ minHeight: '100vh', marginLeft: !collapsed ? 200 : 80 }}
+    >
       <Sider
         style={{
           overflow: 'auto',
@@ -118,14 +120,10 @@ function Container(props: Props) {
           />
         )}
       </Sider>
-      <Layout className="bg-[#e3e3e3]">
-        <Content style={{ height: '100vh', overflow: 'initial' }}>
-          {props.content}
-        </Content>
-        <Footer className="bg-[#ffb700] text-[#e3e3e3] text-[12px] text-center font-bold py-2 h-[1rem]">
-          <p className="text-[10px] lg:text-[12px]">
-            Niro Health - 2022 © All rights reserved.
-          </p>
+      <Layout>
+        <Content>{props.content}</Content>
+        <Footer className="text-[#e3e3e3] text-center font-bold">
+          <small>Niro Health - 2022 © All rights reserved.</small>
         </Footer>
       </Layout>
     </Styles.LayoutWrapper>
