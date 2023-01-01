@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0-alpha.4](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.3...v1.6.0-alpha.4) (2023-01-01)
+
+
+### Bug Fixes
+
+* **mongoose:chat:** correction in the methods ([bcc1da4](https://github.com/Lack-Zillions-Over/niro-health/commit/bcc1da41763a684c9eb18b7b65066743efb766e3))
+
+
+### Code Refactoring
+
+* **mongoose:chat:** improvement in the structure of the events ([1f26c04](https://github.com/Lack-Zillions-Over/niro-health/commit/1f26c041f3030b3e04480bfb69270876509c654a))
+* **schemas:chat:** added linking messages to the room ([72f2b82](https://github.com/Lack-Zillions-Over/niro-health/commit/72f2b82251d145bf3fea328fba002b6214f19bff))
+
+
+### Build System
+
+* **packages:** update Packages ([696f877](https://github.com/Lack-Zillions-Over/niro-health/commit/696f877de5bffcffd32930c3b68a8b43bac06786))
+
 ## [1.6.0-alpha.3](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.2...v1.6.0-alpha.3) (2022-12-29)
 
 
