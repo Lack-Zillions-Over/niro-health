@@ -1,6 +1,6 @@
-import { message } from 'antd'
+import { message } from 'antd';
 
-import * as Styles from '@/containers/_global/_components/_buttonCopyTextoToClipboard/styles';
+import * as Styles from '@/containers/_global/_components/_buttonCopyTextToClipboard/styles';
 
 declare interface Props {
   text: string;
@@ -16,5 +16,5 @@ export default function Component({ text }: Props) {
     >
       Copy to clipboard
     </Styles.ButtonCopyTextoToClipboard>
-  )
+  );
 }
