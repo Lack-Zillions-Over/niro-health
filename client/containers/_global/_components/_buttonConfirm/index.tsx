@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
-import { message } from 'antd'
+import { message } from 'antd';
 
 import ButtonStyled from '@/containers/_global/_styles/_button';
 
@@ -17,17 +17,17 @@ export default function Component({ text, onFinish }: Props) {
   const [restoreCountDelay, setRestoreCountDelay] = useState(3);
   const multiplier = 4;
 
-  const enableHold = () => setIsHold(true)
+  const enableHold = () => setIsHold(true);
   const disableHold = () => {
     setIsHold(false);
     setFinishCountDelay(3);
-  }
+  };
 
   const handleFinish = useCallback(() => {
-    message.success(`Execution started, Please wait a moment. Thank you!`)
+    message.success(`Execution started, Please wait a moment. Thank you!`);
     setIsComplete(true);
     onFinish();
-  }, [onFinish])
+  }, [onFinish]);
 
   const handleRestore = useCallback(() => {
     disableHold();
@@ -40,12 +40,9 @@ export default function Component({ text, onFinish }: Props) {
   useEffect(() => {
     const interval = setInterval(() => {
       if (isHold) {
-        if (count < 100)
-          setCount(count => count + multiplier);
-      }
-      else {
-        if (count > 0)
-          setCount(count => count - multiplier);
+        if (count < 100) setCount((count) => count + multiplier);
+      } else {
+        if (count > 0) setCount((count) => count - multiplier);
       }
     }, 100);
 
@@ -55,9 +52,8 @@ export default function Component({ text, onFinish }: Props) {
   useEffect(() => {
     const interval = setInterval(() => {
       if (isFinish && finishCountDelay > 0)
-        setFinishCountDelay(count => count - 1);
-      else if (isFinish && !isComplete)
-        handleFinish();
+        setFinishCountDelay((count) => count - 1);
+      else if (isFinish && !isComplete) handleFinish();
     }, 1000);
 
     return () => clearInterval(interval);
@@ -66,18 +62,17 @@ export default function Component({ text, onFinish }: Props) {
   useEffect(() => {
     const interval = setInterval(() => {
       if (isComplete && restoreCountDelay > 0)
-        setRestoreCountDelay(count => count - 1);
-      else if (isFinish && isComplete)
-        handleRestore();
+        setRestoreCountDelay((count) => count - 1);
+      else if (isFinish && isComplete) handleRestore();
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isComplete, isFinish, restoreCountDelay, handleRestore])
+  }, [isComplete, isFinish, restoreCountDelay, handleRestore]);
 
   return (
     <ButtonStyled
       type="primary"
-      className='w-[100%]'
+      className="w-[100%]"
       onClick={() => {
         if (count <= 0)
           message.warning('Press and hold to confirm the action.');
@@ -91,26 +86,17 @@ export default function Component({ text, onFinish }: Props) {
       style={{
         backgroundColor: !isComplete
           ? `rgba(255, 183, 0, ${count / 100})`
-          : `rgba(0, 183, 0, ${count / 100})`
-        ,
-        borderColor: !isComplete
-          ? '#ffb700'
-          : '#00b700'
-          ,
+          : `rgba(0, 183, 0, ${count / 100})`,
+        borderColor: !isComplete ? '#ffb700' : '#00b700',
         color: count <= 70 ? '#ffb700' : 'white',
         fontWeight: 'bold',
       }}
     >
-      {
-        isComplete && `Restoring action in... ${restoreCountDelay}`
-      }
-      {
-        !isComplete && (
-          !isFinish
-            ? `${count <= 0 ? `${text} (Hold)` : `${count}%`}`
-            : `Execution in... ${finishCountDelay}`
-        )
-      }
+      {isComplete && `Restoring action in... ${restoreCountDelay}`}
+      {!isComplete &&
+        (!isFinish
+          ? `${count <= 0 ? `${text} (Hold)` : `${count}%`}`
+          : `Execution in... ${finishCountDelay}`)}
     </ButtonStyled>
-  )
+  );
 }
