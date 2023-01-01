@@ -2,7 +2,7 @@ import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 
 import { UseGuards } from '@nestjs/common';
 
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 
 import { CoreService } from '@/core/core.service';
 import { ChatService } from '@/mongoose/services/chat.service';
@@ -68,6 +68,28 @@ export class ContractGateway {
         response.success.message,
         response.success.event,
       );
+    } catch (error) {
+      return this._errorResponseParser(
+        error,
+        response.error.message,
+        response.error.event,
+      );
+    }
+  }
+
+  protected async handleMessageResponseAllSocketsExceptSender<T>(
+    handler: () => Promise<T>,
+    response: WebSocketsResponse,
+    socket: Socket,
+  ) {
+    try {
+      return socket.broadcast.emit(response.success.event, {
+        data: {
+          error: false,
+          message: response.success.message,
+          data: await handler(),
+        },
+      });
     } catch (error) {
       return this._errorResponseParser(
         error,

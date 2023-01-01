@@ -1,4 +1,4 @@
-import { MessageBody, SubscribeMessage, WsResponse } from '@nestjs/websockets';
+import { MessageBody, SubscribeMessage } from '@nestjs/websockets';
 
 import { ContractGateway } from '@/websockets/contracts/contract.gateway';
 
@@ -6,8 +6,7 @@ import { CoreService } from '@/core/core.service';
 import { ChatService } from '@/mongoose/services/chat.service';
 import { Token } from '@/users/guards/token.decorator';
 
-import { WebSocketsResponse } from '@/core/common/types/websockets-response.type';
-import { ChatRoom } from '@/mongoose/schemas/models/chat/chat-rooms';
+import { ChatEvents } from '@/websockets/chat/chat.events';
 
 export class ChatGateway extends ContractGateway {
   constructor(
@@ -18,78 +17,160 @@ export class ChatGateway extends ContractGateway {
   }
 
   @Token(true)
-  @SubscribeMessage('rooms:create')
-  async roomCreate(
-    @MessageBody() name: string,
-  ): Promise<WsResponse<WebSocketsResponse<ChatRoom | string>>> {
+  @SubscribeMessage(ChatEvents.Create)
+  async roomCreate(@MessageBody() name: string) {
+    const eventResponse = `${ChatEvents.Create}:response`;
+
     return await this.handleMessageResponse(
       async () => await this.chatService.create(name),
       {
         success: {
           message: 'Room created',
-          event: 'rooms:create:response',
+          event: eventResponse,
         },
         error: {
           message: 'Room not created',
-          event: 'rooms:create:response',
+          event: eventResponse,
         },
       },
     );
   }
 
   @Token(true)
-  @SubscribeMessage('rooms:rename')
+  @SubscribeMessage(ChatEvents.Rename)
   async roomRename(@MessageBody() query: { id: string; name: string }) {
+    const eventResponse = `${ChatEvents.Rename}:response`;
+
     return await this.handleMessageResponseAllSockets(
       async () => await this.chatService.rename(query.id, query.name),
       {
         success: {
           message: 'Room renamed',
-          event: 'rooms:renamed:response',
+          event: eventResponse,
         },
         error: {
           message: 'Room not renamed',
-          event: 'rooms:renamed:response',
+          event: eventResponse,
         },
       },
     );
   }
 
   @Token(true)
-  @SubscribeMessage('rooms:findAll')
-  async roomFindAll(): Promise<
-    WsResponse<WebSocketsResponse<ChatRoom[] | string>>
-  > {
-    return await this.handleMessageResponse(
-      async () => await this.chatService.findAll(),
-      {
-        success: {
-          message: 'Found all rooms',
-          event: 'rooms:findAll:response',
-        },
-        error: {
-          message: 'Rooms not found',
-          event: 'rooms:findAll:response',
-        },
-      },
-    );
-  }
+  @SubscribeMessage(ChatEvents.Delete)
+  async roomDelete(@MessageBody() _id: string) {
+    const eventResponse = `${ChatEvents.Delete}:response`;
 
-  @Token(true)
-  @SubscribeMessage('rooms:delete')
-  async roomDelete(
-    @MessageBody() _id: string,
-  ): Promise<WsResponse<WebSocketsResponse<boolean | string>>> {
     return await this.handleMessageResponse(
       async () => ((await this.chatService.deleteRoom(_id)) ? _id : false),
       {
         success: {
           message: 'Room deleted',
-          event: 'rooms:delete:response',
+          event: eventResponse,
         },
         error: {
           message: 'Room not deleted',
-          event: 'rooms:delete:response',
+          event: eventResponse,
+        },
+      },
+    );
+  }
+
+  @Token(true)
+  @SubscribeMessage(ChatEvents.FindAll)
+  async roomFindAll() {
+    const eventResponse = `${ChatEvents.FindAll}:response`;
+
+    return await this.handleMessageResponse(
+      async () => await this.chatService.findAll(),
+      {
+        success: {
+          message: 'Found all rooms',
+          event: eventResponse,
+        },
+        error: {
+          message: 'Rooms not found',
+          event: eventResponse,
+        },
+      },
+    );
+  }
+
+  @Token(true)
+  @SubscribeMessage(ChatEvents.AppendUser)
+  async appendUser(@MessageBody() query: { id: string; userId: string }) {
+    const eventResponse = `${ChatEvents.AppendUser}:response`;
+
+    return await this.handleMessageResponseAllSockets(
+      async () => await this.chatService.appendUser(query.id, query.userId),
+      {
+        success: {
+          message: 'Append user to room',
+          event: eventResponse,
+        },
+        error: {
+          message: 'User not appended to room',
+          event: eventResponse,
+        },
+      },
+    );
+  }
+
+  @Token(true)
+  @SubscribeMessage(ChatEvents.RemoveUser)
+  async removeUser(@MessageBody() query: { id: string; userId: string }) {
+    return await this.handleMessageResponseAllSockets(
+      async () => await this.chatService.removeUser(query.id, query.userId),
+      {
+        success: {
+          message: 'Remove user from room',
+          event: `${ChatEvents.RemoveUser}:response`,
+        },
+        error: {
+          message: 'Rooms not found',
+          event: `${ChatEvents.RemoveUser}:response`,
+        },
+      },
+    );
+  }
+
+  @Token(true)
+  @SubscribeMessage(ChatEvents.AppendMessage)
+  async appendMessage(@MessageBody() query: { id: string; messageId: string }) {
+    const eventResponse = `${ChatEvents.AppendMessage}:response`;
+
+    return await this.handleMessageResponseAllSockets(
+      async () =>
+        await this.chatService.appendMessage(query.id, query.messageId),
+      {
+        success: {
+          message: 'Append message to room',
+          event: eventResponse,
+        },
+        error: {
+          message: 'Message not appended to room',
+          event: eventResponse,
+        },
+      },
+    );
+  }
+
+  @Token(true)
+  @SubscribeMessage(ChatEvents.RemoveMessage)
+  async removeMessage(@MessageBody() query: { id: string; messageId: string }) {
+    const eventResponse = `${ChatEvents.RemoveMessage}:response`;
+
+    return await this.handleMessageResponseAllSockets(
+      async () =>
+        await this.chatService.removeMessage(query.id, query.messageId),
+      {
+        success: {
+          message: 'Append message to room',
+          event: eventResponse,
+        },
+        error: {
+          message: 'Message not appended to room',
+          event: eventResponse,
         },
       },
     );
