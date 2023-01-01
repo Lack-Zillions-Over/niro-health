@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
+import { ChatRoom } from '@/mongoose/schemas/models/chat/chat-rooms';
 import { ChatUser } from '@/mongoose/schemas/models/chat/chat-users';
 
 export type ChatMessageDocument = HydratedDocument<ChatMessage>;
@@ -16,6 +17,9 @@ export class ChatMessage {
     trim: true,
   })
   cid: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'ChatRoom' })
+  room: ChatRoom;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'ChatUser' })
   author: ChatUser;
