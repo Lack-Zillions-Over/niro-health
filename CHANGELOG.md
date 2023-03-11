@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0-alpha.6](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.5...v1.6.0-alpha.6) (2023-03-11)
+
+
+### Features
+
+* **libs/archive:** conversion of feature for library mode ([6421f84](https://github.com/Lack-Zillions-Over/niro-health/commit/6421f84702faf53e4f5d65d36ad66a4848bedb9c))
+* **libs/bjson:** conversion of feature for library mode ([c47f0b6](https://github.com/Lack-Zillions-Over/niro-health/commit/c47f0b63bf51eb220b9b69a0471b938ce40d909a))
+* **libs/crypto:** conversion of feature for library mode ([90160b1](https://github.com/Lack-Zillions-Over/niro-health/commit/90160b18c4d859ac058a5be24151e481511cecf3))
+* **libs/debug:** conversion of feature for library mode ([4e61f9b](https://github.com/Lack-Zillions-Over/niro-health/commit/4e61f9b7d7b74c330c449320ff8a48792b3ef1e3))
+* **libs/hyperc:** conversion of feature for library mode ([44117fe](https://github.com/Lack-Zillions-Over/niro-health/commit/44117fe6e675b8d174b3780f4b59251934f43fee))
+* **libs/i18n:** conversion of feature for library mode ([9e87118](https://github.com/Lack-Zillions-Over/niro-health/commit/9e8711895a8000f2128fbd52364df38068acb5bc))
+* **libs/jwt:** conversion of feature for library mode ([9e7e6e4](https://github.com/Lack-Zillions-Over/niro-health/commit/9e7e6e430cef94813a2a63fb94fd30b32938d90a))
+* **libs/prop-string:** conversion of feature for library mode ([dd52f95](https://github.com/Lack-Zillions-Over/niro-health/commit/dd52f9597c66f2c7e5e1171444a2c5267fce69c0))
+* **libs/random:** conversion of feature for library mode ([8973c7d](https://github.com/Lack-Zillions-Over/niro-health/commit/8973c7d5d885a693581e296ed3315f02b6c5aab4))
+
+
+### Others
+
+* **launch debug:** added settings for launch application in debug mode ([e7b0597](https://github.com/Lack-Zillions-Over/niro-health/commit/e7b0597949f3091478764b1964413bbdd755d60e))
+
 ## [1.6.0-alpha.5](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.4...v1.6.0-alpha.5) (2023-01-01)
 
 
