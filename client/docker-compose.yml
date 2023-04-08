@@ -9,13 +9,25 @@ services:
       context: .
       dockerfile: Dockerfile
       target: development
+    networks:
+      default:
+        aliases:
+          - frontend
+        ipv4_address: 172.18.0.6
     ports:
       - 3000:3000
     volumes:
       - .:/app
       - /node_modules
     env_file:
-      - ./.env
+      - ./.env.local
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: '172.18.0.0/16'
 
 volumes:
   project_development:
