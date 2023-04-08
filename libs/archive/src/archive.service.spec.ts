@@ -49,7 +49,19 @@ describe('ArchiveService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should be defined', async () => {
+  it('should be defined level compression', async () => {
+    await expect(
+      service.setCompressionLevel('DEFAULT_COMPRESSION'),
+    ).resolves.toBeUndefined();
+  });
+
+  it('should be get level compression', async () => {
+    await expect(service.getCompressionLevel()).resolves.toBe(
+      'DEFAULT_COMPRESSION',
+    );
+  });
+
+  it('should write "testing.gz" with', async () => {
     const writeStream = createWriteStream(
       resolvePathFileDataDir('./testing.gz'),
     );

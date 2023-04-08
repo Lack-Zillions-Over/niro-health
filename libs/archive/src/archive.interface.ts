@@ -1,4 +1,3 @@
-import type { Archiver } from 'archiver';
 import type { ReadStream, WriteStream } from 'fs';
 import type { Readable } from 'stream';
 import type { Response } from 'express';
@@ -11,8 +10,19 @@ export declare namespace Archive {
     version: string;
   }
 
+  export namespace Compression {
+    export type Level =
+      | 'NO_COMPRESSION'
+      | 'BEST_SPEED'
+      | 'BEST_COMPRESSION'
+      | 'DEFAULT_COMPRESSION';
+
+    export type ZLIB_LEVEL = `Z_${Level}`;
+  }
+
   export interface Class {
-    base: Archiver;
+    setCompressionLevel(level: Compression.Level): Promise<void>;
+    getCompressionLevel(): Promise<Compression.Level>;
     joinWithReaders(
       stream: WriteStream | Response,
       readers: Reader[],
