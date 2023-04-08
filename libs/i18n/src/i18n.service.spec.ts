@@ -1,13 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { RedisModule } from '@app/redis';
+import { PropStringModule } from '@app/prop-string';
 import { I18nService } from './i18n.service';
-import { PropStringService } from '@app/prop-string/prop-string.service';
 
 describe('I18nService', () => {
   let service: I18nService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [I18nService, PropStringService],
+      imports: [RedisModule, PropStringModule],
+      providers: [I18nService],
     }).compile();
 
     service = module.get<I18nService>(I18nService);
@@ -62,6 +64,16 @@ describe('I18nService', () => {
     );
   });
 
+  it('should be set the current locale', async () => {
+    await expect(service.defineLocale('en')).resolves.not.toThrow();
+    await expect(
+      service.defineProperty('en', {
+        txt: 'Hello $1',
+      }),
+    ).resolves.not.toThrow();
+    await expect(service.translate('txt', 'John')).resolves.toBe('Hello John');
+  });
+
   it('should be reset all locales', async () => {
     await expect(
       service.defineProperty('en', {
@@ -104,8 +116,8 @@ describe('I18nService', () => {
 
     it('should not be define a property in a not exist locale', async () => {
       await expect(
-        service.defineProperty('pt-br', { hi: 'Hello $1' }),
-      ).rejects.toThrow('Locale pt-br not found!');
+        service.defineProperty('fr', { hi: 'Hello $1' }),
+      ).rejects.toThrow('Locale fr not found!');
     });
   });
 });

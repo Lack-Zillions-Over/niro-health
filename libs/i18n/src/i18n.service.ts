@@ -2,26 +2,24 @@ import { Injectable } from '@nestjs/common';
 
 import * as fs from 'fs';
 import crypto from 'crypto';
-import Redis from 'ioredis';
 import { dirname, resolve } from 'path';
 import { compress, decompress } from 'lzutf8';
 
 import { i18n } from '@app/i18n/i18n.interface';
 import { PropStringService } from '@app/prop-string';
+import { RedisService } from '@app/redis';
 
 @Injectable()
 export class I18nService implements i18n.Class {
-  private _locale: string;
-  private _locales: string[];
-  private _path: string;
-  private _driver: i18n.Drivers;
-  private _client: Redis;
+  private static _locale: string;
+  private static _locales: string[];
+  private static _path: string;
+  private static _driver: i18n.Drivers;
 
-  constructor(private readonly propStringService: PropStringService) {
-    this._client = new Redis(process.env.REDIS_URL, {
-      password: process.env.REDIS_PASSWORD,
-      port: parseInt(process.env.REDIS_PORT),
-    });
+  constructor(
+    private readonly redisService: RedisService,
+    private readonly propStringService: PropStringService,
+  ) {
     this._setDefaultOptions();
     this._initialize();
   }
@@ -36,16 +34,24 @@ export class I18nService implements i18n.Class {
       },
     },
   ) {
-    this._locale = options.locale.main;
-    this._locales = options.locale.languages;
-    this._path = options.locale.path;
-    this._driver = options.locale.driver;
+    if (!I18nService._locale) {
+      I18nService._locale = options.locale.main;
+    }
+    if (!I18nService._locales || !I18nService._locales.length) {
+      I18nService._locales = options.locale.languages;
+    }
+    if (!I18nService._path) {
+      I18nService._path = options.locale.path;
+    }
+    if (!I18nService._driver) {
+      I18nService._driver = options.locale.driver;
+    }
   }
 
   private async _initialize() {
     this._writeRelativeLocalePath();
 
-    for (const locale of this._locales) {
+    for (const locale of I18nService._locales) {
       await this._writeFileLocale(locale);
     }
   }
@@ -72,20 +78,20 @@ export class I18nService implements i18n.Class {
   }
 
   private async _redisSave(key: string, value: string) {
-    return await this._client.set(key, value);
+    return await this.redisService.save(key, value);
   }
 
   private async _redisGet(key: string) {
-    return await this._client.get(key);
+    return await this.redisService.findOne(key);
   }
 
   private async _redisDelete(key: string) {
-    return await this._client.del(key);
+    return await this.redisService.delete(key);
   }
 
   private _writeRelativeLocalePath() {
-    if (this._driver === 'fs') {
-      const path = resolve(dirname(__dirname), `./${this._path}`);
+    if (I18nService._driver === 'fs') {
+      const path = resolve(dirname(__dirname), `./${I18nService._path}`);
 
       if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true });
     }
@@ -94,14 +100,14 @@ export class I18nService implements i18n.Class {
   private _relativeLocalePath(locale?: string) {
     return resolve(
       dirname(__dirname),
-      `./${this._path}`,
-      `./${locale ? locale : this._locale}.txt`,
+      `./${I18nService._path}`,
+      `./${locale ? locale : I18nService._locale}.txt`,
     );
   }
 
   private async _fileLocaleExists() {
-    if (this._driver === 'redis') {
-      if (await this._redisGet(this._redisSerializeKey(this._locale)))
+    if (I18nService._driver === 'redis') {
+      if (await this._redisGet(this._redisSerializeKey(I18nService._locale)))
         return true;
       return false;
     }
@@ -113,25 +119,27 @@ export class I18nService implements i18n.Class {
     const data = { hello: 'Hi $1' };
     const fileRaw = this._compress(data);
 
-    if (this._driver === 'fs') {
+    if (I18nService._driver === 'fs') {
       const filePath = this._relativeLocalePath(locale);
 
       if (!fs.existsSync(filePath))
         return fs.writeFileSync(filePath, fileRaw, { encoding: 'utf8' });
-    } else if (this._driver === 'redis') {
+    } else if (I18nService._driver === 'redis') {
       if (!(await this._redisGet(this._redisSerializeKey(locale))))
         return await this._redisSave(this._redisSerializeKey(locale), fileRaw);
     }
   }
 
   private async _readFileLocale<T>(): Promise<T> {
-    if (this._driver === 'fs') {
+    if (I18nService._driver === 'fs') {
       return this._decompress(
         fs.readFileSync(this._relativeLocalePath(), 'utf8'),
       );
-    } else if (this._driver === 'redis') {
+    } else if (I18nService._driver === 'redis') {
       return this._decompress(
-        await this._redisGet(this._redisSerializeKey(this._locale)),
+        (await this._redisGet(
+          this._redisSerializeKey(I18nService._locale),
+        )) as string,
       );
     }
 
@@ -146,7 +154,7 @@ export class I18nService implements i18n.Class {
     )
       return false;
 
-    if (!this._locales.find((_locale) => _locale === locale))
+    if (!I18nService._locales.find((_locale) => _locale === locale))
       return Promise.reject(new Error(`Locale ${locale} not found!`));
 
     const generateData = async <D, P>(data: D, prop: P) => {
@@ -157,7 +165,7 @@ export class I18nService implements i18n.Class {
       return data;
     };
 
-    if (this._driver === 'fs') {
+    if (I18nService._driver === 'fs') {
       const filePath = this._relativeLocalePath(locale);
 
       let fileData = this._decompress(
@@ -169,9 +177,9 @@ export class I18nService implements i18n.Class {
       return fs.writeFileSync(filePath, this._compress(fileData), {
         encoding: 'utf8',
       });
-    } else if (this._driver === 'redis') {
+    } else if (I18nService._driver === 'redis') {
       let fileData = this._decompress(
-        await this._redisGet(this._redisSerializeKey(locale)),
+        (await this._redisGet(this._redisSerializeKey(locale))) as string,
       );
 
       fileData = await generateData(fileData, prop);
@@ -196,7 +204,7 @@ export class I18nService implements i18n.Class {
       return data;
     };
 
-    if (this._driver === 'fs') {
+    if (I18nService._driver === 'fs') {
       const filePath = this._relativeLocalePath(locale);
 
       let fileData = this._decompress(
@@ -208,9 +216,9 @@ export class I18nService implements i18n.Class {
       return fs.writeFileSync(filePath, this._compress(fileData), {
         encoding: 'utf8',
       });
-    } else if (this._driver === 'redis') {
+    } else if (I18nService._driver === 'redis') {
       let fileData = this._decompress(
-        await this._redisGet(this._redisSerializeKey(locale)),
+        (await this._redisGet(this._redisSerializeKey(locale))) as string,
       );
 
       fileData = await generateData(fileData, ...keys);
@@ -407,11 +415,11 @@ export class I18nService implements i18n.Class {
   }
 
   private async _removeLocaleStore(locale: string) {
-    if (this._driver === 'fs') {
+    if (I18nService._driver === 'fs') {
       const filePath = this._relativeLocalePath(locale);
 
       return fs.unlinkSync(filePath);
-    } else if (this._driver === 'redis') {
+    } else if (I18nService._driver === 'redis') {
       return await this._redisDelete(this._redisSerializeKey(locale));
     }
   }
@@ -423,7 +431,7 @@ export class I18nService implements i18n.Class {
    * "data/locales"
    */
   public setPath(path: string): void {
-    this._path = path;
+    I18nService._path = path;
   }
 
   /**
@@ -433,54 +441,54 @@ export class I18nService implements i18n.Class {
    * "redis"
    */
   public setDriver(driver: i18n.Drivers): void {
-    this._driver = driver;
+    I18nService._driver = driver;
   }
 
   /**
    * @description Add the current locale
    */
   public async addLocale(locale: string) {
-    if (!this._locales.find((_locale) => _locale === locale)) {
+    if (!I18nService._locales.find((_locale) => _locale === locale)) {
       await this._writeFileLocale(locale);
-      this._locales.push(locale);
+      I18nService._locales.push(locale);
     }
 
-    this._locale = locale;
+    I18nService._locale = locale;
   }
 
   /**
    * @description Returns the path folder for locales files
    */
   public getPath(): string {
-    return resolve(dirname(__dirname), `./${this._path}`);
+    return resolve(dirname(__dirname), `./${I18nService._path}`);
   }
 
   /**
    * @description Returns the driver used for store data
    */
   public getDriver(): string {
-    return this._driver;
+    return I18nService._driver;
   }
 
   /**
    * @description Get the current locale
    */
   public getLocale(): string {
-    return this._locale;
+    return I18nService._locale;
   }
 
   /**
    * @description Get all locales
    */
   public getLocales(): string[] {
-    return this._locales;
+    return I18nService._locales;
   }
 
   /**
    * @description Reset all locales
    */
   public async resetLocales(): Promise<void> {
-    for (const locale of this._locales) {
+    for (const locale of I18nService._locales) {
       await this._removeLocaleStore(locale);
       await this._writeFileLocale(locale);
     }
@@ -490,16 +498,27 @@ export class I18nService implements i18n.Class {
    * @description Remove a locale
    */
   public async removeLocale(locale: string): Promise<number | void> {
-    this._locales = this._locales.filter((_locale) => _locale !== locale);
+    I18nService._locales = I18nService._locales.filter(
+      (_locale) => _locale !== locale,
+    );
 
-    if (this._locale === locale) {
-      const index = this._locales.indexOf(locale);
+    if (I18nService._locale === locale) {
+      const index = I18nService._locales.indexOf(locale);
 
-      if (index > 0) this._locale = this._locales[this._locales.length - 1];
-      else this._locale = this._locales[0];
+      if (index > 0)
+        I18nService._locale =
+          I18nService._locales[I18nService._locales.length - 1];
+      else I18nService._locale = I18nService._locales[0];
     }
 
-    return await this._removeLocaleStore(locale);
+    return (await this._removeLocaleStore(locale)) ? 1 : 0;
+  }
+
+  /**
+   * @description Set the current locale
+   */
+  public async defineLocale(locale: string) {
+    return await this.addLocale(locale);
   }
 
   /**
@@ -509,7 +528,7 @@ export class I18nService implements i18n.Class {
     locale: string,
     prop: T,
   ): Promise<false | void | 'OK'> {
-    return await this._definePropFileLocale(locale, prop);
+    return (await this._definePropFileLocale(locale, prop)) ? 'OK' : false;
   }
 
   /**
@@ -519,7 +538,7 @@ export class I18nService implements i18n.Class {
     locale: string,
     ...props: string[]
   ): Promise<false | void | 'OK'> {
-    return await this._removePropFileLocale(locale, ...props);
+    return (await this._removePropFileLocale(locale, ...props)) ? 'OK' : false;
   }
 
   /**
@@ -529,7 +548,7 @@ export class I18nService implements i18n.Class {
     const filePath = this._relativeLocalePath();
 
     if (!(await this._fileLocaleExists()))
-      return `Locale "${this._locale}" not found in locales folder: ${filePath}`;
+      return `Locale "${I18nService._locale}" not found in locales folder: ${filePath}`;
 
     const locale = await this._readFileLocale<Record<string, string>>(),
       value = this.propStringService.execute<

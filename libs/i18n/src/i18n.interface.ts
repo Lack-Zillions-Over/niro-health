@@ -20,6 +20,7 @@ export declare namespace i18n {
     getLocales(): string[];
     resetLocales(): Promise<void>;
     removeLocale(locale: string): Promise<number | void>;
+    defineLocale(locale: string): Promise<void>;
     defineProperty<T>(locale: string, prop: T): Promise<false | void | 'OK'>;
     removeProperty(
       locale: string,
