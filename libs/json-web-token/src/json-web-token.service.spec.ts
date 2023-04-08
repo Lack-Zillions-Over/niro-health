@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigurationModule } from '@app/configuration';
 import { JsonWebTokenService } from './json-web-token.service';
 
 describe('JsonWebTokenService', () => {
@@ -6,6 +7,7 @@ describe('JsonWebTokenService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ConfigurationModule],
       providers: [JsonWebTokenService],
     }).compile();
 

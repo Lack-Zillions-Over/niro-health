@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { sign, verify, JwtPayload } from 'jsonwebtoken';
 
+import { ConfigurationService } from '@app/configuration';
 import { JsonWebToken } from '@app/json-web-token/json-web-token.interface';
 
 @Injectable()
 export class JsonWebTokenService implements JsonWebToken.Class {
+  constructor(private readonly configurationService: ConfigurationService) {}
+
   /**
    * It takes a payload, a secret, and an expiration time, and returns a signed JWT
    * @param payload - The data you want to store in the token.
@@ -18,7 +21,7 @@ export class JsonWebTokenService implements JsonWebToken.Class {
     expiresIn: JsonWebToken.ExpiresIn,
   ) {
     try {
-      return sign(payload, secret || process.env.JWT_SECRET, {
+      return sign(payload, secret || this.configurationService.JWT_SECRET, {
         expiresIn,
       });
     } catch (error) {
@@ -37,7 +40,7 @@ export class JsonWebTokenService implements JsonWebToken.Class {
     secret: string,
   ): P | string | Error {
     try {
-      return verify(token, secret || process.env.JWT_SECRET) as P;
+      return verify(token, secret || this.configurationService.JWT_SECRET) as P;
     } catch (error) {
       return new Error(error);
     }
