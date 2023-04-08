@@ -1,17 +1,7 @@
 import { createHash } from 'crypto';
 import { compress, decompress } from 'lzutf8';
-import Redis from 'ioredis';
 
 abstract class HypercContract {
-  protected client: Redis;
-
-  constructor() {
-    this.client = new Redis(process.env.REDIS_URL, {
-      password: process.env.REDIS_PASSWORD,
-      port: parseInt(process.env.REDIS_PORT),
-    });
-  }
-
   protected serializeIdentifier(identifier: string | number) {
     return createHash('sha256').update(identifier.toString()).digest('hex');
   }

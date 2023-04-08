@@ -2,8 +2,14 @@ import { Injectable } from '@nestjs/common';
 
 import HypercContract from '@app/hyperc/hyperc.contract';
 
+import { RedisService } from '@app/redis';
+
 @Injectable()
 export class HypercService extends HypercContract {
+  constructor(private readonly redisService: RedisService) {
+    super();
+  }
+
   private _nameExpire(identifier: string | number): string {
     return `${this.serializeIdentifier(identifier)}-expire`;
   }
@@ -14,7 +20,9 @@ export class HypercService extends HypercContract {
 
   private async _isExpired(identifier: string | number): Promise<boolean> {
     try {
-      const expire = await this.client.get(this._nameExpire(identifier));
+      const expire = await this.redisService.findOne(
+        this._nameExpire(identifier),
+      );
       return expire ? Date.now() > Number(expire) : true;
     } catch (e) {
       return true;
@@ -31,7 +39,7 @@ export class HypercService extends HypercContract {
     ttl: number,
   ): Promise<boolean> {
     try {
-      await this.client.set(
+      await this.redisService.save(
         this._nameExpire(identifier),
         String(Date.now() + ttl),
       );
@@ -59,7 +67,7 @@ export class HypercService extends HypercContract {
         return false;
       }
 
-      await this.client.set(
+      await this.redisService.save(
         this._nameKey(identifier, key),
         this.compress<T>(value),
       );
@@ -85,8 +93,10 @@ export class HypercService extends HypercContract {
         return null;
       }
 
-      const value = await this.client.get(this._nameKey(identifier, key));
-      return this.decompress<T>(value);
+      const value = await this.redisService.findOne(
+        this._nameKey(identifier, key),
+      );
+      return this.decompress<T>(value as string);
     } catch (e) {
       return null;
     }
@@ -99,7 +109,7 @@ export class HypercService extends HypercContract {
    */
   public async del(identifier: string | number, key: string): Promise<boolean> {
     try {
-      await this.client.del(this._nameKey(identifier, key));
+      await this.redisService.delete(this._nameKey(identifier, key));
       return true;
     } catch (e) {
       return false;
@@ -112,10 +122,10 @@ export class HypercService extends HypercContract {
    */
   public async flush(identifier: string | number): Promise<boolean> {
     try {
-      const keys = await this.client.keys(
+      const keys = await this.redisService.keys(
         `${this.serializeIdentifier(identifier)}-*`,
       );
-      for await (const key of keys) await this.client.del(key);
+      for await (const key of keys) await this.redisService.delete(key);
       return true;
     } catch (e) {
       return false;
@@ -129,7 +139,7 @@ export class HypercService extends HypercContract {
    */
   public async flushAll(): Promise<boolean> {
     try {
-      await this.client.flushall();
+      await this.redisService.flushall();
       return true;
     } catch (e) {
       return false;

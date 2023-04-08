@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HypercService } from './hyperc.service';
+import { RedisModule } from '@app/redis';
 
 jest.mock('ioredis', () => jest.requireActual('@test/mocks/ioredis'));
 
@@ -8,6 +9,7 @@ describe('HypercService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [RedisModule],
       providers: [HypercService],
     }).compile();
 
