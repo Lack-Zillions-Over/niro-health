@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { RandomString } from '@app/random/random-string.interface';
+import { RandomString } from '@app/random/random.interface';
 import { StringExService } from '@app/string-ex/string-ex.service';
 import { StringEx } from '@app/string-ex/string-ex.interface';
 

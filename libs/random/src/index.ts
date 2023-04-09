@@ -1,2 +1,2 @@
-export * from './random-string.module';
-export * from './random-string.service';
+export * from './random.module';
+export * from './random.service';

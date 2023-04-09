@@ -1,17 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RandomStringService } from '@app/random/random-string.service';
+import { RandomStringService } from '@app/random';
 import { StringExService } from '@app/string-ex/string-ex.service';
-import { ValidateUUID } from '@app/string-ex/validators/uuid.validator';
+import { ValidatorRegexpService } from '@app/validator-regexp';
 
 describe('RandomStringService', () => {
   let service: RandomStringService;
+  let validatorRegexpService: ValidatorRegexpService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [RandomStringService, StringExService],
+      providers: [RandomStringService, StringExService, ValidatorRegexpService],
     }).compile();
 
     service = module.get<RandomStringService>(RandomStringService);
+    validatorRegexpService = module.get<ValidatorRegexpService>(
+      ValidatorRegexpService,
+    );
   });
 
   it('should be defined', () => {
@@ -37,8 +41,9 @@ describe('RandomStringService', () => {
 
   it('should be returns a random string format of UUID', () => {
     const uuid = service.uuid();
+    const check = () => validatorRegexpService.string(uuid).uuid();
     expect(uuid).toHaveLength(36);
-    expect(ValidateUUID(uuid)).toBe(true);
+    expect(check).not.toThrow();
   });
 
   describe('Tests with hash', () => {
