@@ -1,5 +1,299 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "src",
+  "projects": {
+    "crypto": {
+      "type": "library",
+      "root": "libs/crypto",
+      "entryFile": "index",
+      "sourceRoot": "libs/crypto/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/crypto/tsconfig.lib.json"
+      }
+    },
+    "i18n": {
+      "type": "library",
+      "root": "libs/i18n",
+      "entryFile": "index",
+      "sourceRoot": "libs/i18n/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/i18n/tsconfig.lib.json"
+      }
+    },
+    "string-ex": {
+      "type": "library",
+      "root": "libs/string-ex",
+      "entryFile": "index",
+      "sourceRoot": "libs/string-ex/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/string-ex/tsconfig.lib.json"
+      }
+    },
+    "prop-string": {
+      "type": "library",
+      "root": "libs/prop-string",
+      "entryFile": "index",
+      "sourceRoot": "libs/prop-string/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/prop-string/tsconfig.lib.json"
+      }
+    },
+    "bjson": {
+      "type": "library",
+      "root": "libs/bjson",
+      "entryFile": "index",
+      "sourceRoot": "libs/bjson/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/bjson/tsconfig.lib.json"
+      }
+    },
+    "debug": {
+      "type": "library",
+      "root": "libs/debug",
+      "entryFile": "index",
+      "sourceRoot": "libs/debug/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/debug/tsconfig.lib.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    },
+    "archive": {
+      "type": "library",
+      "root": "libs/archive",
+      "entryFile": "index",
+      "sourceRoot": "libs/archive/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/archive/tsconfig.lib.json"
+      }
+    },
+    "hyperc": {
+      "type": "library",
+      "root": "libs/hyperc",
+      "entryFile": "index",
+      "sourceRoot": "libs/hyperc/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/hyperc/tsconfig.lib.json"
+      }
+    },
+    "json-web-token": {
+      "type": "library",
+      "root": "libs/json-web-token",
+      "entryFile": "index",
+      "sourceRoot": "libs/json-web-token/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/json-web-token/tsconfig.lib.json"
+      }
+    },
+    "email": {
+      "type": "library",
+      "root": "libs/email",
+      "entryFile": "index",
+      "sourceRoot": "libs/email/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/email/tsconfig.lib.json"
+      }
+    },
+    "aws-configuration": {
+      "type": "library",
+      "root": "libs/aws-configuration",
+      "entryFile": "index",
+      "sourceRoot": "libs/aws-configuration/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/aws-configuration/tsconfig.lib.json"
+      }
+    },
+    "random": {
+      "type": "library",
+      "root": "libs/random",
+      "entryFile": "index",
+      "sourceRoot": "libs/random/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/random/tsconfig.lib.json"
+      }
+    },
+    "similarity-filter": {
+      "type": "library",
+      "root": "libs/similarity-filter",
+      "entryFile": "index",
+      "sourceRoot": "libs/similarity-filter/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/similarity-filter/tsconfig.lib.json"
+      }
+    },
+    "aws-ec2": {
+      "type": "library",
+      "root": "libs/aws-ec2",
+      "entryFile": "index",
+      "sourceRoot": "libs/aws-ec2/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/aws-ec2/tsconfig.lib.json"
+      }
+    },
+    "aws-sts": {
+      "type": "library",
+      "root": "libs/aws-sts",
+      "entryFile": "index",
+      "sourceRoot": "libs/aws-sts/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/aws-sts/tsconfig.lib.json"
+      }
+    },
+    "configuration": {
+      "type": "library",
+      "root": "libs/configuration",
+      "entryFile": "index",
+      "sourceRoot": "libs/configuration/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/configuration/tsconfig.lib.json"
+      }
+    },
+    "bootstrap": {
+      "type": "library",
+      "root": "libs/bootstrap",
+      "entryFile": "index",
+      "sourceRoot": "libs/bootstrap/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/bootstrap/tsconfig.lib.json"
+      }
+    },
+    "validator-regexp": {
+      "type": "library",
+      "root": "libs/validator-regexp",
+      "entryFile": "index",
+      "sourceRoot": "libs/validator-regexp/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/validator-regexp/tsconfig.lib.json"
+      }
+    },
+    "aws-core": {
+      "type": "library",
+      "root": "libs/aws-core",
+      "entryFile": "index",
+      "sourceRoot": "libs/aws-core/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/aws-core/tsconfig.lib.json"
+      }
+    },
+    "core": {
+      "type": "library",
+      "root": "libs/core",
+      "entryFile": "index",
+      "sourceRoot": "libs/core/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/core/tsconfig.lib.json"
+      }
+    },
+    "files": {
+      "type": "library",
+      "root": "libs/files",
+      "entryFile": "index",
+      "sourceRoot": "libs/files/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/files/tsconfig.lib.json"
+      }
+    },
+    "sqlite": {
+      "type": "library",
+      "root": "libs/sqlite",
+      "entryFile": "index",
+      "sourceRoot": "libs/sqlite/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/sqlite/tsconfig.lib.json"
+      }
+    },
+    "websockets": {
+      "type": "library",
+      "root": "libs/websockets",
+      "entryFile": "index",
+      "sourceRoot": "libs/websockets/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/websockets/tsconfig.lib.json"
+      }
+    },
+    "mongoose": {
+      "type": "library",
+      "root": "libs/mongoose",
+      "entryFile": "index",
+      "sourceRoot": "libs/mongoose/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mongoose/tsconfig.lib.json"
+      }
+    },
+    "users": {
+      "type": "library",
+      "root": "libs/users",
+      "entryFile": "index",
+      "sourceRoot": "libs/users/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/users/tsconfig.lib.json"
+      }
+    },
+    "date-ex": {
+      "type": "library",
+      "root": "libs/date-ex",
+      "entryFile": "index",
+      "sourceRoot": "libs/date-ex/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/date-ex/tsconfig.lib.json"
+      }
+    },
+    "schedules": {
+      "type": "library",
+      "root": "libs/schedules",
+      "entryFile": "index",
+      "sourceRoot": "libs/schedules/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/schedules/tsconfig.lib.json"
+      }
+    },
+    "private-keys": {
+      "type": "library",
+      "root": "libs/private-keys",
+      "entryFile": "index",
+      "sourceRoot": "libs/private-keys/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/private-keys/tsconfig.lib.json"
+      }
+    },
+    "file-gridfs": {
+      "type": "library",
+      "root": "libs/file-gridfs",
+      "entryFile": "index",
+      "sourceRoot": "libs/file-gridfs/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/file-gridfs/tsconfig.lib.json"
+      }
+    },
+    "aws-s3": {
+      "type": "library",
+      "root": "libs/aws-s3",
+      "entryFile": "index",
+      "sourceRoot": "libs/aws-s3/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/aws-s3/tsconfig.lib.json"
+      }
+    },
+    "localpath": {
+      "type": "library",
+      "root": "libs/localpath",
+      "entryFile": "index",
+      "sourceRoot": "libs/localpath/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/localpath/tsconfig.lib.json"
+      }
+    }
+  },
+  "compilerOptions": {
+    "webpack": false,
+    "tsConfigPath": "tsconfig.build.json"
+  }
 }

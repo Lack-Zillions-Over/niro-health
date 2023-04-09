@@ -1,4 +1,4 @@
-ARG NODE_VERSION=18-alpine
+ARG NODE_VERSION=18.15.0
 
 #################
 ## DEVELOPMENT ##
@@ -22,7 +22,7 @@ RUN yarn build
 ################
 FROM node:${NODE_VERSION} AS production
 
-ARG NODE_ENV=production
+ARG NODE_ENV=local
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /app
@@ -31,4 +31,4 @@ COPY --from=development /app/ .
 
 EXPOSE ${PORT}
 
-CMD [ "node", "dist/main" ]
+CMD ["node", "dist/src/main"]

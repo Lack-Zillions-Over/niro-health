@@ -1,4 +1,7 @@
 node_modules
+client
+dist
+setup
 .github
 .idea
 .dist

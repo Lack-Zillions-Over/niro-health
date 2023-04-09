@@ -6,7 +6,7 @@ services:
     image: postgres:latest
     restart: always
     networks:
-      project_development:
+      default:
         aliases:
           - postgres
         ipv4_address: 172.18.0.3
@@ -24,7 +24,7 @@ services:
     image: mongo:latest
     restart: always
     networks:
-      project_development:
+      default:
         aliases:
           - mongodb
         ipv4_address: 172.18.0.4
@@ -40,7 +40,7 @@ services:
     image: redis:latest
     restart: always
     networks:
-      project_development:
+      default:
         aliases:
           - redis
         ipv4_address: 172.18.0.5
@@ -59,13 +59,13 @@ services:
       - postgres
       - mongodb
       - redis
-    command: yarn start:debug
+    command: yarn start:dev
     build:
       context: .
       dockerfile: Dockerfile
       target: development
     networks:
-      project_development:
+      default:
         aliases:
           - backend
         ipv4_address: 172.18.0.2
@@ -75,14 +75,11 @@ services:
     volumes:
       - .:/app
       - /node_modules
-      - ./src/core/libs/locales:/app/dist/core/libs/locales
-      - ./src/core/libs/templates:/app/dist/core/libs/templates
-      - ./src/project.config.json:/app/dist/project.config.json
     env_file:
-      - ./.env
+      - ./.env.local
 
 networks:
-  project_development:
+  default:
     ipam:
       driver: default
       config:

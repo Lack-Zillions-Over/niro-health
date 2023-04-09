@@ -1,3 +1,9 @@
+env:
+	@bash setup/env.sh
+
+build-package:
+	@bash setup/build-package.sh
+
 database:
 	docker compose -f docker-compose.yml up -d postgres
 	docker compose -f docker-compose.yml up -d mongodb

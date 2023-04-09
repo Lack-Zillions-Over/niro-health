@@ -3,7 +3,11 @@
 # compiled output
 /dist
 /uploads
+/locales
 configmap.yml
+crypto.data
+*.sqlite
+
 # Security
 .env
 .*env
@@ -56,6 +60,7 @@ configmap.yml
 
 # production
 */**/build
+*/**/locales
 
 # misc
 .DS_Store
