@@ -1,14 +1,38 @@
 import { Controller, Get } from '@nestjs/common';
+import { AppService } from '@/app.service';
 
 @Controller('app')
 export class AppController {
-  @Get('author')
-  async author() {
-    return '@GuilhermeSantos001';
+  constructor(private readonly appService: AppService) {}
+
+  get author() {
+    return this.appService.author();
   }
 
-  @Get('credits')
-  async credits() {
-    return `Niro Health ©2022 Created by ${await this.author()}`;
+  get repository() {
+    return 'https://github.com/Lack-Zillions-Over/niro-health';
+  }
+
+  get license() {
+    return 'https://github.com/Lack-Zillions-Over/niro-health/blob/main/LICENSE';
+  }
+
+  get credits() {
+    return this.appService.credits();
+  }
+
+  get version() {
+    return this.appService.version();
+  }
+
+  @Get()
+  info() {
+    return {
+      author: this.author,
+      repository: this.repository,
+      license: this.license,
+      credits: this.credits,
+      version: this.version,
+    };
   }
 }
