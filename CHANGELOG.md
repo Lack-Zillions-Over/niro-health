@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0...v1.7.0) (2023-04-09)
+
+
+### Features
+
+* **bootstrap:** writed module for initialize project ([7cf7eb6](https://github.com/Lack-Zillions-Over/niro-health/commit/7cf7eb6cfdddf1032a9f6a6dee8b9f5abaef59e3))
+
+
+### Code Refactoring
+
+* **core:** refactor module core for lib ([fc560fe](https://github.com/Lack-Zillions-Over/niro-health/commit/fc560fe819b0a03d166b38f141d75c2de3f17f29))
+
 ## [1.6.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.6...v1.6.0) (2023-04-09)
 
 
