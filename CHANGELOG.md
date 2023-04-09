@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.6...v1.6.0) (2023-04-09)
+
+
+### Features
+
+* **aws-configuration:** improve encapsulation of AWS configuration ([9ae2f13](https://github.com/Lack-Zillions-Over/niro-health/commit/9ae2f132e76fabcd2a92d4215ff83dabc44598fa))
+* **aws-core:** new class implemented to help build new AWS modules ([ffc9f2f](https://github.com/Lack-Zillions-Over/niro-health/commit/ffc9f2f9cc94a0781430633d694721e778ba776f))
+* **aws-ec2:** it is now possible to interact with instances in the cloud ([8ca2e3b](https://github.com/Lack-Zillions-Over/niro-health/commit/8ca2e3b7b9a4c8ada3c68cf15c43e0130ba7b85c))
+* **aws-s3:** it is now possible to interact with buckets in the cloud ([a94e9fd](https://github.com/Lack-Zillions-Over/niro-health/commit/a94e9fd72832d4c9854971b6c49c58691cda070a))
+* **aws-sts:** class that manages AWS Security Token Service credentials and roles ([22685f0](https://github.com/Lack-Zillions-Over/niro-health/commit/22685f0387fd1ab14cd0d05fe20c5fdd7c5d55e8))
+* **configuration:** bringing flexibility and security in the interaction with environment variables ([b02a386](https://github.com/Lack-Zillions-Over/niro-health/commit/b02a386c11ab7884cf16899002b8467bfc2619d4))
+* **date-ex:** provides utility functions for working with dates ([5fdca28](https://github.com/Lack-Zillions-Over/niro-health/commit/5fdca280dc4a857e8054101fbbe8505210e2cb6f))
+* **email:** provides a service for sending e-mails with customized layouts ([de6de22](https://github.com/Lack-Zillions-Over/niro-health/commit/de6de2206fa7e2f4b133b44e65f108882251a9a3))
+* **file-gridfs:** module for storing/retrieving files from MongoDB ([37adc87](https://github.com/Lack-Zillions-Over/niro-health/commit/37adc87b11e65cc679ddcb07752fa57c57478061))
+* **hyperc:** this module implements a caching service using Redis ([76ca461](https://github.com/Lack-Zillions-Over/niro-health/commit/76ca461c48189ad60cfc32c6428bb880601351f1))
+* **localpath:** provides functions for normalize path for local dir project ([161227e](https://github.com/Lack-Zillions-Over/niro-health/commit/161227e0a980a344a8f71b55ae8a4b1fca8abf45))
+* **redis:** method for connect with Redis ([391ba7e](https://github.com/Lack-Zillions-Over/niro-health/commit/391ba7e7003a07241ec89b31b0413f71c90fb020))
+* **similarity-filter:** method used for compare two objects ([4c32d76](https://github.com/Lack-Zillions-Over/niro-health/commit/4c32d760a479f668e51f3342eadd0b86cc9c3ec5))
+* **sqlite:** provides functions for connect with SQLite ([df2f480](https://github.com/Lack-Zillions-Over/niro-health/commit/df2f48027556d5e2717e3162813718562e95ef51))
+* **string-ex:** provides methods for strings ([83784dc](https://github.com/Lack-Zillions-Over/niro-health/commit/83784dc5b2fc93239463499e562bad767e342951))
+* **validator-regexp:** provides methods for validate string, numbers, uuid, uri and others values ([7cda205](https://github.com/Lack-Zillions-Over/niro-health/commit/7cda205f82ecbf18b4c5f21900e75d3380729168))
+
+
+### Code Refactoring
+
+* **archive:** adds method to set compression level and makes properties private ([d480ade](https://github.com/Lack-Zillions-Over/niro-health/commit/d480ade67db6e50037739ca58eca3d83683e61d4))
+* **core:** move module for libs ([71406ed](https://github.com/Lack-Zillions-Over/niro-health/commit/71406edbb67811c2ab997490c05e00da21f06d5c))
+* **crypto:** it is now possible to choose the File System driver ([bfff1d1](https://github.com/Lack-Zillions-Over/niro-health/commit/bfff1d1c1906e76751416b3dbcdb927f4930b5c8))
+* **debug:** refactor module for use Logger of Nest.js ([ff4e78f](https://github.com/Lack-Zillions-Over/niro-health/commit/ff4e78f5e435929e5d6ac1781a05ebb5318a4029))
+* **i18n:** provides methods for setting the path and driver used for storing the i18n data ([ce549f7](https://github.com/Lack-Zillions-Over/niro-health/commit/ce549f717f4d0fac54b0cb58297a0fcaf6325659))
+* **json-web-token:** add configuration service for get process environment variables ([d99ebbd](https://github.com/Lack-Zillions-Over/niro-health/commit/d99ebbd6122f5af625854e212c987b7f171db647))
+* **random:** writed interface and tests ([17f8fb0](https://github.com/Lack-Zillions-Over/niro-health/commit/17f8fb003c88b20db883329d8cfdf4b6be7647a9))
+
+
+### Build System
+
+* **docker:** updated docker image and compose in client ([92d1aae](https://github.com/Lack-Zillions-Over/niro-health/commit/92d1aaecb53c71e1b18c7d461174909471986c6e))
+* **project build:** update package build, docker image and create shell scripts for variables ([e5b0219](https://github.com/Lack-Zillions-Over/niro-health/commit/e5b0219d5e7cac6e00be5bc2b65750b37732dbc7))
+
+
+### Tests
+
+* **project tests:** writed mocks, setup and variables ([05bfe8a](https://github.com/Lack-Zillions-Over/niro-health/commit/05bfe8acbb8032527e2a5e8a8101ea8e9478df98))
+
 ## [1.6.0-alpha.6](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0-alpha.5...v1.6.0-alpha.6) (2023-03-11)
 
 
