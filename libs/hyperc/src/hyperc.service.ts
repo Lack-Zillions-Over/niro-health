@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { HypercContract } from '@app/hyperc';
+import { HypercContract } from './hyperc.interface';
 
 import type { IRedisService } from '@app/core/redis/redis.interface';
 
