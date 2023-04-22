@@ -7,10 +7,14 @@ import * as Sugar from 'sugar';
 import { createHash } from 'crypto';
 import { hash, compare } from 'bcrypt';
 
-import { StringEx } from '@app/string-ex/string-ex.interface';
+import {
+  IStringExService,
+  CompressData,
+  MaskPhoneType,
+} from '@app/string-ex/string-ex.interface';
 
 @Injectable()
-export class StringExService implements StringEx.Class {
+export class StringExService implements IStringExService {
   /**
    * @description Compresses a string to EncodedURIComponent
    */
@@ -28,7 +32,7 @@ export class StringExService implements StringEx.Class {
   /**
    * @description Compresses a {string | Uint8Array | Buffer} to base64
    */
-  public compress<Type>(data: Type | string | Uint8Array | Buffer) {
+  public compress(data: CompressData) {
     if (
       !Buffer.isBuffer(data) ||
       data instanceof Uint8Array === false ||
@@ -45,9 +49,7 @@ export class StringExService implements StringEx.Class {
   /**
    * @description Decompresses a string from base64 to {Type | string | Uint8Array | Buffer}
    */
-  public decompress<Type>(
-    encoded: string,
-  ): Type | string | Uint8Array | Buffer {
+  public decompress(encoded: string): CompressData {
     const exec = (run) => {
       try {
         return run();
@@ -147,7 +149,7 @@ export class StringExService implements StringEx.Class {
   /**
    * @description Convert a string to phone pretty
    */
-  public maskPhone(value: string, type: StringEx.MaskPhoneType): string {
+  public maskPhone(value: string, type: MaskPhoneType): string {
     switch (type) {
       case 'cell':
         return value
