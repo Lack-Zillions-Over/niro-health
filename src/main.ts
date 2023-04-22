@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/app.module';
 import { Logger } from '@nestjs/common';
+import { AppHostModule, AppHostService } from '@app/app-host';
 import { BootstrapModule, BootstrapService } from '@app/bootstrap';
 
 (async function bootstrap() {
@@ -10,7 +11,6 @@ import { BootstrapModule, BootstrapService } from '@app/bootstrap';
     }),
     cors: true,
   });
-  await app.init();
-  app.select(BootstrapModule).get(BootstrapService).app = app;
+  app.select(AppHostModule).get(AppHostService).setApp(app);
   app.select(BootstrapModule).get(BootstrapService).main();
 })();

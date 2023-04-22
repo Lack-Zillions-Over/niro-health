@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigurationService } from '@app/configuration';
+import { Inject, Injectable } from '@nestjs/common';
+import type { IConfigurationService } from '@app/configuration';
 @Injectable()
 export class AppService {
-  constructor(private readonly configurationService: ConfigurationService) {}
+  constructor(
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
+  ) {}
 
   author() {
     return `GuilhermeSantos001`;

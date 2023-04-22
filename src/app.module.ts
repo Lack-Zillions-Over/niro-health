@@ -3,44 +3,49 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { BullModule } from '@nestjs/bull';
 
-// import { AuthorizationMiddleware } from '@/core/middlewares/authorization.middleware';
+import { AuthorizationMiddleware } from '@app/core/middlewares/authorization.middleware';
 
 import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 
 // import { CoreModule } from '@/core/core.module';
 // import { WebSocketModule } from '@/websockets/websocket.module';
-// import { PrivateKeysModule } from '@/privateKeys/privateKeys.module';
-// import { UsersModule } from '@/users/users.module';
-// import { FilesModule } from '@/files/files.module';
 
 // import { MongooseAppModule } from '@/mongoose/mongoose.module';
 // import MongoDbURL from '@/core/common/functions/MongoDbURL';
 
-import { CoreModule } from '@app/core';
-import { ConfigurationService } from '@app/configuration';
+import { AppHostModule } from '@app/app-host';
 import { BootstrapModule } from '@app/bootstrap';
-import { DebugService } from '@app/debug';
+import { PrivateKeysModule } from '@app/private-keys';
+import { UsersModule } from '@app/users';
+import { FilesModule } from '@app/files';
+import { SchedulesModule } from '@app/schedules';
+
+import { ConfigurationService } from '@app/configuration';
 import { ValidatorRegexpService } from '@app/validator-regexp';
 import { StringExService } from '@app/string-ex';
-// import { SchedulesModule } from '@app/schedules';
-// import { UsersModule } from '@app/users';
+import { i18nService } from '@app/i18n';
+import { RedisService } from '@app/core/redis/redis.service';
+import { PropStringService } from '@app/prop-string';
+import { DebugService } from '@app/debug';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    BullModule.forRoot({
+    BullModule.forRoot('users-queues', {
       url: process.env.REDIS_HOST,
       redis: {
         password: process.env.REDIS_PASSWORD,
       },
     }),
+    AppHostModule,
     BootstrapModule,
-    CoreModule,
-    // SchedulesModule,
-    // UsersModule,
+    SchedulesModule,
+    PrivateKeysModule,
+    UsersModule,
+    FilesModule,
     // MongooseModule.forRoot(
     //   MongoDbURL({
     //     username: process.env.MONGODB_USERNAME,
@@ -54,21 +59,24 @@ import { StringExService } from '@app/string-ex';
     // ),
     // MongooseAppModule,
     // WebSocketModule,
-    // PrivateKeysModule,
-    // UsersModule,
-    // FilesModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    ConfigurationService,
-    DebugService,
-    ValidatorRegexpService,
-    StringExService,
+    { provide: 'IConfigurationService', useClass: ConfigurationService },
+    { provide: 'IValidatorRegexpService', useClass: ValidatorRegexpService },
+    { provide: 'IStringExService', useClass: StringExService },
+    { provide: 'Ii18nService', useClass: i18nService },
+    { provide: 'IPropStringService', useClass: PropStringService },
+    { provide: 'IRedisService', useClass: RedisService },
+    { provide: 'IDebugService', useClass: DebugService },
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    // consumer.apply(AuthorizationMiddleware).forRoutes('api');
+    consumer
+      .apply(AuthorizationMiddleware)
+      .exclude('(.*)/private-keys/master-key')
+      .forRoutes('api');
   }
 }
