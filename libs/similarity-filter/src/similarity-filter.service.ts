@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
-import { SimilarityFilter } from '@app/similarity-filter/similarity-filter.interface';
-import { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
+import type { ISimilarityFilterService, Type } from '@app/similarity-filter';
+import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
 
 import * as _ from 'lodash';
 
 @Injectable()
-export class SimilarityFilterService implements SimilarityFilter.Class {
+export class SimilarityFilterService implements ISimilarityFilterService {
   public execute<Source>(
     filter: RecursivePartial<Source>,
     source: Source,
-    similarity?: SimilarityFilter.Type,
+    similarity?: Type,
   ): boolean {
     const optionsEqual = [];
     let response = false;
