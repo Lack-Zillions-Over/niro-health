@@ -254,7 +254,7 @@ describe('ConfigurationService', () => {
   });
 
   it('should be defined SMTP_PASSWORD', () => {
-    expect(service.SMTP_PASSWORD).toBe('P9F0sVYNl4htqfH2');
+    expect(service.SMTP_PASSWORD).toBe('S3nh@Fort3!');
     expect(typeof service.SMTP_PASSWORD).toBe('string');
   });
 });
