@@ -1,10 +1,14 @@
+import { Test, TestingModule } from '@nestjs/testing';
+
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { Test, TestingModule } from '@nestjs/testing';
 import { FileGridfsService } from './file-gridfs.service';
-import { ConfigurationModule } from '@app/configuration';
-import { MongoDBModule } from '@app/core/mongodb/mongodb.module';
+import { ConfigurationService } from '@app/configuration';
+import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex';
+import { MongoDBService } from '@app/core/mongodb/mongodb.service';
+import { DebugService } from '@app/debug';
 
 jest.mock('mongoose', () => jest.requireActual('@test/mocks/mongoose'));
 jest.mock('mongodb', () => jest.requireActual('@test/mocks/mongodb'));
@@ -14,8 +18,17 @@ describe('FileGridfsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigurationModule, MongoDBModule],
-      providers: [FileGridfsService],
+      providers: [
+        FileGridfsService,
+        { provide: 'IConfigurationService', useClass: ConfigurationService },
+        {
+          provide: 'IValidatorRegexpService',
+          useClass: ValidatorRegexpService,
+        },
+        { provide: 'IStringExService', useClass: StringExService },
+        { provide: 'IMongoDBService', useClass: MongoDBService },
+        { provide: 'IDebugService', useClass: DebugService },
+      ],
     }).compile();
 
     service = module.get<FileGridfsService>(FileGridfsService);

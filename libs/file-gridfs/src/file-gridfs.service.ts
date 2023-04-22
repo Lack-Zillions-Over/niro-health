@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { constants, Gzip, Gunzip, createGzip, createGunzip } from 'zlib';
 import { promisify } from 'util';
 import { pipeline } from 'stream';
@@ -12,18 +12,29 @@ import {
   ObjectId,
 } from 'mongodb';
 
-import { FileGridfs } from '@app/file-gridfs/file-gridfs.interface';
-import { ConfigurationService } from '@app/configuration';
-import { MongoDBService } from '@app/core/mongodb/mongodb.service';
+import type {
+  IFileGridfsService,
+  Delete,
+  FileGridFSMetadataFileType,
+  GetDownloadStream,
+  GetVersion,
+  OpenDownloadStream,
+  OpenUploadStream,
+  ReadStreamType,
+  Rename,
+} from '@app/file-gridfs';
+import type { IConfigurationService } from '@app/configuration';
+import type { IMongoDBService } from '@app/core/mongodb/mongodb.interface';
 
 @Injectable()
-export class FileGridfsService implements FileGridfs.Class {
+export class FileGridfsService implements IFileGridfsService {
   constructor(
-    private readonly configurationService: ConfigurationService,
-    private readonly mongoDBService: MongoDBService,
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
+    @Inject('IMongoDBService') private readonly mongoDBService: IMongoDBService,
   ) {}
 
-  private dbName() {
+  private get dbName() {
     return this.mongoDBService.getDB(
       this.configurationService.MONGODB_GRIDFS_NAME ||
         this.configurationService.MONGODB_NAME,
@@ -36,11 +47,11 @@ export class FileGridfsService implements FileGridfs.Class {
    * @param metadata {FileGridFSMetadataFileType} - Metadata of file
    */
   public async openUploadStream(
-    stream: FileGridfs.ReadStreamType,
-    metadata: FileGridfs.FileGridFSMetadataFileType,
-  ): FileGridfs.OpenUploadStream {
+    stream: ReadStreamType,
+    metadata: FileGridFSMetadataFileType,
+  ): OpenUploadStream {
     try {
-      const bucket = new GridFSBucket(this.dbName() as Db),
+      const bucket = new GridFSBucket(this.dbName as Db),
         streamBucket = bucket.openUploadStream(
           `${String(metadata.filename).trim()}${String(
             metadata.fileext,
@@ -58,7 +69,7 @@ export class FileGridfsService implements FileGridfs.Class {
       const pipe = promisify(pipeline);
 
       try {
-        await pipe<FileGridfs.ReadStreamType, Gzip, GridFSBucketWriteStream>(
+        await pipe<ReadStreamType, Gzip, GridFSBucketWriteStream>(
           stream,
           createGzip({ level: constants.Z_BEST_COMPRESSION }),
           streamBucket,
@@ -94,9 +105,9 @@ export class FileGridfsService implements FileGridfs.Class {
     stream: WriteStream | Response,
     fileId: ObjectId,
     decompress?: boolean,
-  ): FileGridfs.OpenDownloadStream {
+  ): OpenDownloadStream {
     try {
-      const bucket = new GridFSBucket(this.dbName() as Db),
+      const bucket = new GridFSBucket(this.dbName as Db),
         streamBucket = bucket.openDownloadStream(fileId);
 
       if (!decompress) {
@@ -129,11 +140,9 @@ export class FileGridfsService implements FileGridfs.Class {
    * @description Return Stream(GridFSBucketReadStream) for reading data in database.
    * @param fileId {ObjectId} - ObjectId of file
    */
-  public async getDownloadStream(
-    fileId: ObjectId,
-  ): FileGridfs.GetDownloadStream {
+  public async getDownloadStream(fileId: ObjectId): GetDownloadStream {
     try {
-      const bucket = new GridFSBucket(this.dbName() as Db),
+      const bucket = new GridFSBucket(this.dbName as Db),
         streamBucket = bucket.openDownloadStream(fileId);
 
       return streamBucket;
@@ -154,9 +163,9 @@ export class FileGridfsService implements FileGridfs.Class {
     authorId: string,
     filename: string,
     fileext: string,
-  ): FileGridfs.GetVersion {
+  ): GetVersion {
     try {
-      const bucket = new GridFSBucket(this.dbName() as Db),
+      const bucket = new GridFSBucket(this.dbName as Db),
         files = await bucket
           .find({
             filename: `${String(filename).trim()}${String(fileext).trim()}`,
@@ -192,9 +201,9 @@ export class FileGridfsService implements FileGridfs.Class {
     filename: string,
     fileext: string,
     name: string,
-  ): FileGridfs.Rename {
+  ): Rename {
     try {
-      const bucket = new GridFSBucket(this.dbName() as Db),
+      const bucket = new GridFSBucket(this.dbName as Db),
         files = await bucket
           .find({
             filename: `${String(filename).trim()}${String(fileext).trim()}`,
@@ -226,9 +235,9 @@ export class FileGridfsService implements FileGridfs.Class {
     filename: string,
     fileext: string,
     version: number,
-  ): FileGridfs.Delete {
+  ): Delete {
     try {
-      const bucket = new GridFSBucket(this.dbName() as Db),
+      const bucket = new GridFSBucket(this.dbName as Db),
         files = await bucket
           .find({
             filename: `${String(filename).trim()}${String(fileext).trim()}`,
