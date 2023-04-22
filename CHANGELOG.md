@@ -2,6 +2,72 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.7.0...v1.8.0) (2023-04-22)
+
+
+### Features
+
+* **app-host:** provides access to instance of application (app) ([f0a1393](https://github.com/Lack-Zillions-Over/niro-health/commit/f0a1393366d94e1697eccbeed29217e95d1b4c63))
+* **files:** module for handling file upload/download locally, aws and mongodb ([5474406](https://github.com/Lack-Zillions-Over/niro-health/commit/547440621072550530338050301a4f7c177668aa))
+* **private-keys:** module for managing master keys (authorization keys) in your routes ([97a9ac1](https://github.com/Lack-Zillions-Over/niro-health/commit/97a9ac15674eb914e52e5c9a612009a057da7d75))
+* **schedules:** this module handles the cron jobs ([dfdea4b](https://github.com/Lack-Zillions-Over/niro-health/commit/dfdea4bfa9704875b71f5f37bf4738b4933fecd6))
+* **users:** this module manages the application users ([8de9b1d](https://github.com/Lack-Zillions-Over/niro-health/commit/8de9b1dc2dff92e7e47ad53e34c67b94e3ca86bb))
+
+
+### Bug Fixes
+
+* **app:** modify implementation to updated abstraction ([ec43eb8](https://github.com/Lack-Zillions-Over/niro-health/commit/ec43eb851065e30509783aa1f77dc315088ab53b))
+* **archive:** modify implementation for updated abstraction ([7113edc](https://github.com/Lack-Zillions-Over/niro-health/commit/7113edc157015fa8555860296deb483beb1e075e))
+* **aws-configuration:** modify implementation to updated abstraction ([fca2779](https://github.com/Lack-Zillions-Over/niro-health/commit/fca277921737a1ba7dc1d4824746612720249522))
+* **aws-core:** modify implementation to updated abstraction ([ca4002f](https://github.com/Lack-Zillions-Over/niro-health/commit/ca4002f104488c0838d02c173ee407bd0bfa8a39))
+* **aws-ec2:** modify implementation to updated abstraction ([285e210](https://github.com/Lack-Zillions-Over/niro-health/commit/285e2104a13305e6077d734f213db4c1dcde76bb))
+* **aws-s3:** modify implementation to updated abstraction ([3840df4](https://github.com/Lack-Zillions-Over/niro-health/commit/3840df4c41f041f79f286b72e3039bdd9db91bb1))
+* **aws-sts:** modify implementation to updated abstraction ([e36508a](https://github.com/Lack-Zillions-Over/niro-health/commit/e36508a2cd41656c524e17663b697756f135f7cb))
+* **bjson:** modify implementation to updated abstraction ([6c43d82](https://github.com/Lack-Zillions-Over/niro-health/commit/6c43d82cd334662094c7fc63a7449e1b7189f926))
+* **bootstrap:** modify implementation to updated abstraction ([34707dd](https://github.com/Lack-Zillions-Over/niro-health/commit/34707ddce343e49621e76055c60fd4772448aa53))
+* **configuration:** modify implementation to updated abstraction ([619fdfb](https://github.com/Lack-Zillions-Over/niro-health/commit/619fdfbffa14941df2aad5ea97197c6a5461eab8))
+* **core:** modify implementation to updated abstraction ([69bd4ee](https://github.com/Lack-Zillions-Over/niro-health/commit/69bd4ee7ea36cd24a6029f0f7cd10a374674f772))
+* **crypto:** modify implementation to updated abstraction ([a5ef85e](https://github.com/Lack-Zillions-Over/niro-health/commit/a5ef85e4172c982774229886024281f32703cdab))
+* **date-ex:** modify implementation to updated abstraction ([83d6174](https://github.com/Lack-Zillions-Over/niro-health/commit/83d6174bad2d621af9d8005a11a775732cd9f125))
+* **debug:** modify implementation to updated abstraction ([946a150](https://github.com/Lack-Zillions-Over/niro-health/commit/946a150cf9a62bbe748a27fd3c0f89cf99bfaffa))
+* **email:** modify implementation to updated abstraction ([6372f19](https://github.com/Lack-Zillions-Over/niro-health/commit/6372f19993e919e1b60003b25d4aefe5cf77b51f))
+* **email:** remove console ([bd2bbde](https://github.com/Lack-Zillions-Over/niro-health/commit/bd2bbde4fb124c4f2cc2d38d1a22b9eb10056f2d))
+* **file-gridfs:** modify implementation to updated abstraction ([61a1bc3](https://github.com/Lack-Zillions-Over/niro-health/commit/61a1bc3c835c5bef20afeb1a2e7206e5ea897b0e))
+* **hyperc:** modify implementation to updated abstraction ([f77844a](https://github.com/Lack-Zillions-Over/niro-health/commit/f77844a22b0571b2055f2c2bc25b961f5e5170bc))
+* **i18n:** modify implementation to updated abstraction ([bdc828d](https://github.com/Lack-Zillions-Over/niro-health/commit/bdc828d18fa494442935935001424e70b9070238))
+* **json-web-token:** modify implementation to updated abstraction ([6948988](https://github.com/Lack-Zillions-Over/niro-health/commit/69489884faa2dd66894967ae43914a78dd1814f2))
+* **localpath:** modify implementation to updated abstraction ([4cee43a](https://github.com/Lack-Zillions-Over/niro-health/commit/4cee43ae1eced977ff4fd15c704ee6f6d46f1696))
+* **prop-string:** modify implementation to updated abstraction ([cf57482](https://github.com/Lack-Zillions-Over/niro-health/commit/cf57482f03e85a2568318a2c3bd50d56eec799c3))
+* **random:** modify implementation to updated abstraction ([b4354b8](https://github.com/Lack-Zillions-Over/niro-health/commit/b4354b8b94640a6c4d6344fa1aaf30fc91157858))
+* **similarity-filter:** modify implementation to updated abstraction ([7b01b78](https://github.com/Lack-Zillions-Over/niro-health/commit/7b01b78471874c6d5cc0c3866b0e403bfa406e48))
+* **string-ex:** modify implementation to updated abstraction ([d3b89a4](https://github.com/Lack-Zillions-Over/niro-health/commit/d3b89a46a73fa8fb7eb53af4891f9576feb7cecf))
+* **validator-regexp:** modify implementation to updated abstraction ([625316e](https://github.com/Lack-Zillions-Over/niro-health/commit/625316eb65602ec6a7d5d88725b7b1c055f5f835))
+
+
+### Code Refactoring
+
+* **prisma:** updated database schema ([0329456](https://github.com/Lack-Zillions-Over/niro-health/commit/0329456081a4614fcc8bf7330379e3bff8937850))
+* **redis:** this module has been moved into the core ([20fc326](https://github.com/Lack-Zillions-Over/niro-health/commit/20fc326920979546439673a94ca74a18e8a25f1e))
+* **sqlite:** this module has been moved to the core ([de7d6c5](https://github.com/Lack-Zillions-Over/niro-health/commit/de7d6c5effdd3a56e66c842bcf72f196371546dd))
+
+
+### Tests
+
+* **archive:** removed generated files of tests ([dd04025](https://github.com/Lack-Zillions-Over/niro-health/commit/dd04025faabc10d45ec279a379b78720d52f03d0))
+* **bootstrap:** fix tests ([58bc85a](https://github.com/Lack-Zillions-Over/niro-health/commit/58bc85a9c871cf40e9448fc2cb04168984f2a981))
+* **configuration:** fix tests ([daa3937](https://github.com/Lack-Zillions-Over/niro-health/commit/daa393785901ef83c15d3fb4a617d29cba7e216d))
+* **files:** fix tests ([74b31a4](https://github.com/Lack-Zillions-Over/niro-health/commit/74b31a4e334b4112a0ab67a6ad6557fddaa5fb0e))
+* **private-keys:** fix tests ([7a9ce3f](https://github.com/Lack-Zillions-Over/niro-health/commit/7a9ce3fbedee10b21293a3c8389162c0ced99ad6))
+* **string-ex:** fix tests ([ff2eb0f](https://github.com/Lack-Zillions-Over/niro-health/commit/ff2eb0fb0cc67678ef0512cc2fdd08c52e52b644))
+* **tests:** added new mocks and updated settings of tests ([f3a13a8](https://github.com/Lack-Zillions-Over/niro-health/commit/f3a13a83c4b68514c2b4400c7c1581952b58c76a))
+* **users:** fix tests ([786a813](https://github.com/Lack-Zillions-Over/niro-health/commit/786a81345c9426a93f763ab1d1809b920d4bd13b))
+
+
+### Build System
+
+* **project:** updated Packages, updated settings and more ([9006c68](https://github.com/Lack-Zillions-Over/niro-health/commit/9006c682aa95e94987b8f6c2019c20e8ed29e238))
+* **setup:** updated scripts ([0fdb59d](https://github.com/Lack-Zillions-Over/niro-health/commit/0fdb59d91235c8fce39ad830bc176b46013bb187))
+
 ## [1.7.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.6.0...v1.7.0) (2023-04-09)
 
 
