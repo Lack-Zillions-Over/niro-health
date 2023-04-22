@@ -3,10 +3,10 @@ import { Injectable } from '@nestjs/common';
 import { dirname, join } from 'path';
 import { existsSync, mkdirSync } from 'fs-extra';
 
-import { LocalPath } from '@app/localpath/localpath.interface';
+import type { ILocalPathService } from '@app/localpath';
 
 @Injectable()
-export class LocalPathService implements LocalPath.Class {
+export class LocalPathService implements ILocalPathService {
   /**
    * @description Return the local path of the file or folder
    */
