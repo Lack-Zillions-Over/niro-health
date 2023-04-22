@@ -290,6 +290,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/localpath/tsconfig.lib.json"
       }
+    },
+    "app-host": {
+      "type": "library",
+      "root": "libs/app-host",
+      "entryFile": "index",
+      "sourceRoot": "libs/app-host/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/app-host/tsconfig.lib.json"
+      }
     }
   },
   "compilerOptions": {

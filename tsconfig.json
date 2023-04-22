@@ -19,73 +19,201 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["src/*"],
-      "@test/mocks": ["test/__mocks__"],
-      "@test/mocks/*": ["test/__mocks__/*"],
-      "@app/crypto": ["libs/crypto/src"],
-      "@app/crypto/*": ["libs/crypto/src/*"],
-      "@app/i18n": ["libs/i18n/src"],
-      "@app/i18n/*": ["libs/i18n/src/*"],
-      "@app/random": ["libs/random/src"],
-      "@app/random/*": ["libs/random/src/*"],
-      "@app/string-ex": ["libs/string-ex/src"],
-      "@app/string-ex/*": ["libs/string-ex/src/*"],
-      "@app/prop-string": ["libs/prop-string/src"],
-      "@app/prop-string/*": ["libs/prop-string/src/*"],
-      "@app/bjson": ["libs/bjson/src"],
-      "@app/bjson/*": ["libs/bjson/src/*"],
-      "@app/debug": ["libs/debug/src"],
-      "@app/debug/*": ["libs/debug/src/*"],
-      "@app/redis": ["libs/redis/src"],
-      "@app/redis/*": ["libs/redis/src/*"],
-      "@app/archive": ["libs/archive/src"],
-      "@app/archive/*": ["libs/archive/src/*"],
-      "@app/hyperc": ["libs/hyperc/src"],
-      "@app/hyperc/*": ["libs/hyperc/src/*"],
-      "@app/json-web-token": ["libs/json-web-token/src"],
-      "@app/json-web-token/*": ["libs/json-web-token/src/*"],
-      "@app/email": ["libs/email/src"],
-      "@app/email/*": ["libs/email/src/*"],
-      "@app/aws-configuration": ["libs/aws-configuration/src"],
-      "@app/aws-configuration/*": ["libs/aws-configuration/src/*"],
-      "@app/similarity-filter": ["libs/similarity-filter/src"],
-      "@app/similarity-filter/*": ["libs/similarity-filter/src/*"],
-      "@app/aws-ec2": ["libs/aws-ec2/src"],
-      "@app/aws-ec2/*": ["libs/aws-ec2/src/*"],
-      "@app/aws-sts": ["libs/aws-sts/src"],
-      "@app/aws-sts/*": ["libs/aws-sts/src/*"],
-      "@app/configuration": ["libs/configuration/src"],
-      "@app/configuration/*": ["libs/configuration/src/*"],
-      "@app/bootstrap": ["libs/bootstrap/src"],
-      "@app/bootstrap/*": ["libs/bootstrap/src/*"],
-      "@app/validator-regexp": ["libs/validator-regexp/src"],
-      "@app/validator-regexp/*": ["libs/validator-regexp/src/*"],
-      "@app/aws-core": ["libs/aws-core/src"],
-      "@app/aws-core/*": ["libs/aws-core/src/*"],
-      "@app/core": ["libs/core/src"],
-      "@app/core/*": ["libs/core/src/*"],
-      "@app/files": ["libs/files/src"],
-      "@app/files/*": ["libs/files/src/*"],
-      "@app/sqlite": ["libs/sqlite/src"],
-      "@app/sqlite/*": ["libs/sqlite/src/*"],
-      "@app/websockets": ["libs/websockets/src"],
-      "@app/websockets/*": ["libs/websockets/src/*"],
-      "@app/mongoose": ["libs/mongoose/src"],
-      "@app/mongoose/*": ["libs/mongoose/src/*"],
-      "@app/users": ["libs/users/src"],
-      "@app/users/*": ["libs/users/src/*"],
-      "@app/date-ex": ["libs/date-ex/src"],
-      "@app/date-ex/*": ["libs/date-ex/src/*"],
-      "@app/schedules": ["libs/schedules/src"],
-      "@app/schedules/*": ["libs/schedules/src/*"],
-      "@app/private-keys": ["libs/private-keys/src"],
-      "@app/private-keys/*": ["libs/private-keys/src/*"],
-      "@app/file-gridfs": ["libs/file-gridfs/src"],
-      "@app/file-gridfs/*": ["libs/file-gridfs/src/*"],
-      "@app/aws-s3": ["libs/aws-s3/src"],
-      "@app/aws-s3/*": ["libs/aws-s3/src/*"],
-      "@app/localpath": ["libs/localpath/src"],
-      "@app/localpath/*": ["libs/localpath/src/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@test/mocks": [
+        "test/__mocks__"
+      ],
+      "@test/mocks/*": [
+        "test/__mocks__/*"
+      ],
+      "@app/crypto": [
+        "libs/crypto/src"
+      ],
+      "@app/crypto/*": [
+        "libs/crypto/src/*"
+      ],
+      "@app/i18n": [
+        "libs/i18n/src"
+      ],
+      "@app/i18n/*": [
+        "libs/i18n/src/*"
+      ],
+      "@app/random": [
+        "libs/random/src"
+      ],
+      "@app/random/*": [
+        "libs/random/src/*"
+      ],
+      "@app/string-ex": [
+        "libs/string-ex/src"
+      ],
+      "@app/string-ex/*": [
+        "libs/string-ex/src/*"
+      ],
+      "@app/prop-string": [
+        "libs/prop-string/src"
+      ],
+      "@app/prop-string/*": [
+        "libs/prop-string/src/*"
+      ],
+      "@app/bjson": [
+        "libs/bjson/src"
+      ],
+      "@app/bjson/*": [
+        "libs/bjson/src/*"
+      ],
+      "@app/debug": [
+        "libs/debug/src"
+      ],
+      "@app/debug/*": [
+        "libs/debug/src/*"
+      ],
+      "@app/archive": [
+        "libs/archive/src"
+      ],
+      "@app/archive/*": [
+        "libs/archive/src/*"
+      ],
+      "@app/hyperc": [
+        "libs/hyperc/src"
+      ],
+      "@app/hyperc/*": [
+        "libs/hyperc/src/*"
+      ],
+      "@app/json-web-token": [
+        "libs/json-web-token/src"
+      ],
+      "@app/json-web-token/*": [
+        "libs/json-web-token/src/*"
+      ],
+      "@app/email": [
+        "libs/email/src"
+      ],
+      "@app/email/*": [
+        "libs/email/src/*"
+      ],
+      "@app/aws-configuration": [
+        "libs/aws-configuration/src"
+      ],
+      "@app/aws-configuration/*": [
+        "libs/aws-configuration/src/*"
+      ],
+      "@app/similarity-filter": [
+        "libs/similarity-filter/src"
+      ],
+      "@app/similarity-filter/*": [
+        "libs/similarity-filter/src/*"
+      ],
+      "@app/aws-ec2": [
+        "libs/aws-ec2/src"
+      ],
+      "@app/aws-ec2/*": [
+        "libs/aws-ec2/src/*"
+      ],
+      "@app/aws-sts": [
+        "libs/aws-sts/src"
+      ],
+      "@app/aws-sts/*": [
+        "libs/aws-sts/src/*"
+      ],
+      "@app/configuration": [
+        "libs/configuration/src"
+      ],
+      "@app/configuration/*": [
+        "libs/configuration/src/*"
+      ],
+      "@app/bootstrap": [
+        "libs/bootstrap/src"
+      ],
+      "@app/bootstrap/*": [
+        "libs/bootstrap/src/*"
+      ],
+      "@app/validator-regexp": [
+        "libs/validator-regexp/src"
+      ],
+      "@app/validator-regexp/*": [
+        "libs/validator-regexp/src/*"
+      ],
+      "@app/aws-core": [
+        "libs/aws-core/src"
+      ],
+      "@app/aws-core/*": [
+        "libs/aws-core/src/*"
+      ],
+      "@app/core": [
+        "libs/core/src"
+      ],
+      "@app/core/*": [
+        "libs/core/src/*"
+      ],
+      "@app/files": [
+        "libs/files/src"
+      ],
+      "@app/files/*": [
+        "libs/files/src/*"
+      ],
+      "@app/websockets": [
+        "libs/websockets/src"
+      ],
+      "@app/websockets/*": [
+        "libs/websockets/src/*"
+      ],
+      "@app/mongoose": [
+        "libs/mongoose/src"
+      ],
+      "@app/mongoose/*": [
+        "libs/mongoose/src/*"
+      ],
+      "@app/users": [
+        "libs/users/src"
+      ],
+      "@app/users/*": [
+        "libs/users/src/*"
+      ],
+      "@app/date-ex": [
+        "libs/date-ex/src"
+      ],
+      "@app/date-ex/*": [
+        "libs/date-ex/src/*"
+      ],
+      "@app/schedules": [
+        "libs/schedules/src"
+      ],
+      "@app/schedules/*": [
+        "libs/schedules/src/*"
+      ],
+      "@app/private-keys": [
+        "libs/private-keys/src"
+      ],
+      "@app/private-keys/*": [
+        "libs/private-keys/src/*"
+      ],
+      "@app/file-gridfs": [
+        "libs/file-gridfs/src"
+      ],
+      "@app/file-gridfs/*": [
+        "libs/file-gridfs/src/*"
+      ],
+      "@app/aws-s3": [
+        "libs/aws-s3/src"
+      ],
+      "@app/aws-s3/*": [
+        "libs/aws-s3/src/*"
+      ],
+      "@app/localpath": [
+        "libs/localpath/src"
+      ],
+      "@app/localpath/*": [
+        "libs/localpath/src/*"
+      ],
+      "@app/app-host": [
+        "libs/app-host/src"
+      ],
+      "@app/app-host/*": [
+        "libs/app-host/src/*"
+      ]
     }
   }
 }
