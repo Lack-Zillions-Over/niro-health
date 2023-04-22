@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 
-import { DateEx } from '@app/date-ex/date-ex.interface';
+import type { IDateExService, Options } from '@app/date-ex';
 
 @Injectable()
-export class DateExService implements DateEx.Class {
+export class DateExService implements IDateExService {
   instance(): moment.Moment {
     return moment();
   }
@@ -12,7 +12,7 @@ export class DateExService implements DateEx.Class {
   /**
    * @description Formats a date for the system locality with the options of layout and deleting some parts
    */
-  public format(options?: DateEx.Options): string {
+  public format(options?: Options): string {
     if (!options?.exclude) return moment().format(options?.layout);
     else
       return moment().format(options?.layout).replace(options.exclude, ' || ');
