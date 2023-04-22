@@ -86,10 +86,10 @@
     "migrate-deploy": "yarn prisma migrate deploy",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --ignore-pattern '/client/'",
     "test": "NODE_ENV=test node -r dotenv/config $(which jest) --detectOpenHandles --forceExit --no-cache --runTestsByPath ./libs/*/**/*spec*",
-    "test:watch": "NODE_ENV=test node -r dotenv/config $(which jest) --watchAll --detectOpenHandles --forceExit --no-cache",
-    "test:cov": "NODE_ENV=test node -r dotenv/config $(which jest) --coverage --detectOpenHandles --forceExit --no-cache",
-    "test:debug": "NODE_ENV=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "NODE_ENV=test jest --config ./test/jest-e2e.json --detectOpenHandles --forceExit --no-cache"
+    "test:watch": "NODE_ENV=test node -r dotenv/config $(which jest) --watchAll --detectOpenHandles --forceExit --no-cache --runTestsByPath ./libs/*/**/*spec*",
+    "test:cov": "NODE_ENV=test node -r dotenv/config $(which jest) --coverage --detectOpenHandles --forceExit --no-cache --runTestsByPath ./libs/*/**/*spec*",
+    "test:debug": "NODE_ENV=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --runTestsByPath ./libs/*/**/*spec*",
+    "test:e2e": "NODE_ENV=test jest --config ./test/jest-e2e.json --detectOpenHandles --forceExit --no-cache --runTestsByPath ./libs/*/**/*spec*"
   },
   "dependencies": {
     "@bull-board/api": "^5.0.1",
