@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Debug } from '@app/debug/debug.interface';
+import type { IDebugService } from '@app/debug';
 
 @Injectable()
-export class DebugService implements Debug.Class {
+export class DebugService implements IDebugService {
   public log(msg: string, ...optionalParams: [...any, string?]): void {
     Logger.log(msg, ...optionalParams);
   }
