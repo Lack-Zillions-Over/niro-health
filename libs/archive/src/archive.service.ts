@@ -7,13 +7,13 @@ import type { WriteStream } from 'fs';
 import * as archiver from 'archiver';
 import { constants } from 'zlib';
 
-import { Archive } from '@app/archive/archive.interface';
+import type { IArchiveService, Compression, Reader } from '@app/archive';
 
 @Injectable()
-export class ArchiveService implements Archive.Class {
-  static COMPRESSIONLEVEL: Archive.Compression.Level = 'BEST_COMPRESSION';
+export class ArchiveService implements IArchiveService {
+  static COMPRESSIONLEVEL: Compression.Level = 'BEST_COMPRESSION';
 
-  private get _zlibCompressionLevel(): Archive.Compression.ZLIB_LEVEL {
+  private get _zlibCompressionLevel(): Compression.ZLIB_LEVEL {
     return `Z_${ArchiveService.COMPRESSIONLEVEL}`;
   }
 
@@ -23,19 +23,17 @@ export class ArchiveService implements Archive.Class {
     });
   }
 
-  public async setCompressionLevel(
-    level: Archive.Compression.Level,
-  ): Promise<void> {
+  public async setCompressionLevel(level: Compression.Level): Promise<void> {
     ArchiveService.COMPRESSIONLEVEL = level;
   }
 
-  public async getCompressionLevel(): Promise<Archive.Compression.Level> {
+  public async getCompressionLevel(): Promise<Compression.Level> {
     return Promise.resolve(ArchiveService.COMPRESSIONLEVEL);
   }
 
   public async joinWithReaders(
     stream: WriteStream | Response,
-    readers: Archive.Reader[],
+    readers: Reader[],
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       const archive = this._base;
