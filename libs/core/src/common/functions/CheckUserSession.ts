@@ -1,12 +1,6 @@
+import { INestApplication } from '@nestjs/common';
 import { FindByIdUserFactory } from '@app/users/factories/findById';
 import { User } from '@app/users/entities';
-import { PrismaService } from '@app/core/prisma/prisma.service';
-import { RandomStringService } from '@app/random';
-import { StringExService } from '@app/string-ex';
-import { CryptoService } from '@app/crypto';
-import { I18nService } from '@app/i18n';
-import { JsonWebTokenService } from '@app/json-web-token';
-import { SimilarityFilterService } from '@app/similarity-filter';
 
 export default async function CheckUserSession(
   params: {
@@ -16,24 +10,9 @@ export default async function CheckUserSession(
     token_revalidate_value: string;
     token_revalidate_signature: string;
   },
-  randomStringService: RandomStringService,
-  stringExService: StringExService,
-  cryptoService: CryptoService,
-  i18n: I18nService,
-  jsonWebTokenService: JsonWebTokenService,
-  similarityFilterService: SimilarityFilterService,
-  prismaService: PrismaService,
+  app: INestApplication,
 ): Promise<boolean> {
-  const data = await FindByIdUserFactory.run(
-    params.user_id,
-    randomStringService,
-    stringExService,
-    cryptoService,
-    i18n,
-    jsonWebTokenService,
-    similarityFilterService,
-    prismaService,
-  );
+  const data = await FindByIdUserFactory.run(params.user_id, app);
 
   if (data instanceof Error || !data.session) return false;
 

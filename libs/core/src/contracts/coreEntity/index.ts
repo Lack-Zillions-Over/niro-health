@@ -1,8 +1,8 @@
-import { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
-import { CoreEntity } from '@app/core/contracts/coreEntity/types';
+import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
+import type { ICoreEntityContract } from '@app/core/contracts/coreEntity/interface';
 
 export abstract class CoreEntityContract
-  implements CoreEntity.Class<CoreEntityContract>
+  implements ICoreEntityContract<CoreEntityContract>
 {
   public readonly id: string | number;
   public status: number;

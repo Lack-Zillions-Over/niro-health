@@ -1,25 +1,30 @@
-import { CoreDatabase } from '@app/core/contracts/coreDatabase/types';
-import { SimilarityFilter } from '@app/similarity-filter/similarity-filter.interface';
-import { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
-import { RandomStringService } from '@app/random';
-import { StringExService } from '@app/string-ex';
-import { CryptoService } from '@app/crypto';
+import type { INestApplication } from '@nestjs/common';
+import type { ICoreDatabaseContract } from '@app/core/contracts/coreDatabase/interface';
+import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
+import type { IRandomService } from '@app/random';
+import type { IStringExService } from '@app/string-ex';
+import type { ICryptoService } from '@app/crypto';
+import type { Type } from '@app/similarity-filter';
 
 export abstract class CoreDatabaseContract<Model>
-  implements CoreDatabase.Class
+  implements ICoreDatabaseContract
 {
-  constructor(
-    protected readonly randomStringService: RandomStringService,
-    protected readonly stringExService: StringExService,
-    protected readonly cryptoService: CryptoService,
-  ) {}
+  protected readonly _randomService: IRandomService;
+  protected readonly _stringExService: IStringExService;
+  protected readonly _cryptoService: ICryptoService;
+
+  constructor(protected readonly app: INestApplication) {
+    this._randomService = this.app.get<IRandomService>('IRandomService');
+    this._stringExService = this.app.get<IStringExService>('IStringExService');
+    this._cryptoService = this.app.get<ICryptoService>('ICryptoService');
+  }
 
   public generateUUID(): string {
-    return this.randomStringService.uuid();
+    return this._randomService.uuid();
   }
 
   public hashText(text: string): string {
-    return this.stringExService.hash(text, 'sha256', 'base64');
+    return this._stringExService.hash(text, 'sha256', 'base64');
   }
 
   public compareHashText(text: string, hashed: string): boolean {
@@ -27,26 +32,26 @@ export abstract class CoreDatabaseContract<Model>
   }
 
   public async hashPassword(password: string): Promise<string> {
-    return await this.stringExService.hashPassword(password);
+    return await this._stringExService.hashPassword(password);
   }
 
   public async compareHashPassword(
     password: string,
     hashed: string,
   ): Promise<boolean> {
-    return await this.stringExService.compareHashPassword(password, hashed);
+    return await this._stringExService.compareHashPassword(password, hashed);
   }
 
   public async encrypt(data: string): Promise<string> {
     return Promise.resolve(
-      this.stringExService.compress(
-        JSON.stringify(await this.cryptoService.encrypt(data)),
+      this._stringExService.compress(
+        JSON.stringify(await this._cryptoService.encrypt(data)),
       ),
     );
   }
 
   public async decrypt(encrypted: string): Promise<string> {
-    return await this.cryptoService.decrypt(encrypted);
+    return await this._cryptoService.decrypt(encrypted);
   }
 
   abstract create(data: Model): Promise<Model>;
@@ -54,7 +59,7 @@ export abstract class CoreDatabaseContract<Model>
   abstract findOne(id: number | string): Promise<Model | null>;
   abstract findBy(
     filter: RecursivePartial<Model>,
-    similarity?: SimilarityFilter.Type,
+    similarity?: Type,
   ): Promise<Model[]>;
   abstract update(
     id: number | string,

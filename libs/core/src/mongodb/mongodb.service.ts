@@ -3,13 +3,15 @@ import {
   Injectable,
   OnModuleInit,
   OnApplicationShutdown,
+  Inject,
 } from '@nestjs/common';
 import { connection, connect } from 'mongoose';
 
 import MongoDbURL from '@app/core/common/functions/MongoDbURL';
 
-import { DebugService } from '@app/debug';
-import { ConfigurationService } from '@app/configuration';
+import type { IMongoDBService } from '@app/core/mongodb/mongodb.interface';
+import type { IDebugService } from '@app/debug';
+import type { IConfigurationService } from '@app/configuration';
 
 export interface User {
   username: string;
@@ -29,13 +31,16 @@ export interface Config extends User {
 }
 
 @Injectable()
-export class MongoDBService implements OnModuleInit, OnApplicationShutdown {
+export class MongoDBService
+  implements IMongoDBService, OnModuleInit, OnApplicationShutdown
+{
   app: INestApplication;
   private _mongoConfig: Config;
 
   constructor(
-    private readonly debugService: DebugService,
-    private readonly configurationService: ConfigurationService,
+    @Inject('IDebugService') private readonly debugService: IDebugService,
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
   ) {}
 
   async onModuleInit() {

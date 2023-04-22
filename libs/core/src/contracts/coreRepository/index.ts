@@ -1,11 +1,11 @@
-import { CoreRepository } from '@app/core/contracts/coreRepository/types';
-import { CoreDatabaseContract } from '@app/core/contracts/coreDatabase';
-import { CoreEntityContract } from '@app/core/contracts/coreEntity';
-import { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
-import { SimilarityFilter } from '@app/similarity-filter/similarity-filter.interface';
+import type { IRepositoryContract } from '@app/core/contracts/coreRepository/interface';
+import type { CoreDatabaseContract } from '@app/core/contracts/coreDatabase';
+import type { CoreEntityContract } from '@app/core/contracts/coreEntity';
+import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
+import type { Type } from '@app/similarity-filter';
 
 export abstract class RepositoryContract
-  implements CoreRepository.Class<CoreEntityContract>
+  implements IRepositoryContract<CoreEntityContract>
 {
   constructor(
     protected readonly database: CoreDatabaseContract<CoreEntityContract>,
@@ -38,6 +38,6 @@ export abstract class RepositoryContract
 
   abstract findBy(
     filter: RecursivePartial<CoreEntityContract>,
-    similarity?: SimilarityFilter.Type,
+    similarity?: Type,
   ): Promise<CoreEntityContract[]>;
 }
