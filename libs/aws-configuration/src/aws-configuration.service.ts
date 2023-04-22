@@ -1,19 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
-import { AwsConfiguration } from '@app/aws-configuration/aws-configuration.interface';
-import { ConfigurationService } from '@app/configuration';
-import { ValidatorRegexpService } from '@app/validator-regexp';
+import type { IAwsConfigurationService } from '@app/aws-configuration';
+import type { IConfigurationService } from '@app/configuration';
+import type { IValidatorRegexpService } from '@app/validator-regexp';
 
 @Injectable()
-export class AwsConfigurationService implements AwsConfiguration.Class {
-  private _apiVersion: AwsConfiguration.Class['apiVersion'];
-  private _region: AwsConfiguration.Class['region'];
-  private _httpOptions: AwsConfiguration.Class['httpOptions'];
-  private _credentials: AwsConfiguration.Class['credentials'];
+export class AwsConfigurationService implements IAwsConfigurationService {
+  private _apiVersion: IAwsConfigurationService['apiVersion'];
+  private _region: IAwsConfigurationService['region'];
+  private _httpOptions: IAwsConfigurationService['httpOptions'];
+  private _credentials: IAwsConfigurationService['credentials'];
 
   constructor(
-    private readonly configurationService: ConfigurationService,
-    private readonly validatorRegexpService: ValidatorRegexpService,
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
+    @Inject('IValidatorRegexpService')
+    private readonly validatorRegexpService: IValidatorRegexpService,
   ) {
     this._loadCredentials();
   }
@@ -25,7 +27,7 @@ export class AwsConfigurationService implements AwsConfiguration.Class {
     };
   }
 
-  public set apiVersion(version: AwsConfiguration.Class['apiVersion']) {
+  public set apiVersion(version: IAwsConfigurationService['apiVersion']) {
     if (version !== 'latest') {
       this.validatorRegexpService.custom(
         version,
@@ -41,7 +43,7 @@ export class AwsConfigurationService implements AwsConfiguration.Class {
     return this._apiVersion;
   }
 
-  public set region(region: AwsConfiguration.Class['region']) {
+  public set region(region: IAwsConfigurationService['region']) {
     this.validatorRegexpService.custom(
       region,
       /^([a-z]{2})-([a-z]{4,})-([0-9]{1})$/,
@@ -55,7 +57,7 @@ export class AwsConfigurationService implements AwsConfiguration.Class {
     return this._region;
   }
 
-  public set httpOptions(options: AwsConfiguration.Class['httpOptions']) {
+  public set httpOptions(options: IAwsConfigurationService['httpOptions']) {
     this._httpOptions = {
       ...options,
     };
@@ -65,7 +67,7 @@ export class AwsConfigurationService implements AwsConfiguration.Class {
     return this._httpOptions;
   }
 
-  public set credentials(credentials: AwsConfiguration.Class['credentials']) {
+  public set credentials(credentials: IAwsConfigurationService['credentials']) {
     this._credentials = credentials;
   }
 

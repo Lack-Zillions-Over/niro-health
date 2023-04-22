@@ -1,15 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AwsConfigurationService } from './aws-configuration.service';
-import { ConfigurationModule } from '@app/configuration';
+import { ConfigurationService } from '@app/configuration';
 import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex';
 
 describe('AwsConfigurationService', () => {
   let service: AwsConfigurationService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigurationModule],
-      providers: [AwsConfigurationService, ValidatorRegexpService],
+      providers: [
+        AwsConfigurationService,
+        { provide: 'IConfigurationService', useClass: ConfigurationService },
+        {
+          provide: 'IValidatorRegexpService',
+          useClass: ValidatorRegexpService,
+        },
+        { provide: 'IStringExService', useClass: StringExService },
+      ],
     }).compile();
 
     service = module.get<AwsConfigurationService>(AwsConfigurationService);
