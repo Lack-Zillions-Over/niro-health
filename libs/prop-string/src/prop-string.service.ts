@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { PropString } from '@app/prop-string/prop-string.interface';
+import type { IPropStringService } from '@app/prop-string';
 
 @Injectable()
-export class PropStringService implements PropString.Class {
+export class PropStringService implements IPropStringService {
   /**
    * @description Get value of property in object by string
    */
