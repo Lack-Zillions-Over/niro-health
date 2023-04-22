@@ -1,7 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AwsCoreModule } from '@app/aws-core';
-import { AwsS3Service } from './aws-s3.service';
 import { Readable } from 'stream';
+import { AwsS3Service } from './aws-s3.service';
+import { AwsCoreService } from '@app/aws-core';
+import { ConfigurationService } from '@app/configuration';
+import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex';
+import { AwsConfigurationService } from '@app/aws-configuration';
+import { AwsStsService } from '@app/aws-sts';
 
 jest.mock('aws-sdk', () => jest.requireActual('@test/mocks/aws-sdk'));
 
@@ -10,8 +15,21 @@ describe('AwsS3Service', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AwsCoreModule],
-      providers: [AwsS3Service],
+      providers: [
+        AwsS3Service,
+        { provide: 'IAwsCoreService', useClass: AwsCoreService },
+        { provide: 'IConfigurationService', useClass: ConfigurationService },
+        {
+          provide: 'IValidatorRegexpService',
+          useClass: ValidatorRegexpService,
+        },
+        { provide: 'IStringExService', useClass: StringExService },
+        {
+          provide: 'IAwsConfigurationService',
+          useClass: AwsConfigurationService,
+        },
+        { provide: 'IAwsStsService', useClass: AwsStsService },
+      ],
     }).compile();
 
     service = module.get<AwsS3Service>(AwsS3Service);

@@ -1,26 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
 
-import type { AwsCore } from '@app/aws-core/aws-core.interface';
-import { AwsCoreService } from '@app/aws-core';
-import { AwsS3 } from '@app/aws-s3/aws-s3.interface';
+import type { IAwsS3Service, GetResponse } from '@app/aws-s3';
+import type { IAwsCoreServiceImpl } from '@app/aws-core';
+import type { Role3rdParty } from '@app/aws-sts';
 
 @Injectable()
-export class AwsS3Service implements AwsCore.Service, AwsS3.Class {
-  constructor(private readonly awsCore: AwsCoreService) {}
+export class AwsS3Service implements IAwsS3Service {
+  constructor(
+    @Inject('IAwsCoreService')
+    private readonly awsCoreService: IAwsCoreServiceImpl,
+  ) {}
 
   public async client() {
-    const configuration = await this.awsCore.configuration();
+    const configuration = await this.awsCoreService.configuration();
     const client = new S3({
       ...configuration,
     });
     return client;
   }
 
-  public async setRole3rdParty(
-    role3rdParty: AwsCore.Role3rdParty,
-  ): Promise<void> {
-    await this.awsCore.setRole3rdParty(role3rdParty);
+  public async setRole3rdParty(role3rdParty: Role3rdParty): Promise<void> {
+    await this.awsCoreService.setRole3rdParty(role3rdParty);
   }
 
   public async upload(
@@ -60,7 +61,7 @@ export class AwsS3Service implements AwsCore.Service, AwsS3.Class {
     mimetype: string,
     version: number,
     bucket: string,
-  ): Promise<AwsS3.GetResponse | Error> {
+  ): Promise<GetResponse | Error> {
     try {
       const client = await this.client();
 
