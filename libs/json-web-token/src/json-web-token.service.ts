@@ -1,12 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { sign, verify, JwtPayload } from 'jsonwebtoken';
 
-import { ConfigurationService } from '@app/configuration';
-import { JsonWebToken } from '@app/json-web-token/json-web-token.interface';
+import type {
+  IJsonWebTokenService,
+  PayloadType,
+  ExpiresIn,
+} from '@app/json-web-token';
+import type { IConfigurationService } from '@app/configuration';
 
 @Injectable()
-export class JsonWebTokenService implements JsonWebToken.Class {
-  constructor(private readonly configurationService: ConfigurationService) {}
+export class JsonWebTokenService implements IJsonWebTokenService {
+  constructor(
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
+  ) {}
 
   /**
    * It takes a payload, a secret, and an expiration time, and returns a signed JWT
@@ -16,9 +23,9 @@ export class JsonWebTokenService implements JsonWebToken.Class {
    * @returns A JWT token
    */
   public save<T>(
-    payload: JsonWebToken.PayloadType<T>,
+    payload: PayloadType<T>,
     secret: string,
-    expiresIn: JsonWebToken.ExpiresIn,
+    expiresIn: ExpiresIn,
   ) {
     try {
       return sign(payload, secret || this.configurationService.JWT_SECRET, {
@@ -35,7 +42,7 @@ export class JsonWebTokenService implements JsonWebToken.Class {
    * @param {string} secret - The secret key used to sign the token.
    * @returns The payload of the token.
    */
-  public load<T, P = JsonWebToken.PayloadType<T> & JwtPayload>(
+  public load<T, P = PayloadType<T> & JwtPayload>(
     token: string,
     secret: string,
   ): P | string | Error {

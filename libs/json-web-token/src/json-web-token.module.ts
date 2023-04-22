@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { JsonWebTokenService } from './json-web-token.service';
-import { DebugService } from '@app/debug';
+import { ConfigurationService } from '@app/configuration';
 import { ValidatorRegexpService } from '@app/validator-regexp';
 import { StringExService } from '@app/string-ex';
 
 @Module({
   providers: [
     JsonWebTokenService,
-    DebugService,
-    ValidatorRegexpService,
-    StringExService,
+    { provide: 'IConfigurationService', useClass: ConfigurationService },
+    { provide: 'IValidatorRegexpService', useClass: ValidatorRegexpService },
+    { provide: 'IStringExService', useClass: StringExService },
   ],
   exports: [JsonWebTokenService],
 })

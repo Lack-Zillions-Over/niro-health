@@ -1,14 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConfigurationModule } from '@app/configuration';
 import { JsonWebTokenService } from './json-web-token.service';
+import { ConfigurationService } from '@app/configuration';
+import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex';
 
 describe('JsonWebTokenService', () => {
   let service: JsonWebTokenService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigurationModule],
-      providers: [JsonWebTokenService],
+      providers: [
+        JsonWebTokenService,
+        { provide: 'IConfigurationService', useClass: ConfigurationService },
+        {
+          provide: 'IValidatorRegexpService',
+          useClass: ValidatorRegexpService,
+        },
+        { provide: 'IStringExService', useClass: StringExService },
+      ],
     }).compile();
 
     service = module.get<JsonWebTokenService>(JsonWebTokenService);
@@ -28,7 +37,6 @@ describe('JsonWebTokenService', () => {
     const json = { username: 'GuilhermeSantos001' };
     const token = service.save(json, 'shhhh', '60s') as string;
     const payload = service.load(token, 'shhhh');
-
     expect(payload).not.toBeInstanceOf(Error);
     expect(payload).toMatchObject(json);
   });
