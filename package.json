@@ -84,7 +84,7 @@
     "start:debug": "nest start --debug 0.0.0.0:9229 --watch",
     "start:prod": "yarn migrate-deploy && node dist/main",
     "migrate-deploy": "yarn prisma migrate deploy",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --ignore-pattern '/client/'",
     "test": "NODE_ENV=test node -r dotenv/config $(which jest) --detectOpenHandles --forceExit --no-cache --runTestsByPath ./libs/*/**/*spec*",
     "test:watch": "NODE_ENV=test node -r dotenv/config $(which jest) --watchAll --detectOpenHandles --forceExit --no-cache",
     "test:cov": "NODE_ENV=test node -r dotenv/config $(which jest) --coverage --detectOpenHandles --forceExit --no-cache",
