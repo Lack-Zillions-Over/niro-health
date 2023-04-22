@@ -24,6 +24,14 @@ export { ConfigurationModule } from '@app/configuration'\n;\
 export { ConfigurationService } from '@app/configuration'\n;\
 export { CoreModule } from '@app/core'\n;\
 export { CoreService } from '@app/core'\n;\
+export { MongoDBModule } from '@app/core/mongodb/mongodb.module'\n;\
+export { MongoDBService } from '@app/core/mongodb/mongodb.service'\n;\
+export { PrismaModule } from '@app/core/prisma/prisma.module'\n;\
+export { PrismaService } from '@app/core/prisma/prisma.service'\n;\
+export { RedisModule } from '@app/core/redis/redis.module'\n;\
+export { RedisService } from '@app/core/redis/redis.service'\n;\
+export { SqliteModule } from '@app/core/sqlite/sqlite.module'\n;\
+export { SqliteService } from '@app/core/sqlite/sqlite.service'\n;\
 export { CryptoModule } from '@app/crypto'\n;\
 export { CryptoService } from '@app/crypto'\n;\
 export { DateExModule } from '@app/date-ex'\n;\
