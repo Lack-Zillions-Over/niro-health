@@ -3,7 +3,7 @@
 
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl", "linux-musl-openssl-3.0.x"]
+  binaryTargets = ["native", "linux-musl", "debian-openssl-1.1.x", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -12,27 +12,37 @@ datasource db {
 }
 
 model PrivateKey {
-  id        String   @id @default(uuid())
-  tag       String   @unique
+  id        String    @id @default(uuid())
+  tag       String    @unique
   secret    String
   value     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  status    Int       @default(1) // 1: normal, 0: disabled
+  expired   Boolean   @default(false)
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  expiredAt DateTime?
+  deletedAt DateTime?
 
   @@map("private_keys")
 }
 
 model User {
-  id        String   @id @default(uuid())
-  username  String   @unique
-  email     String   @unique
+  id        String    @id @default(uuid())
+  username  String    @unique
+  email     String    @unique
   password  String
-  roles     String[] @default(["common"]) // common, admin, owner
+  roles     String[]  @default(["common"]) // common, admin, owner
   hash      Json
-  activate  Boolean  @default(false)
+  activate  Boolean   @default(false)
   session   Json?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  status    Int       @default(1) // 1: normal, 0: disabled
+  expired   Boolean   @default(false)
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  expiredAt DateTime?
+  deletedAt DateTime?
 
   files File[]
 
@@ -51,9 +61,13 @@ model File {
   temporary      Boolean   @default(false)
   tags           String[]
   meta           Json
-  expiredAt      DateTime?
+  status         Int       @default(1) // 1: normal, 0: disabled
+  expired        Boolean   @default(false)
+  deleted        Boolean   @default(false)
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @default(now())
+  expiredAt      DateTime?
+  deletedAt      DateTime?
 
   author User @relation(fields: [authorId], references: [id])
 
