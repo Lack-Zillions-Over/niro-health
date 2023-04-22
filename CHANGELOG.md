@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.0...v1.8.1) (2023-04-22)
+
+
+### CI
+
+* **github actions:** added scripts for actions ([e818ff1](https://github.com/Lack-Zillions-Over/niro-health/commit/e818ff14b3760efa673e0873375b8ae84b3d8e9a))
+
+
+### Styling
+
+* **type-check:** fix error lint ([ad98896](https://github.com/Lack-Zillions-Over/niro-health/commit/ad98896dcc809a86fc2a1e77f9aa3eb0a0c4a175))
+
+
+### Build System
+
+* **project-build:** update project build scripts ([7b09bb3](https://github.com/Lack-Zillions-Over/niro-health/commit/7b09bb35ce9e2587c4a3afc3bf86080152d55de3))
+
 ## [1.8.0](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.7.0...v1.8.0) (2023-04-22)
 
 
