@@ -85,15 +85,15 @@ describe('StringExService', () => {
 
     it('should be compress JSON', () => {
       const json = { a: 100, b: true, c: { d: 'Niro Health' } };
-      const compressed = service.compress(json);
-      expect(compressed).not.toBe(json);
+      const compressed = service.compress(JSON.stringify(json));
+      expect(compressed).not.toBe(JSON.stringify(json));
     });
 
     it('should be decompress JSON', () => {
       const json = { a: 100, b: true, c: { d: 'Niro Health' } };
-      const compressed = service.compress(json);
+      const compressed = service.compress(JSON.stringify(json));
       const decompressed = service.decompress(compressed);
-      expect(json).toStrictEqual(decompressed);
+      expect(JSON.stringify(json)).toStrictEqual(decompressed);
     });
   });
 
