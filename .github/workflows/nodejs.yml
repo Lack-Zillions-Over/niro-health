@@ -1,0 +1,19 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: volta-cli/action@v3
+    - run: yarn install
+    - run: yarn lint
+    - run: yarn type-check
+    - run: yarn build:pkg
+      env:
+        CI: true

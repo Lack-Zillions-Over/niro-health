@@ -1,0 +1,58 @@
+name: Node.js Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: volta-cli/action@v3
+    - run: yarn install
+    - run: yarn lint
+    - run: yarn type-check
+    - run: yarn build:pkg
+      env:
+        CI: true
+
+  create-release:
+    needs: build
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Create Release
+        id: create_release
+        uses:
+          actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            **Full Changelog**: https://github.com/Lack-Zillions-Over/niro-health/blob/main/CHANGELOG.md
+          draft: false
+          prerelease: false
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: https://registry.npmjs.org
+      - run: yarn install
+      - run: yarn build:pkg
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
