@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.5](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.4...v1.8.5) (2023-04-22)
+
+
+### Bug Fixes
+
+* **app-host:** change property app to static ([8ec419b](https://github.com/Lack-Zillions-Over/niro-health/commit/8ec419b1eccb94d18f3e2a1543dabcd9f178b034))
+
 ### [1.8.4](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.3...v1.8.4) (2023-04-22)
 
 
