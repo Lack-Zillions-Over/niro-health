@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.3](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.2...v1.8.3) (2023-04-22)
+
+
+### Bug Fixes
+
+* **hyperc:** fix import of contract ([072b997](https://github.com/Lack-Zillions-Over/niro-health/commit/072b99743e5cd1ea348db6731d911ec69c461857))
+
 ### [1.8.2](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.1...v1.8.2) (2023-04-22)
 
 
