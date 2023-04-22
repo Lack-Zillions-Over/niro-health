@@ -109,13 +109,6 @@ export class EmailService implements IEmailService {
 
       let transporter: nodemailer.Transporter<SESTransport.SentMessageInfo>;
 
-      console.log('this.strategy', this.strategy);
-      console.log(this.configurationService.SMTP_HOST);
-      console.log(this.configurationService.SMTP_PORT);
-      console.log(this.configurationService.SMTP_SECURE);
-      console.log(this.configurationService.SMTP_USERNAME);
-      console.log(this.configurationService.SMTP_PASSWORD);
-
       if (this.strategy === 'AWS') {
         transporter = nodemailer.createTransport({
           SES: {
