@@ -1,4 +1,4 @@
-import { INestApplication, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import * as passport from 'passport';
 import * as cookieParser from 'cookie-parser';

@@ -16,8 +16,8 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return message on project', () => {
-      expect(appController.author()).toBe('@GuilhermeSantos001');
-      expect(appController.credits()).toBe(
+      expect(appController.author).toBe('@GuilhermeSantos001');
+      expect(appController.credits).toBe(
         'Niro Health ©2022 Created by @GuilhermeSantos001',
       );
     });
