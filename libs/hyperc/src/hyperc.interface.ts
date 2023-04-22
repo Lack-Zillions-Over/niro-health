@@ -1,7 +1,16 @@
 import { createHash } from 'crypto';
 import { compress, decompress } from 'lzutf8';
 
-abstract class HypercContract {
+export interface IHypercService {
+  create(identifier: string | number, ttl: number): Promise<boolean>;
+  set<T>(identifier: string | number, key: string, value: T): Promise<boolean>;
+  get<T>(identifier: string | number, key: string): Promise<T>;
+  del(identifier: string | number, key: string): Promise<boolean>;
+  flush(identifier: string | number): Promise<boolean>;
+  flushAll(): Promise<boolean>;
+}
+
+export abstract class HypercContract implements IHypercService {
   protected serializeIdentifier(identifier: string | number) {
     return createHash('sha256').update(identifier.toString()).digest('hex');
   }
@@ -33,5 +42,3 @@ abstract class HypercContract {
   public abstract flush(identifier: string | number): Promise<boolean>;
   public abstract flushAll(): Promise<boolean>;
 }
-
-export default HypercContract;

@@ -1,6 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HypercService } from './hyperc.service';
-import { RedisModule } from '@app/redis';
+import { RedisService } from '@app/core/redis/redis.service';
+import { DebugService } from '@app/debug';
+import { ConfigurationService } from '@app/configuration';
+import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex';
 
 jest.mock('ioredis', () => jest.requireActual('@test/mocks/ioredis'));
 
@@ -9,8 +13,17 @@ describe('HypercService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [RedisModule],
-      providers: [HypercService],
+      providers: [
+        HypercService,
+        { provide: 'IRedisService', useClass: RedisService },
+        { provide: 'IDebugService', useClass: DebugService },
+        { provide: 'IConfigurationService', useClass: ConfigurationService },
+        {
+          provide: 'IValidatorRegexpService',
+          useClass: ValidatorRegexpService,
+        },
+        { provide: 'IStringExService', useClass: StringExService },
+      ],
     }).compile();
 
     service = module.get<HypercService>(HypercService);

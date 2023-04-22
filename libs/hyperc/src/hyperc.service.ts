@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
-import HypercContract from '@app/hyperc/hyperc.contract';
+import { HypercContract } from '@app/hyperc';
 
-import { RedisService } from '@app/redis';
+import type { IRedisService } from '@app/core/redis/redis.interface';
 
 @Injectable()
 export class HypercService extends HypercContract {
-  constructor(private readonly redisService: RedisService) {
+  constructor(
+    @Inject('IRedisService') private readonly redisService: IRedisService,
+  ) {
     super();
   }
 
