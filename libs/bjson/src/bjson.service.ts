@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 import { deflate, inflate } from 'pako';
 
-import { Bjson } from '@app/bjson/bjson.interface';
+import type { IBjsonService } from '@app/bjson';
 
 @Injectable()
-export class BjsonService implements Bjson.Class {
+export class BjsonService implements IBjsonService {
   static CONSTRUCTORS: Record<string, any> = {};
   static MAXDEPTH = 100;
 
