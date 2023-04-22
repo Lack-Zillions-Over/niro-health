@@ -1,22 +1,22 @@
 import { Module } from '@nestjs/common';
-import { I18nService } from './i18n.service';
-import { ConfigurationService } from '@app/configuration';
+import { i18nService } from './i18n.service';
+import { RedisService } from '@app/core/redis/redis.service';
 import { DebugService } from '@app/debug';
+import { ConfigurationService } from '@app/configuration';
 import { ValidatorRegexpService } from '@app/validator-regexp';
-import { RedisService } from '@app/redis';
-import { PropStringService } from '@app/prop-string';
 import { StringExService } from '@app/string-ex';
+import { PropStringService } from '@app/prop-string';
 
 @Module({
   providers: [
-    I18nService,
-    ConfigurationService,
-    DebugService,
-    ValidatorRegexpService,
-    StringExService,
-    RedisService,
-    PropStringService,
+    i18nService,
+    { provide: 'IRedisService', useClass: RedisService },
+    { provide: 'IDebugService', useClass: DebugService },
+    { provide: 'IConfigurationService', useClass: ConfigurationService },
+    { provide: 'IValidatorRegexpService', useClass: ValidatorRegexpService },
+    { provide: 'IStringExService', useClass: StringExService },
+    { provide: 'IPropStringService', useClass: PropStringService },
   ],
-  exports: [I18nService],
+  exports: [i18nService],
 })
-export class I18nModule {}
+export class i18nModule {}
