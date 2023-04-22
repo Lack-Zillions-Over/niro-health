@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.1...v1.8.2) (2023-04-22)
+
+
+### Build System
+
+* **eslint:** exclude client path ([cb1b975](https://github.com/Lack-Zillions-Over/niro-health/commit/cb1b9750ddda8007f577fb35416db420677bc9c9))
+* **eslint:** exclude client path ([ae81988](https://github.com/Lack-Zillions-Over/niro-health/commit/ae81988a941a548f1474db60c4f8a4296cf2b9bf))
+
 ### [1.8.1](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.0...v1.8.1) (2023-04-22)
 
 
