@@ -1,4 +1,19 @@
 const translation = {
+  middlewares: {
+    authorization: {
+      exception:
+        'Acesso não autorizado a este recurso. Chave inválida ou não fornecida',
+    },
+  },
+  'private-keys': {
+    repository: {
+      private_key_already_exists:
+        'Chave privada já existe com o mesmo valor $1 $2',
+      private_key_not_found: 'Chave privada não encontrada com o valor $1 $2',
+      invalid_secret: 'Senha inválida para a chave privada',
+      field_in_use: 'O campo($1) já existe com o mesmo valor $2',
+    },
+  },
   files: {
     controller: {
       file_not_supported:

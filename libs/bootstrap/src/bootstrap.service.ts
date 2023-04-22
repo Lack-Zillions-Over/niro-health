@@ -1,4 +1,4 @@
-import { INestApplication, Injectable } from '@nestjs/common';
+import { INestApplication, Inject, Injectable } from '@nestjs/common';
 
 import * as passport from 'passport';
 import * as cookieParser from 'cookie-parser';
@@ -8,31 +8,39 @@ import { createBullBoard } from '@bull-board/api';
 import { ExpressAdapter } from '@bull-board/express';
 
 import { getBullBoardQueues } from '@app/core/bull/bull-board-queue';
-import { ConfigurationService } from '@app/configuration';
-import { DebugService } from '@app/debug';
-import { I18nService } from '@app/i18n';
-import { PrismaService } from '@app/core/prisma/prisma.service';
-import { MongoDBService } from '@app/core/mongodb/mongodb.service';
-// import { RedisIoAdapter } from '@app/websockets/adapters/redis-io.adapter';
-import { Bootstrap } from '@app/bootstrap/bootstrap.interface';
-
 import { EN, PT_BR } from '@app/bootstrap/translations';
+
+// import { RedisIoAdapter } from '@app/websockets/adapters/redis-io.adapter';
+
+import type {
+  IBootstrapService,
+  acceptFunc,
+  disposeFunc,
+} from '@app/bootstrap';
+import { AppHostService } from '@app/app-host';
+import type { IConfigurationService } from '@app/configuration';
+import type { IDebugService } from '@app/debug';
+import type { Ii18nService } from '@app/i18n';
+import type { IPrismaService } from '@app/core/prisma/prisma.interface';
+import type { IMongoDBService } from '@app/core/mongodb/mongodb.interface';
 
 declare const module: {
   hot: {
-    accept: Bootstrap.acceptFunc;
-    dispose: Bootstrap.disposeFunc;
+    accept: acceptFunc;
+    dispose: disposeFunc;
   };
 };
 
 @Injectable()
-export class BootstrapService implements Bootstrap.Class {
-  app: INestApplication;
-
+export class BootstrapService implements IBootstrapService {
   constructor(
-    private readonly configurationService: ConfigurationService,
-    private readonly debugService: DebugService,
-    private readonly i18nService: I18nService,
+    private readonly appHostService: AppHostService,
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
+    @Inject('IDebugService') private readonly debugService: IDebugService,
+    @Inject('Ii18nService') private readonly i18nService: Ii18nService,
+    @Inject('IPrismaService') private readonly prismaService: IPrismaService,
+    @Inject('IMongoDBService') private readonly mongoDBService: IMongoDBService,
   ) {
     this.configurationService.setVariable('bootstrap_listen_port', 4000);
     this.configurationService.setVariable('bootstrap_listen_origin', '0.0.0.0');
@@ -72,7 +80,7 @@ export class BootstrapService implements Bootstrap.Class {
       'files_multiple_aws_bucket',
       'niro-health-multiple',
     );
-    this.configurationService.setVariable('files_path', 'uploads');
+    this.configurationService.setVariable('files_path', '/uploads');
   }
 
   private get port(): number {
@@ -99,10 +107,8 @@ export class BootstrapService implements Bootstrap.Class {
   }
 
   private async _loadDatabases() {
-    const prismaService = this.app.get(PrismaService);
-    const mongoDBService = this.app.get(MongoDBService);
-    await prismaService.enableShutdownHooks(this.app);
-    await mongoDBService.enableShutdownHooks(this.app);
+    await this.prismaService.enableShutdownHooks(this.appHostService.app);
+    await this.mongoDBService.enableShutdownHooks(this.appHostService.app);
   }
 
   private async _configurateBullBoard() {
@@ -129,7 +135,7 @@ export class BootstrapService implements Bootstrap.Class {
       serverAdapter,
     });
 
-    this.app.use(
+    this.appHostService.app.use(
       '/admin/queues',
       passport.authenticate('basic', {
         session: false,
@@ -145,6 +151,20 @@ export class BootstrapService implements Bootstrap.Class {
   // }
 
   async main(): Promise<void> {
+    this.appHostService.app.use(cookieParser());
+
+    await this._loadTranslations();
+    await this._loadDatabases();
+    await this._configurateBullBoard();
+    // await this._configurateRedis();
+
+    await this.appHostService.app.listen(this.port, this.listenOrigin);
+
+    if (module.hot) {
+      module.hot.accept();
+      module.hot.dispose(() => this.appHostService.app.close());
+    }
+
     this.debugService.debug(
       `Niro Health is running in "${this.configurationService.NODE_ENV}" mode at version "${this.configurationService.VERSION}".`,
     );
@@ -154,19 +174,5 @@ export class BootstrapService implements Bootstrap.Class {
     this.debugService.verbose(
       `Thanks for using Niro Health. If you like it, please give us a star on [GitHub](https://github.com/Lack-Zillions-Over/niro-health)`,
     );
-
-    this.app.use(cookieParser());
-
-    await this._loadTranslations();
-    await this._loadDatabases();
-    await this._configurateBullBoard();
-    // await this._configurateRedis();
-
-    await this.app.listen(this.port, this.listenOrigin);
-
-    if (module.hot) {
-      module.hot.accept();
-      module.hot.dispose(() => this.app.close());
-    }
   }
 }

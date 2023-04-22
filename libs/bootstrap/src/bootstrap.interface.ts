@@ -1,10 +1,6 @@
-import { INestApplication } from '@nestjs/common';
+export type acceptFunc = () => void;
+export type disposeFunc = (param: () => Promise<void>) => void;
 
-export declare namespace Bootstrap {
-  export interface Class {
-    app: INestApplication;
-    main(app: INestApplication): Promise<void>;
-  }
-  export type acceptFunc = () => void;
-  export type disposeFunc = (param: () => Promise<void>) => void;
+export interface IBootstrapService {
+  main(): Promise<void>;
 }

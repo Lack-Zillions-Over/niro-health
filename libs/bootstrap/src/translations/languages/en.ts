@@ -1,4 +1,19 @@
 const translation = {
+  middlewares: {
+    authorization: {
+      exception:
+        'Unauthorized access to this resource. Invalid key or no provided',
+    },
+  },
+  'private-keys': {
+    repository: {
+      private_key_already_exists:
+        'Private key already exists with same $1 value $2',
+      private_key_not_found: 'Private key not found with $1 value $2',
+      invalid_secret: 'Invalid secret for this private key',
+      field_in_use: 'The field($1) already exists with value $2',
+    },
+  },
   files: {
     controller: {
       file_not_supported:
