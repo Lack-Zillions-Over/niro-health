@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigurationService } from './configuration.service';
-import { DebugModule } from '@app/debug';
-import { ValidatorRegexpModule } from '@app/validator-regexp';
-import { StringExModule } from '@app/string-ex';
+import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex';
 
 @Module({
-  imports: [DebugModule, ValidatorRegexpModule, StringExModule],
-  providers: [ConfigurationService],
+  providers: [
+    ConfigurationService,
+    { provide: 'IValidatorRegexpService', useClass: ValidatorRegexpService },
+    { provide: 'IStringExService', useClass: StringExService },
+  ],
   exports: [ConfigurationService],
 })
 export class ConfigurationModule {}

@@ -1,14 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
-import { Configuration } from '@app/configuration/configuration.interface';
-import { NODE_ENV } from './configuration.types';
+import {
+  IConfigurationService,
+  NODE_ENV,
+  ENVS,
+  VARIABLES,
+} from '@app/configuration/configuration.interface';
 
-import { DebugService } from '@app/debug';
-import { ValidatorRegexpService } from '@app/validator-regexp';
-import { StringExService } from '@app/string-ex';
+import {
+  IStringExService,
+  CompressData,
+} from '@app/string-ex/string-ex.interface';
+import { IValidatorRegexpService } from '@app/validator-regexp/validator-regexp.interface';
 
 @Injectable()
-export class ConfigurationService implements Configuration.Class {
+export class ConfigurationService implements IConfigurationService {
   private _NODE_ENV: NODE_ENV;
   private _VERSION: string;
   private _API_URI: string;
@@ -47,17 +53,20 @@ export class ConfigurationService implements Configuration.Class {
   private _SMTP_SECURE: boolean;
   private _SMTP_USERNAME: string;
   private _SMTP_PASSWORD: string;
-  static '@ENVS': Configuration.ENVS = {};
-  static '@VARIABLES': Configuration.VARIABLES = {};
+  static '@ENVS': ENVS = {};
+  static '@VARIABLES': VARIABLES = {};
 
   constructor(
-    private readonly debugService: DebugService,
-    private readonly validatorRegexpService: ValidatorRegexpService,
-    private readonly stringExService: StringExService,
+    @Inject('IValidatorRegexpService')
+    private readonly validatorRegexpService: IValidatorRegexpService,
+    @Inject('IStringExService')
+    private readonly stringExService: IStringExService,
   ) {
     this._check();
     this._load();
-    return Object.freeze(this) as unknown as ConfigurationService;
+    return Object.freeze<ConfigurationService>(
+      this as ConfigurationService,
+    ) as ConfigurationService;
   }
 
   private _check() {
@@ -109,9 +118,7 @@ export class ConfigurationService implements Configuration.Class {
     this.validatorRegexpService.string(process.env.SMTP_HOST).smtp();
     this.validatorRegexpService.number(process.env.SMTP_PORT);
     this.validatorRegexpService.string(process.env.SMTP_USERNAME).email();
-    this.validatorRegexpService
-      .string(process.env.SMTP_PASSWORD)
-      .alphanumeric();
+    this.validatorRegexpService.string(process.env.SMTP_PASSWORD).password();
   }
 
   private _load() {
@@ -167,34 +174,36 @@ export class ConfigurationService implements Configuration.Class {
     return eval(match[0]);
   }
 
-  private _compress<T>(value: T): string {
+  private _compress(value: CompressData): string {
     return this.stringExService.compress(value);
   }
 
-  private _decompress<T>(value: string): T {
-    return this.stringExService.decompress(value) as T;
+  private _decompress(value: string): CompressData {
+    return this.stringExService.decompress(value);
   }
 
-  public get<T>(key: string): T {
+  public get<T = CompressData>(key: string): T {
     if (!ConfigurationService['@ENVS'][key]) return null;
-    return this._decompress(ConfigurationService['@ENVS'][key]);
+    return this._decompress(ConfigurationService['@ENVS'][key]) as T;
   }
 
-  public register<T>(key: string, value: T): void {
-    ConfigurationService['@ENVS'][key] = this._compress(value);
+  public register<T = CompressData>(key: string, value: T): void {
+    ConfigurationService['@ENVS'][key] = this._compress(value as CompressData);
   }
 
   public unregister(key: string): void {
     ConfigurationService['@ENVS'][key] = null;
   }
 
-  public getVariable<T>(key: string): T {
+  public getVariable<T = CompressData>(key: string): T {
     if (!ConfigurationService['@VARIABLES'][key]) return null;
-    return this._decompress(ConfigurationService['@VARIABLES'][key]);
+    return this._decompress(ConfigurationService['@VARIABLES'][key]) as T;
   }
 
-  public setVariable<T>(key: string, value: T): void {
-    ConfigurationService['@VARIABLES'][key] = this._compress(value);
+  public setVariable<T = CompressData>(key: string, value: T): void {
+    ConfigurationService['@VARIABLES'][key] = this._compress(
+      value as CompressData,
+    );
   }
 
   public delVariable(key: string): void {

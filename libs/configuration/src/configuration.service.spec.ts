@@ -1,16 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigurationService } from './configuration.service';
-import { DebugModule } from '@app/debug';
-import { ValidatorRegexpModule } from '@app/validator-regexp';
-import { StringExModule } from '@app/string-ex';
+import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex';
 
 describe('ConfigurationService', () => {
   let service: ConfigurationService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [DebugModule, ValidatorRegexpModule, StringExModule],
-      providers: [ConfigurationService],
+      providers: [
+        ConfigurationService,
+        {
+          provide: 'IValidatorRegexpService',
+          useClass: ValidatorRegexpService,
+        },
+        { provide: 'IStringExService', useClass: StringExService },
+      ],
     }).compile();
 
     service = module.get<ConfigurationService>(ConfigurationService);
@@ -58,7 +63,7 @@ describe('ConfigurationService', () => {
   });
 
   it('should be defined VERSION', () => {
-    expect(service.VERSION).toBe('1.6.0');
+    expect(service.VERSION).toBe('1.7.0');
     expect(typeof service.VERSION).toBe('string');
   });
 
