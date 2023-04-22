@@ -1,31 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { EC2 } from 'aws-sdk';
 
-import type { AwsCore } from '@app/aws-core/aws-core.interface';
-import { AwsCoreService } from '@app/aws-core';
-import { AwsEc2 } from '@app/aws-ec2/aws-ec2.interface';
+import type {
+  IAwsEc2Service,
+  CreateKeyPairResponse,
+  DescribeKeyPairResponse,
+  DeleteKeyPairResponse,
+  CreateInstanceResponse,
+  DescribeInstanceResponse,
+  TerminateInstanceResponse,
+} from '@app/aws-ec2';
+import type { IAwsCoreServiceImpl } from '@app/aws-core';
+import type { Role3rdParty } from '@app/aws-sts';
 
 @Injectable()
-export class AwsEc2Service implements AwsCore.Service, AwsEc2.Class {
-  constructor(private readonly awsCore: AwsCoreService) {}
+export class AwsEc2Service implements IAwsEc2Service {
+  constructor(
+    @Inject('IAwsCoreService')
+    private readonly awsCoreService: IAwsCoreServiceImpl,
+  ) {}
 
   public async client() {
-    const configuration = await this.awsCore.configuration();
+    const configuration = await this.awsCoreService.configuration();
     const client = new EC2({
       ...configuration,
     });
     return client;
   }
 
-  public async setRole3rdParty(
-    role3rdParty: AwsCore.Role3rdParty,
-  ): Promise<void> {
-    await this.awsCore.setRole3rdParty(role3rdParty);
+  public async setRole3rdParty(role3rdParty: Role3rdParty): Promise<void> {
+    await this.awsCoreService.setRole3rdParty(role3rdParty);
   }
 
   public async createKeyPair(
     key: EC2.CreateKeyPairRequest['KeyName'],
-  ): Promise<AwsEc2.CreateKeyPairResponse> {
+  ): Promise<CreateKeyPairResponse> {
     const client = await this.client();
 
     if (client instanceof Error) return new Error(client.message);
@@ -45,7 +54,7 @@ export class AwsEc2Service implements AwsCore.Service, AwsEc2.Class {
 
   public async describeKeyPair(
     key: EC2.KeyPairName,
-  ): Promise<AwsEc2.DescribeKeyPairResponse> {
+  ): Promise<DescribeKeyPairResponse> {
     const client = await this.client();
 
     if (client instanceof Error) return new Error(client.message);
@@ -65,7 +74,7 @@ export class AwsEc2Service implements AwsCore.Service, AwsEc2.Class {
 
   public async deleteKeyPair(
     key: EC2.DeleteKeyPairRequest['KeyName'],
-  ): Promise<AwsEc2.DeleteKeyPairResponse> {
+  ): Promise<DeleteKeyPairResponse> {
     const client = await this.client();
 
     if (client instanceof Error) return new Error(client.message);
@@ -85,7 +94,7 @@ export class AwsEc2Service implements AwsCore.Service, AwsEc2.Class {
     imageId: EC2.RunInstancesRequest['ImageId'],
     instanceType: EC2.RunInstancesRequest['InstanceType'],
     keyName: EC2.RunInstancesRequest['KeyName'],
-  ): Promise<AwsEc2.CreateInstanceResponse> {
+  ): Promise<CreateInstanceResponse> {
     const client = await this.client();
 
     if (client instanceof Error) return new Error(client.message);
@@ -120,7 +129,7 @@ export class AwsEc2Service implements AwsCore.Service, AwsEc2.Class {
 
   public async describeInstance(
     instanceId: EC2.InstanceId,
-  ): Promise<AwsEc2.DescribeInstanceResponse> {
+  ): Promise<DescribeInstanceResponse> {
     const client = await this.client();
 
     if (client instanceof Error) return new Error(client.message);
@@ -141,7 +150,7 @@ export class AwsEc2Service implements AwsCore.Service, AwsEc2.Class {
   public async terminateInstance(
     instanceId: EC2.InstanceId,
     key: EC2.DeleteKeyPairRequest['KeyName'],
-  ): Promise<AwsEc2.TerminateInstanceResponse> {
+  ): Promise<TerminateInstanceResponse> {
     const client = await this.client();
 
     if (client instanceof Error) return new Error(client.message);
