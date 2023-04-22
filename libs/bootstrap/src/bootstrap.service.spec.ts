@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BootstrapService } from './bootstrap.service';
+import { AppHostService } from '@app/app-host';
 import { ConfigurationService } from '@app/configuration';
 import { ValidatorRegexpService } from '@app/validator-regexp';
 import { StringExService } from '@app/string-ex';
@@ -21,6 +22,7 @@ describe('BootstrapService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BootstrapService,
+        AppHostService,
         { provide: 'IConfigurationService', useClass: ConfigurationService },
         {
           provide: 'IValidatorRegexpService',
