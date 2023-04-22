@@ -29,8 +29,6 @@
     "@app/bjson": "<rootDir>/../libs/bjson/src",
     "@app/debug/(.*)": "<rootDir>/../libs/debug/src/$1",
     "@app/debug": "<rootDir>/../libs/debug/src",
-    "@app/redis/(.*)": "<rootDir>/../libs/redis/src/$1",
-    "@app/redis": "<rootDir>/../libs/redis/src",
     "@app/archive/(.*)": "<rootDir>/../libs/archive/src/$1",
     "@app/archive": "<rootDir>/../libs/archive/src",
     "@app/hyperc/(.*)": "<rootDir>/../libs/hyperc/src/$1",
@@ -59,8 +57,6 @@
     "@app/core": "<rootDir>/../libs/core/src",
     "@app/files/(.*)": "<rootDir>/../libs/files/src/$1",
     "@app/files": "<rootDir>/../libs/files/src",
-    "@app/sqlite/(.*)": "<rootDir>/../libs/sqlite/src/$1",
-    "@app/sqlite": "<rootDir>/../libs/sqlite/src",
     "@app/websockets/(.*)": "<rootDir>/../libs/websockets/src/$1",
     "@app/websockets": "<rootDir>/../libs/websockets/src",
     "@app/mongoose/(.*)": "<rootDir>/../libs/mongoose/src/$1",
@@ -78,6 +74,8 @@
     "@app/aws-s3/(.*)": "<rootDir>/../libs/aws-s3/src/$1",
     "@app/aws-s3": "<rootDir>/../libs/aws-s3/src",
     "@app/localpath/(.*)": "<rootDir>/../libs/localpath/src/$1",
-    "@app/localpath": "<rootDir>/../libs/localpath/src"
+    "@app/localpath": "<rootDir>/../libs/localpath/src",
+    "@app/app-host/(.*)": "<rootDir>/../libs/app-host/src/$1",
+    "@app/app-host": "<rootDir>/../libs/app-host/src"
   }
 }

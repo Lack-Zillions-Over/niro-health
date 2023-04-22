@@ -2,7 +2,7 @@ export const connection = {
   on: () => jest.fn(),
   getClient: () => {
     return {
-      db: jest.fn(),
+      db: () => jest.fn(),
     };
   },
   close: () => jest.fn(),

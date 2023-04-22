@@ -1,6 +1,6 @@
-import type { AwsSTS } from '@app/aws-sts/aws-sts.interface';
+import type { Role3rdParty } from '@app/aws-sts/aws-sts.interface';
 
-export const MockRole3rdParty: AwsSTS.Role3rdParty = {
+export const MockRole3rdParty: Role3rdParty = {
   roleArn: '???',
   sessionName: '???',
   externalId: '???',

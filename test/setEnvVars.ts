@@ -1,4 +1,4 @@
-process.env.VERSION = '1.6.0';
+process.env.VERSION = '1.7.0';
 process.env.API_URI = 'http://localhost:4000';
 process.env.WEBAPP_URI = 'http://localhost:3000';
 process.env.PORT = '4000';
@@ -36,4 +36,4 @@ process.env.SMTP_HOST = 'smtp.google.com';
 process.env.SMTP_PORT = '587';
 process.env.SMTP_SECURE = 'false';
 process.env.SMTP_USERNAME = 'jest@gmail.com';
-process.env.SMTP_PASSWORD = 'P9F0sVYNl4htqfH2';
+process.env.SMTP_PASSWORD = 'S3nh@Fort3!';
