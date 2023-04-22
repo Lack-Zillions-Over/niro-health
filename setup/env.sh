@@ -1,7 +1,11 @@
+echo "Deleting environment variables backend..."
+rm -rf .env
+rm -rf .env.local
+
 echo "Setting up environment variables backend (development)..."
 echo -e "\
 NODE_ENV="development"\n\
-VERSION="1.6.0"\n\
+VERSION="1.7.0"\n\
 API_URI="http://localhost:4000"\n\
 WEBAPP_URI="http://localhost:3000"\n\
 PORT="4000"\n\
@@ -43,7 +47,7 @@ SMTP_PASSWORD="YOUR_SMTP_PASSWORD"\
 echo "Setting up environment variables backend (local)..."
 echo -e "\
 NODE_ENV="local"\n\
-VERSION="1.6.0"\n\
+VERSION="1.7.0"\n\
 API_URI="http://172.18.0.2:4000"\n\
 WEBAPP_URI="http://172.18.0.6:3000"\n\
 PORT="4000"\n\

@@ -2,6 +2,8 @@ echo "Building Package starting..."
 
 echo "Export libraries..."
 echo -e "\
+export { AppHostModule } from '@app/app-host';\n\
+export { AppHostService } from '@app/app-host'\n;\
 export { ArchiveModule } from '@app/archive';\n\
 export { ArchiveService } from '@app/archive'\n;\
 export { AwsConfigurationModule } from '@app/aws-configuration'\n;\
@@ -42,16 +44,16 @@ export { JsonWebTokenModule } from '@app/json-web-token'\n;\
 export { JsonWebTokenService } from '@app/json-web-token'\n;\
 export { LocalPathModule } from '@app/localpath'\n;\
 export { LocalPathService } from '@app/localpath'\n;\
+export { PrivateKeysModule } from '@app/private-keys'\n;\
+export { PrivateKeysService } from '@app/private-keys'\n;\
 export { PropStringModule } from '@app/prop-string'\n;\
 export { PropStringService } from '@app/prop-string'\n;\
 export { RandomStringModule } from '@app/random'\n;\
 export { RandomStringService } from '@app/random'\n;\
-export { RedisModule } from '@app/redis'\n;\
-export { RedisService } from '@app/redis'\n;\
+export { SchedulesModule } from '@app/schedules'\n;\
+export { SchedulesService } from '@app/schedules'\n;\
 export { SimilarityFilterModule } from '@app/similarity-filter'\n;\
 export { SimilarityFilterService } from '@app/similarity-filter'\n;\
-export { SqliteModule } from '@app/sqlite'\n;\
-export { SqliteService } from '@app/sqlite'\n;\
 export { StringExModule } from '@app/string-ex'\n;\
 export { StringExService } from '@app/string-ex'\n;\
 export { UsersModule } from '@app/users'\n;\
