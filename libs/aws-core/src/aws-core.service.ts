@@ -1,19 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import * as https from 'https';
 
+import type { EC2, S3 } from 'aws-sdk';
 import type { HTTPOptions } from 'aws-sdk/lib/core';
-import type { AwsCore } from '@app/aws-core/aws-core.interface';
-
-import { ConfigurationService } from '@app/configuration';
-import { AwsConfigurationService } from '@app/aws-configuration';
-import { AwsStsService } from '@app/aws-sts';
+import type {
+  IAwsCoreService,
+  IAwsCoreServiceBase,
+} from '@app/aws-core/aws-core.interface';
+import type { IConfigurationService } from '@app/configuration';
+import type { IAwsConfigurationService } from '@app/aws-configuration';
+import type { IAwsStsService, Role3rdParty } from '@app/aws-sts';
 
 @Injectable()
-export class AwsCoreService implements AwsCore.Class, AwsCore.Base {
+export class AwsCoreService implements IAwsCoreService, IAwsCoreServiceBase {
   constructor(
-    private readonly configurationService: ConfigurationService,
-    private readonly awsConfigurationService: AwsConfigurationService,
-    private readonly awsStsService: AwsStsService,
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
+    @Inject('IAwsConfigurationService')
+    private readonly awsConfigurationService: IAwsConfigurationService,
+    @Inject('IAwsStsService') private readonly awsStsService: IAwsStsService,
   ) {
     this.initialize();
   }
@@ -50,9 +55,13 @@ export class AwsCoreService implements AwsCore.Class, AwsCore.Base {
     return this.awsStsService;
   }
 
-  public async setRole3rdParty(
-    role3rdParty: AwsCore.Role3rdParty,
-  ): Promise<void> {
+  public client(): Promise<EC2 | S3> {
+    throw new Error(
+      'Method not implemented in base class. Use a subclass instead of AwsCoreService directly.',
+    );
+  }
+
+  public async setRole3rdParty(role3rdParty: Role3rdParty): Promise<void> {
     await this.awsStsService.saveRole(role3rdParty);
   }
 

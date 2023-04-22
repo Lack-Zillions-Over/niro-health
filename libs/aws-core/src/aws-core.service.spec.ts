@@ -1,12 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AwsCoreService } from './aws-core.service';
-import { AwsConfigurationModule } from '@app/aws-configuration';
-import { AwsStsModule } from '@app/aws-sts';
+import { MockRole3rdParty } from '@test/mocks/aws-sdk';
 import { ConfigurationService } from '@app/configuration';
-import { DebugService } from '@app/debug';
 import { ValidatorRegexpService } from '@app/validator-regexp';
 import { StringExService } from '@app/string-ex';
-import { MockRole3rdParty } from '@test/mocks/aws-sdk';
+import { AwsConfigurationService } from '@app/aws-configuration';
+import { AwsStsService } from '@app/aws-sts';
 
 jest.mock('aws-sdk', () => jest.requireActual('@test/mocks/aws-sdk'));
 
@@ -15,13 +14,19 @@ describe('AwsCoreService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AwsConfigurationModule, AwsStsModule],
       providers: [
         AwsCoreService,
-        ConfigurationService,
-        DebugService,
-        ValidatorRegexpService,
-        StringExService,
+        { provide: 'IConfigurationService', useClass: ConfigurationService },
+        {
+          provide: 'IValidatorRegexpService',
+          useClass: ValidatorRegexpService,
+        },
+        { provide: 'IStringExService', useClass: StringExService },
+        {
+          provide: 'IAwsConfigurationService',
+          useClass: AwsConfigurationService,
+        },
+        { provide: 'IAwsStsService', useClass: AwsStsService },
       ],
     }).compile();
 
