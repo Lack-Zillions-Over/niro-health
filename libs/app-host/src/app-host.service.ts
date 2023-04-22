@@ -10,6 +10,10 @@ export class AppHostService {
    */
   static app: INestApplication;
 
+  get app() {
+    return AppHostService.app;
+  }
+
   /**
    * @description Set the NestJS application instance.
    * @param app The NestJS application instance.
