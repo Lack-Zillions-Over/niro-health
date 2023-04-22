@@ -38,8 +38,8 @@ export { FilesModule } from '@app/files'\n;\
 export { FilesService } from '@app/files'\n;\
 export { HypercModule } from '@app/hyperc'\n;\
 export { HypercService } from '@app/hyperc'\n;\
-export { I18nModule } from '@app/i18n'\n;\
-export { I18nService } from '@app/i18n'\n;\
+export { i18nModule } from '@app/i18n'\n;\
+export { i18nService } from '@app/i18n'\n;\
 export { JsonWebTokenModule } from '@app/json-web-token'\n;\
 export { JsonWebTokenService } from '@app/json-web-token'\n;\
 export { LocalPathModule } from '@app/localpath'\n;\
@@ -48,8 +48,8 @@ export { PrivateKeysModule } from '@app/private-keys'\n;\
 export { PrivateKeysService } from '@app/private-keys'\n;\
 export { PropStringModule } from '@app/prop-string'\n;\
 export { PropStringService } from '@app/prop-string'\n;\
-export { RandomStringModule } from '@app/random'\n;\
-export { RandomStringService } from '@app/random'\n;\
+export { RandomModule } from '@app/random'\n;\
+export { RandomService } from '@app/random'\n;\
 export { SchedulesModule } from '@app/schedules'\n;\
 export { SchedulesService } from '@app/schedules'\n;\
 export { SimilarityFilterModule } from '@app/similarity-filter'\n;\
@@ -67,7 +67,6 @@ yarn build
 
 echo "Cleaning up..."
 rm -rf dist/src
-rm dist/tsconfig.build.tsbuildinfo
 rm index.ts
 
 echo "Package built."
