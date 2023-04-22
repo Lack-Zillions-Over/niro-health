@@ -1,27 +1,37 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import * as SES from 'aws-sdk/clients/ses';
 import * as nodemailer from 'nodemailer';
 import * as path from 'path';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import SESTransport from 'nodemailer/lib/ses-transport';
+
 import { pugEngine } from 'nodemailer-pug-engine';
 
-import { Email } from '@app/email/email.interface';
-import { ConfigurationService } from '@app/configuration';
-import { AwsCoreService } from '@app/aws-core';
+import type SMTPTransport from 'nodemailer/lib/smtp-transport';
+import type SESTransport from 'nodemailer/lib/ses-transport';
+
+import type {
+  IEmailService,
+  Strategy,
+  Priority,
+  Recipient,
+  CTX,
+} from '@app/email';
+import type { IConfigurationService } from '@app/configuration';
+import type { IAwsCoreServiceImpl } from '@app/aws-core';
 
 @Injectable()
-export class EmailService implements Email.Class {
+export class EmailService implements IEmailService {
   constructor(
-    private readonly configurationService: ConfigurationService,
-    private readonly awsCoreService: AwsCoreService,
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
+    @Inject('IAwsCoreService')
+    private readonly awsCoreService: IAwsCoreServiceImpl,
   ) {}
 
-  private _pathTemplates: string = path.resolve(__dirname, '../templates');
-  private _strategy: Email.Strategy = 'SMTP';
-  private _from = '"Niro Health" <noreply@nirohealth.com>';
-  private _priority: Email.Priority = 'normal';
+  private _pathTemplates: string = path.resolve(__dirname, './templates');
+  private _strategy: Strategy = 'SMTP';
+  private _from = '"Niro Health" <support@niro-health.com>';
+  private _priority: Priority = 'normal';
   private _cc: string[] = [];
   private _cco: string[] = [];
 
@@ -33,7 +43,7 @@ export class EmailService implements Email.Class {
     return this._pathTemplates;
   }
 
-  public set strategy(strategy: Email.Strategy) {
+  public set strategy(strategy: Strategy) {
     this._strategy = strategy;
   }
 
@@ -49,7 +59,7 @@ export class EmailService implements Email.Class {
     return this._from;
   }
 
-  public set priority(priority: Email.Priority) {
+  public set priority(priority: Priority) {
     this._priority = priority;
   }
 
@@ -73,7 +83,7 @@ export class EmailService implements Email.Class {
     return this._cco;
   }
 
-  public test(recipient: Email.Recipient, template: string) {
+  public test(recipient: Recipient, template: string) {
     return this.send(recipient, template, {
       title: 'Testing e-mail delivery',
       variables: {},
@@ -81,13 +91,13 @@ export class EmailService implements Email.Class {
   }
 
   public send<T>(
-    recipient: Email.Recipient,
+    recipient: Recipient,
     template: string,
-    variables: Email.CTX<T>,
+    variables: CTX<T>,
   ): Promise<SMTPTransport.SentMessageInfo> {
     return new Promise(async (resolve, reject) => {
       const mailOptions = {
-        from: this.from,
+        from: recipient.from || this.from,
         to: recipient.to,
         cc: recipient.cc || this.cc,
         bcc: recipient.cco || this.cco,
@@ -98,6 +108,13 @@ export class EmailService implements Email.Class {
       };
 
       let transporter: nodemailer.Transporter<SESTransport.SentMessageInfo>;
+
+      console.log('this.strategy', this.strategy);
+      console.log(this.configurationService.SMTP_HOST);
+      console.log(this.configurationService.SMTP_PORT);
+      console.log(this.configurationService.SMTP_SECURE);
+      console.log(this.configurationService.SMTP_USERNAME);
+      console.log(this.configurationService.SMTP_PASSWORD);
 
       if (this.strategy === 'AWS') {
         transporter = nodemailer.createTransport({

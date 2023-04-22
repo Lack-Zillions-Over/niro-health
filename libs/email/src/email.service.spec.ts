@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmailService } from './email.service';
-import { AwsCoreModule } from '@app/aws-core';
+import { AwsCoreService } from '@app/aws-core';
 import { ConfigurationService } from '@app/configuration';
-import { DebugService } from '@app/debug';
 import { ValidatorRegexpService } from '@app/validator-regexp';
 import { StringExService } from '@app/string-ex';
+import { AwsConfigurationService } from '@app/aws-configuration';
+import { AwsStsService } from '@app/aws-sts';
 
 jest.mock('nodemailer', () => jest.requireActual('@test/mocks/nodemailer'));
 
@@ -13,13 +14,20 @@ describe('EmailService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AwsCoreModule],
       providers: [
         EmailService,
-        ConfigurationService,
-        DebugService,
-        ValidatorRegexpService,
-        StringExService,
+        { provide: 'IConfigurationService', useClass: ConfigurationService },
+        {
+          provide: 'IValidatorRegexpService',
+          useClass: ValidatorRegexpService,
+        },
+        { provide: 'IStringExService', useClass: StringExService },
+        { provide: 'IAwsCoreService', useClass: AwsCoreService },
+        {
+          provide: 'IAwsConfigurationService',
+          useClass: AwsConfigurationService,
+        },
+        { provide: 'IAwsStsService', useClass: AwsStsService },
       ],
     }).compile();
 
