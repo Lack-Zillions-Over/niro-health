@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ValidatorRegexp } from '@app/validator-regexp/validator-regexp.interface';
+import { IValidatorRegexpService } from '@app/validator-regexp/validator-regexp.interface';
 
 @Injectable()
-export class ValidatorRegexpService implements ValidatorRegexp.Class {
+export class ValidatorRegexpService implements IValidatorRegexpService {
   private _messageError(text: string, expression: string) {
     return `Sorry but the value "${text}" is not valid. Please use the pattern "${expression}"`;
   }
