@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import * as crypto from 'crypto';
 import * as lzutf8 from 'lzutf8';
@@ -6,19 +6,25 @@ import * as lzstring from 'lz-string';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { ConfigurationService } from '@app/configuration';
-import { RedisService } from '@app/redis';
-import { SqliteService } from '@app/sqlite';
-import { RandomStringService } from '@app/random';
-import { Crypto } from '@app/crypto/crypto.interface';
+import type {
+  ICryptoService,
+  Drive,
+  FileSystemData,
+  Config,
+} from '@app/crypto';
+import type { IConfigurationService } from '@app/configuration';
+import type { IRedisService } from '@app/core/redis/redis.interface';
+import type { ISqliteService } from '@app/core/sqlite/sqlite.interface';
+import type { IRandomService } from '@app/random';
 
 @Injectable()
-export class CryptoService implements Crypto.Class {
+export class CryptoService implements ICryptoService {
   constructor(
-    private readonly configurationService: ConfigurationService,
-    private readonly redisService: RedisService,
-    private readonly sqliteService: SqliteService,
-    private readonly randomStringService: RandomStringService,
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
+    @Inject('IRedisService') private readonly redisService: IRedisService,
+    @Inject('ISqliteService') private readonly sqliteService: ISqliteService,
+    @Inject('IRandomService') private readonly randomService: IRandomService,
   ) {
     if (this._isSqlite) {
       this._createTable();
@@ -31,9 +37,8 @@ export class CryptoService implements Crypto.Class {
 
   private get _driver() {
     return (
-      (this.configurationService.getVariable(
-        'crypto_driver',
-      ) as Crypto.Drive) ?? 'sqlite'
+      (this.configurationService.getVariable('crypto_driver') as Drive) ??
+      'sqlite'
     );
   }
 
@@ -73,7 +78,7 @@ export class CryptoService implements Crypto.Class {
   }
 
   private get _fileSystemPath() {
-    return path.join(__dirname, 'crypto.data');
+    return path.join(__dirname, '/', 'data', '/', 'crypto.data');
   }
 
   private get _fileSystemExistsData() {
@@ -84,7 +89,8 @@ export class CryptoService implements Crypto.Class {
     return 'utf8';
   }
 
-  private _fileSystemWrite(data: Record<string, Crypto.FileSystemData>) {
+  private _fileSystemWrite(data: Record<string, FileSystemData>) {
+    fs.mkdirSync(path.join(__dirname, '/', 'data'), { recursive: true });
     fs.writeFileSync(
       this._fileSystemPath,
       lzstring.compressToBase64(JSON.stringify(data)),
@@ -92,7 +98,7 @@ export class CryptoService implements Crypto.Class {
     );
   }
 
-  private _fileSystemRead(): Record<string, Crypto.FileSystemData> {
+  private _fileSystemRead(): Record<string, FileSystemData> {
     const data = lzstring.decompressFromBase64(
       fs.readFileSync(this._fileSystemPath, this._fileSystemEncode) as string,
     );
@@ -120,13 +126,13 @@ export class CryptoService implements Crypto.Class {
     }
   }
 
-  private _fileSystemAppend(item: Crypto.FileSystemData) {
+  private _fileSystemAppend(item: FileSystemData) {
     const data = this._fileSystemRead();
     data[item.key] = item;
     this._fileSystemWrite(data);
   }
 
-  private _fileSystemFind(key: string): Crypto.FileSystemData | undefined {
+  private _fileSystemFind(key: string): FileSystemData | null {
     const data = this._fileSystemRead();
     return data[key];
   }
@@ -246,7 +252,8 @@ export class CryptoService implements Crypto.Class {
    */
   private _getHash() {
     const hash = crypto.createHash('md5');
-    hash.update(this.randomStringService.string(24));
+
+    hash.update(this.randomService.string(24));
     return hash.digest('hex');
   }
 
@@ -376,7 +383,7 @@ export class CryptoService implements Crypto.Class {
     if (typeof txt !== 'string')
       return 'Error in encrypt: txt must be a string';
 
-    const config: Crypto.Config = {
+    const config: Config = {
         algorithm: 'aes-256-gcm',
         password,
         authTagLength: 16,
@@ -424,7 +431,7 @@ export class CryptoService implements Crypto.Class {
 
       if (del) await this._delete(keyIV, KeyTAG);
 
-      const config: Crypto.Config = {
+      const config: Config = {
           algorithm: 'aes-256-gcm',
           password,
           authTagLength: 16,

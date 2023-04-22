@@ -1,17 +1,23 @@
 import { Module } from '@nestjs/common';
-import { ConfigurationService } from '@app/configuration';
-import { SqliteService } from '@app/sqlite';
-import { RedisService } from '@app/redis';
-import { RandomStringService } from '@app/random';
 import { CryptoService } from './crypto.service';
+import { ConfigurationService } from '@app/configuration';
+import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex';
+import { RedisService } from '@app/core/redis/redis.service';
+import { SqliteService } from '@app/core/sqlite/sqlite.service';
+import { DebugService } from '@app/debug';
+import { RandomService } from '@app/random';
 
 @Module({
   providers: [
     CryptoService,
-    ConfigurationService,
-    RedisService,
-    SqliteService,
-    RandomStringService,
+    { provide: 'IConfigurationService', useClass: ConfigurationService },
+    { provide: 'IValidatorRegexpService', useClass: ValidatorRegexpService },
+    { provide: 'IStringExService', useClass: StringExService },
+    { provide: 'IRedisService', useClass: RedisService },
+    { provide: 'ISqliteService', useClass: SqliteService },
+    { provide: 'IDebugService', useClass: DebugService },
+    { provide: 'IRandomService', useClass: RandomService },
   ],
   exports: [CryptoService],
 })
