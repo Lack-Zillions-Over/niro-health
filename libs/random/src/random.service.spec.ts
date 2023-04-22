@@ -1,18 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RandomStringService } from '@app/random';
-import { StringExService } from '@app/string-ex/string-ex.service';
+import { RandomService } from '@app/random';
 import { ValidatorRegexpService } from '@app/validator-regexp';
+import { StringExService } from '@app/string-ex/string-ex.service';
 
-describe('RandomStringService', () => {
-  let service: RandomStringService;
+describe('RandomService', () => {
+  let service: RandomService;
   let validatorRegexpService: ValidatorRegexpService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [RandomStringService, StringExService, ValidatorRegexpService],
+      providers: [
+        RandomService,
+        ValidatorRegexpService,
+        { provide: 'IStringExService', useClass: StringExService },
+      ],
     }).compile();
 
-    service = module.get<RandomStringService>(RandomStringService);
+    service = module.get<RandomService>(RandomService);
     validatorRegexpService = module.get<ValidatorRegexpService>(
       ValidatorRegexpService,
     );

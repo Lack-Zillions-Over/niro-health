@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
-
+import { Inject, Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 
-import { RandomString } from '@app/random/random.interface';
-import { StringExService } from '@app/string-ex/string-ex.service';
-import { StringEx } from '@app/string-ex/string-ex.interface';
+import type { IRandomService, Occurrence, Characters } from '@app/random';
+import type { IStringExService, Hash } from '@app/string-ex';
 
 @Injectable()
-export class RandomStringService implements RandomString.Class {
-  constructor(private readonly stringExService: StringExService) {}
+export class RandomService implements IRandomService {
+  constructor(
+    @Inject('IStringExService')
+    private readonly stringExService: IStringExService,
+  ) {}
 
   /**
    * @description Returns a random integer between min and max
@@ -20,7 +21,7 @@ export class RandomStringService implements RandomString.Class {
   /**
    * @description Returns a random string format of HASH
    */
-  public hash(length: number, digest: StringEx.Hash.digest): string {
+  public hash(length: number, digest: Hash.digest): string {
     return this.stringExService.hash(this.string(length), 'md5', digest);
   }
 
@@ -41,14 +42,7 @@ export class RandomStringService implements RandomString.Class {
   /**
    * @description Returns a random string of characters
    */
-  public string(
-    length: number,
-    characters?: Partial<{
-      abc: string[];
-      int: number[];
-      specials: string[];
-    }>,
-  ): string {
+  public string(length: number, characters?: Characters): string {
     const abc = (characters && characters.abc) || [
         'a',
         'b',
@@ -87,15 +81,15 @@ export class RandomStringService implements RandomString.Class {
       abc_length = abc.length - 1,
       ints_length = ints.length - 1,
       specials_length = specials.length - 1,
-      occurrenceABC: typeof RandomString.Occurrence = (uppercase: number) => {
+      occurrenceABC: typeof Occurrence = (uppercase: number) => {
         if (uppercase == 0 || uppercase == 2)
           return abc[this.int(abc_length + 1)].toUpperCase();
 
         return abc[this.int(abc_length + 1)].toLowerCase();
       },
-      occurrenceInt: typeof RandomString.Occurrence = () =>
+      occurrenceInt: typeof Occurrence = () =>
         `${ints[this.int(ints_length + 1)]}`,
-      occurrenceSpecial: typeof RandomString.Occurrence = () =>
+      occurrenceSpecial: typeof Occurrence = () =>
         specials[this.int(specials_length + 1)];
 
     let text = '';
