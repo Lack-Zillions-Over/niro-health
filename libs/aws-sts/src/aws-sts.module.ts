@@ -3,17 +3,15 @@ import { AwsStsService } from './aws-sts.service';
 import { AwsConfigurationService } from '@app/aws-configuration';
 import { ConfigurationService } from '@app/configuration';
 import { ValidatorRegexpService } from '@app/validator-regexp';
-import { DebugService } from '@app/debug';
 import { StringExService } from '@app/string-ex';
 
 @Module({
   providers: [
     AwsStsService,
-    AwsConfigurationService,
-    ConfigurationService,
-    DebugService,
-    ValidatorRegexpService,
-    StringExService,
+    { provide: 'IAwsConfigurationService', useClass: AwsConfigurationService },
+    { provide: 'IConfigurationService', useClass: ConfigurationService },
+    { provide: 'IValidatorRegexpService', useClass: ValidatorRegexpService },
+    { provide: 'IStringExService', useClass: StringExService },
   ],
   exports: [AwsStsService],
 })

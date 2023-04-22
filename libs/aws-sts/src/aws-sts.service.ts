@@ -1,21 +1,27 @@
-import { Injectable } from '@nestjs/common';
-
+import { Inject, Injectable } from '@nestjs/common';
 import { STS } from 'aws-sdk';
 
-import { AwsSTS } from '@app/aws-sts/aws-sts.interface';
-import { AwsConfigurationService } from '@app/aws-configuration';
-import { ConfigurationService } from '@app/configuration';
+import type {
+  IAwsStsService,
+  Role3rdParty,
+  RoleRequest,
+  RoleResponse,
+} from '@app/aws-sts/aws-sts.interface';
+import type { IAwsConfigurationService } from '@app/aws-configuration';
+import type { IConfigurationService } from '@app/configuration';
 
 @Injectable()
-export class AwsStsService implements AwsSTS.Class {
-  private _role3rdParty: AwsSTS.Role3rdParty;
+export class AwsStsService implements IAwsStsService {
+  private _role3rdParty: Role3rdParty;
 
   constructor(
-    private readonly awsConfigurationService: AwsConfigurationService,
-    private readonly configurationService: ConfigurationService,
+    @Inject('IAwsConfigurationService')
+    private readonly awsConfigurationService: IAwsConfigurationService,
+    @Inject('IConfigurationService')
+    private readonly configurationService: IConfigurationService,
   ) {}
 
-  private set role3rdParty(role3rdParty: AwsSTS.Role3rdParty) {
+  private set role3rdParty(role3rdParty: Role3rdParty) {
     this._role3rdParty = role3rdParty;
   }
 
@@ -24,32 +30,32 @@ export class AwsStsService implements AwsSTS.Class {
   }
 
   private _normalizeVariableByAccessKeyId(
-    sessionName: AwsSTS.Role3rdParty['sessionName'],
+    sessionName: Role3rdParty['sessionName'],
   ) {
     return `AWS_ROLE_${sessionName}_ACCESS_KEY_ID`;
   }
 
   private _normalizeVariableBySecretAccessKey(
-    sessionName: AwsSTS.Role3rdParty['sessionName'],
+    sessionName: Role3rdParty['sessionName'],
   ) {
     return `AWS_ROLE_${sessionName}_SECRET_ACCESS_KEY`;
   }
 
   private _normalizeVariableBySessionToken(
-    sessionName: AwsSTS.Role3rdParty['sessionName'],
+    sessionName: Role3rdParty['sessionName'],
   ) {
     return `AWS_ROLE_${sessionName}_SESSION_NAME`;
   }
 
   private _normalizeVariableByExpiration(
-    sessionName: AwsSTS.Role3rdParty['sessionName'],
+    sessionName: Role3rdParty['sessionName'],
   ) {
     return `AWS_ROLE_${sessionName}_EXPIRATION`;
   }
 
   private _saveEnvRole(
-    sessionName: AwsSTS.Role3rdParty['sessionName'],
-    credentials: AwsSTS.RoleResponse['Credentials'],
+    sessionName: Role3rdParty['sessionName'],
+    credentials: RoleResponse['Credentials'],
   ) {
     this.configurationService.register(
       this._normalizeVariableByAccessKeyId(sessionName),
@@ -70,8 +76,8 @@ export class AwsStsService implements AwsSTS.Class {
   }
 
   private _getEnvRole(
-    sessionName: AwsSTS.Role3rdParty['sessionName'],
-  ): AwsSTS.RoleResponse['Credentials'] | null {
+    sessionName: Role3rdParty['sessionName'],
+  ): RoleResponse['Credentials'] | null {
     if (
       !this.configurationService.get(
         this._normalizeVariableByExpiration(sessionName),
@@ -103,20 +109,18 @@ export class AwsStsService implements AwsSTS.Class {
     }
   }
 
-  public async saveRole(role3rdParty: AwsSTS.Role3rdParty): Promise<void> {
+  public async saveRole(role3rdParty: Role3rdParty): Promise<void> {
     this.role3rdParty = role3rdParty;
   }
 
-  public async assumeRole(): Promise<
-    AwsSTS.RoleResponse['Credentials'] | Error
-  > {
+  public async assumeRole(): Promise<RoleResponse['Credentials'] | Error> {
     if (!this._role3rdParty) return new Error('Role3rdParty not defined');
 
     const credentials = this._getEnvRole(this.role3rdParty.sessionName);
 
     if (credentials) return credentials;
 
-    const params: AwsSTS.RoleRequest = {
+    const params: RoleRequest = {
       RoleArn: this.role3rdParty.roleArn,
       RoleSessionName: this.role3rdParty.sessionName,
       ExternalId: this.role3rdParty.externalId,
