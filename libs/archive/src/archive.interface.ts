@@ -15,7 +15,6 @@ export namespace Compression {
     | 'BEST_SPEED'
     | 'BEST_COMPRESSION'
     | 'DEFAULT_COMPRESSION';
-
   export type ZLIB_LEVEL = `Z_${Level}`;
 }
 
