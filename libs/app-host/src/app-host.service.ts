@@ -1,15 +1,20 @@
 import { INestApplication, Injectable } from '@nestjs/common';
+import type { IAppHostService } from '@app/app-host/app-host.interface';
 
 /**
  * @description The module that provides the access to the NestJS application instance.
  */
 @Injectable()
-export class AppHostService {
+export class AppHostService implements IAppHostService {
   /**
    * @description The NestJS application instance.
    */
   static app: INestApplication;
 
+  /**
+   * @description Returns the NestJS application instance.
+   * @returns {INestApplication}
+   */
   get app() {
     return AppHostService.app;
   }
