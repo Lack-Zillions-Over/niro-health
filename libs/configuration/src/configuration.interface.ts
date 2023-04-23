@@ -49,7 +49,6 @@ export interface IConfigurationService {
   SMTP_SECURE: boolean;
   SMTP_USERNAME: string;
   SMTP_PASSWORD: string;
-  ENV: NODE_ENV;
   isDev: boolean;
   isProd: boolean;
   isTest: boolean;
