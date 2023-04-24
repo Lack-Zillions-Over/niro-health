@@ -13,6 +13,9 @@ import type {
 import type { IAwsCoreServiceImpl } from '@app/aws-core';
 import type { Role3rdParty } from '@app/aws-sts';
 
+/**
+ * @description The module that provides the AWS EC2 service.
+ */
 @Injectable()
 export class AwsEc2Service implements IAwsEc2Service {
   constructor(
@@ -20,6 +23,9 @@ export class AwsEc2Service implements IAwsEc2Service {
     private readonly awsCoreService: IAwsCoreServiceImpl,
   ) {}
 
+  /**
+   * @description Get the AWS EC2 client.
+   */
   public async client() {
     const configuration = await this.awsCoreService.configuration();
     const client = new EC2({
@@ -28,10 +34,16 @@ export class AwsEc2Service implements IAwsEc2Service {
     return client;
   }
 
+  /**
+   * @description Set the role 3rd party.
+   */
   public async setRole3rdParty(role3rdParty: Role3rdParty): Promise<void> {
     await this.awsCoreService.setRole3rdParty(role3rdParty);
   }
 
+  /**
+   * @description Create a key pair.
+   */
   public async createKeyPair(
     key: EC2.CreateKeyPairRequest['KeyName'],
   ): Promise<CreateKeyPairResponse> {
@@ -52,6 +64,9 @@ export class AwsEc2Service implements IAwsEc2Service {
     return { id: KeyPairId, key: KeyMaterial };
   }
 
+  /**
+   * @description Describe a key pair.
+   */
   public async describeKeyPair(
     key: EC2.KeyPairName,
   ): Promise<DescribeKeyPairResponse> {
@@ -72,6 +87,9 @@ export class AwsEc2Service implements IAwsEc2Service {
     return KeyPairs;
   }
 
+  /**
+   * @description Delete a key pair.
+   */
   public async deleteKeyPair(
     key: EC2.DeleteKeyPairRequest['KeyName'],
   ): Promise<DeleteKeyPairResponse> {
@@ -90,6 +108,9 @@ export class AwsEc2Service implements IAwsEc2Service {
     return true;
   }
 
+  /**
+   * @description Create an instance.
+   */
   public async createInstance(
     imageId: EC2.RunInstancesRequest['ImageId'],
     instanceType: EC2.RunInstancesRequest['InstanceType'],
@@ -127,6 +148,9 @@ export class AwsEc2Service implements IAwsEc2Service {
     return Instances.map(({ InstanceId }) => InstanceId);
   }
 
+  /**
+   * @description Describe an instance.
+   */
   public async describeInstance(
     instanceId: EC2.InstanceId,
   ): Promise<DescribeInstanceResponse> {
@@ -147,6 +171,9 @@ export class AwsEc2Service implements IAwsEc2Service {
     return Reservations;
   }
 
+  /**
+   * @description Terminate an instance.
+   */
   public async terminateInstance(
     instanceId: EC2.InstanceId,
     key: EC2.DeleteKeyPairRequest['KeyName'],
