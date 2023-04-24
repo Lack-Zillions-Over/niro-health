@@ -5,6 +5,9 @@ import type { IAwsS3Service, GetResponse } from '@app/aws-s3';
 import type { IAwsCoreServiceImpl } from '@app/aws-core';
 import type { Role3rdParty } from '@app/aws-sts';
 
+/**
+ * @description The module that provides the AWS S3 service.
+ */
 @Injectable()
 export class AwsS3Service implements IAwsS3Service {
   constructor(
@@ -12,6 +15,9 @@ export class AwsS3Service implements IAwsS3Service {
     private readonly awsCoreService: IAwsCoreServiceImpl,
   ) {}
 
+  /**
+   * @description Get the AWS S3 client.
+   */
   public async client() {
     const configuration = await this.awsCoreService.configuration();
     const client = new S3({
@@ -20,10 +26,16 @@ export class AwsS3Service implements IAwsS3Service {
     return client;
   }
 
+  /**
+   * @description Set the role 3rd party.
+   */
   public async setRole3rdParty(role3rdParty: Role3rdParty): Promise<void> {
     await this.awsCoreService.setRole3rdParty(role3rdParty);
   }
 
+  /**
+   * @description Upload a file to S3.
+   */
   public async upload(
     file: Express.Multer.File,
     filename: string,
@@ -56,6 +68,9 @@ export class AwsS3Service implements IAwsS3Service {
     }
   }
 
+  /**
+   * @description Get a file from S3.
+   */
   public async get(
     filename: string,
     mimetype: string,
@@ -82,6 +97,9 @@ export class AwsS3Service implements IAwsS3Service {
     }
   }
 
+  /**
+   * @description Delete a file from S3.
+   */
   public async delete(
     filename: string,
     mimetype: string,
