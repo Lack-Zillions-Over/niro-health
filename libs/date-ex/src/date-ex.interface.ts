@@ -1,12 +1,18 @@
-import { Moment as MomentType } from 'moment';
-
-export interface Options {
-  layout?: string;
-  exclude?: string;
-}
+import type { Moment, MomentInput, MomentFormatSpecification } from 'moment';
 
 export interface IDateExService {
-  instance(): MomentType;
-  format(options?: Options): string;
-  formatDate(date: string): MomentType;
+  moment(
+    inp?: MomentInput,
+    format?: MomentFormatSpecification,
+    strict?: boolean,
+    language?: string,
+  ): Moment;
+  now: Date;
+  utc: Date;
+  sevenDaysAgo: Date;
+  sevenDaysFromNow: Date;
+  oneMonthAgo: Date;
+  oneMonthFromNow: Date;
+  oneYearAgo: Date;
+  oneYearFromNow: Date;
 }
