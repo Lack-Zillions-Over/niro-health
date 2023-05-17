@@ -11,7 +11,6 @@ import {
   GridFSBucketWriteStream,
   ObjectId,
 } from 'mongodb';
-
 import type {
   IFileGridfsService,
   Delete,
@@ -26,6 +25,9 @@ import type {
 import type { IConfigurationService } from '@app/configuration';
 import type { IMongoDBService } from '@app/core/mongodb/mongodb.interface';
 
+/**
+ * @description The module that handles the file system in the database (MongoDB).
+ */
 @Injectable()
 export class FileGridfsService implements IFileGridfsService {
   constructor(
@@ -34,6 +36,9 @@ export class FileGridfsService implements IFileGridfsService {
     @Inject('IMongoDBService') private readonly mongoDBService: IMongoDBService,
   ) {}
 
+  /**
+   * @description Return database name.
+   */
   private get dbName() {
     return this.mongoDBService.getDB(
       this.configurationService.MONGODB_GRIDFS_NAME ||
@@ -154,7 +159,7 @@ export class FileGridfsService implements IFileGridfsService {
   }
 
   /**
-   * @description Return version of file in database
+   * @description Return version of file in database.
    * @param authorId {string} - Id of author
    * @param filename {string} - Name of file
    * @param fileext {string} - Extension of file
@@ -190,7 +195,7 @@ export class FileGridfsService implements IFileGridfsService {
   }
 
   /**
-   * @description Rename file in database
+   * @description Rename file in database.
    * @param authorId {string} - Id of author
    * @param filename {string} - Name of file
    * @param fileext {string} - Extension of file
@@ -224,7 +229,7 @@ export class FileGridfsService implements IFileGridfsService {
   }
 
   /**
-   * @description Delete file in database
+   * @description Delete file in database.
    * @param authorId {string} - Id of author
    * @param filename {string} - Name of file
    * @param fileext {string} - Extension of file
