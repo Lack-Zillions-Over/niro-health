@@ -19,6 +19,8 @@ export type CTX<T> = {
 export type Priority = 'high' | 'normal' | 'low';
 
 export interface IEmailService {
+  resetCC(): void;
+  resetCCO(): void;
   test(
     recipient: Recipient,
     template: string,

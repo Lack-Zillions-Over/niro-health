@@ -62,6 +62,20 @@ describe('EmailService', () => {
     expect(service.cco instanceof Array).not.toBeFalsy();
   });
 
+  it('should reset CC', () => {
+    service.cc = ['testing@niro-health.com', 'support@niro-health.com'];
+    expect(service.cc).toHaveLength(2);
+    service.resetCC();
+    expect(service.cc).toHaveLength(0);
+  });
+
+  it('should reset CCO', () => {
+    service.cco = ['testing@niro-health.com', 'support@niro-health.com'];
+    expect(service.cco).toHaveLength(2);
+    service.resetCCO();
+    expect(service.cco).toHaveLength(0);
+  });
+
   describe('Tests send mail', () => {
     it('should be run method send', async () => {
       const result = await service.send(
