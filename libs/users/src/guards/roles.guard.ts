@@ -1,8 +1,13 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  Inject,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 
-import { AppHostService } from '@app/app-host';
+import type { IAppHostService } from '@app/app-host';
 import { FindByIdUserFactory } from '@app/users/factories/findById';
 import { User } from '@app/users/entities';
 
@@ -10,7 +15,8 @@ import { User } from '@app/users/entities';
 export class RolesGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private appHostService: AppHostService,
+    @Inject('IAppHostService')
+    private readonly appHostService: IAppHostService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { PrivateKey } from '@app/private-keys/entities';
-import { AppHostService } from '@app/app-host';
+import { IAppHostService } from '@app/app-host';
 import { IStringExService } from '@app/string-ex';
 import { IRandomService } from '@app/random';
 
@@ -22,7 +22,8 @@ import { DeletePrivateKeyFactory } from '@app/private-keys/factories/delete';
 @Injectable()
 export class PrivateKeysService {
   constructor(
-    private readonly appHostService: AppHostService,
+    @Inject('IAppHostService')
+    private readonly appHostService: IAppHostService,
     @Inject('IStringExService')
     private readonly stringExService: IStringExService,
     @Inject('IRandomService') private readonly randomService: IRandomService,

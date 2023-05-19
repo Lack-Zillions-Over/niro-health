@@ -38,7 +38,7 @@ import { TokenGuard } from '@app/users/guards/token.guard';
 import { JoiValidationPipe } from '@app/core/pipes/joi-validation.pipe';
 
 import { CoreService } from '@app/core/core.service';
-import { AppHostService } from '@app/app-host';
+import { IAppHostService } from '@app/app-host';
 import { JsonWebTokenService } from '@app/json-web-token';
 
 import { UsersService } from '@app/users/users.service';
@@ -66,7 +66,8 @@ export class UsersController {
     private readonly emailQueue: Queue<AccountActivateType>,
     // private readonly httpService: HttpService,
     private readonly coreService: CoreService,
-    private readonly appHostService: AppHostService,
+    @Inject('IAppHostService')
+    private readonly appHostService: IAppHostService,
     @Inject('IUsersService') private readonly usersService: UsersService,
     @Inject('IUsersParser') private readonly usersParser: UsersParser,
   ) {

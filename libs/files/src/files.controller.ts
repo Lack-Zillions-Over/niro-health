@@ -33,7 +33,7 @@ import { FileMultipleValidationPipe } from '@app/files/pipes/multipleValidation'
 import { FileValidationPipeDto } from '@app/files/dto/validationPipe';
 
 import { ConfigurationService } from '@app/configuration';
-import { AppHostService } from '@app/app-host';
+import { IAppHostService } from '@app/app-host';
 import { i18nService } from '@app/i18n';
 import { StringExService } from '@app/string-ex';
 import { LocalPathService } from '@app/localpath';
@@ -52,7 +52,8 @@ export class FilesController {
   };
 
   constructor(
-    private readonly appHostService: AppHostService,
+    @Inject('IAppHostService')
+    private readonly appHostService: IAppHostService,
     @Inject('IFilesService') private readonly filesService: FilesService,
     @Inject('IFilesParser') private readonly filesParser: FilesParser,
   ) {}

@@ -13,7 +13,7 @@ import { ValidatePrivateKeyFactory } from '@app/private-keys/factories/validate'
 import type { Ii18nService } from '@app/i18n';
 import type { IConfigurationService } from '@app/configuration';
 import type { IStringExService } from '@app/string-ex';
-import type { AppHostService } from '@app/app-host';
+import type { IAppHostService } from '@app/app-host';
 
 /**
  * @description The middleware for check authorization.
@@ -26,7 +26,8 @@ export class AuthorizationMiddleware implements NestMiddleware {
     @Inject('IStringExService')
     private readonly stringExService: IStringExService,
     @Inject('Ii18nService') private readonly _i18nService: Ii18nService,
-    private readonly appHostService: AppHostService,
+    @Inject('IAppHostService')
+    private readonly appHostService: IAppHostService,
   ) {}
 
   /**

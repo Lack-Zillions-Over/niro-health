@@ -1,7 +1,7 @@
-import { PipeTransform, Injectable } from '@nestjs/common';
+import { PipeTransform, Injectable, Inject } from '@nestjs/common';
 import { Readable } from 'stream';
 
-import { AppHostService } from '@app/app-host';
+import type { IAppHostService } from '@app/app-host';
 import { ConfigurationService } from '@app/configuration/configuration.service';
 import { FileValidationPipeDto } from '@app/files/dto/validationPipe';
 
@@ -9,7 +9,10 @@ import { FileValidationPipeDto } from '@app/files/dto/validationPipe';
 export class FileMultipleValidationPipe
   implements PipeTransform<Express.Multer.File[], FileValidationPipeDto[]>
 {
-  constructor(private readonly appHostSerivce: AppHostService) {}
+  constructor(
+    @Inject('IAppHostService')
+    private readonly appHostSerivce: IAppHostService,
+  ) {}
 
   private get _mimetypes() {
     return this.appHostSerivce.app

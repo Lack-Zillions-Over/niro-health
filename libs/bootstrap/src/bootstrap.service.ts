@@ -17,7 +17,7 @@ import type {
   acceptFunc,
   disposeFunc,
 } from '@app/bootstrap';
-import { AppHostService } from '@app/app-host';
+import type { IAppHostService } from '@app/app-host';
 import type { IConfigurationService } from '@app/configuration';
 import type { IDebugService } from '@app/debug';
 import type { Ii18nService } from '@app/i18n';
@@ -34,7 +34,8 @@ declare const module: {
 @Injectable()
 export class BootstrapService implements IBootstrapService {
   constructor(
-    private readonly appHostService: AppHostService,
+    @Inject('IAppHostService')
+    private readonly appHostService: IAppHostService,
     @Inject('IConfigurationService')
     private readonly configurationService: IConfigurationService,
     @Inject('IDebugService') private readonly debugService: IDebugService,

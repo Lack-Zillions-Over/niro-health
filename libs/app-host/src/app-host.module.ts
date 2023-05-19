@@ -3,7 +3,17 @@ import { AppHostService } from './app-host.service';
 
 @Global()
 @Module({
-  providers: [AppHostService],
-  exports: [AppHostService],
+  providers: [
+    {
+      provide: 'IAppHostService',
+      useClass: AppHostService,
+    },
+  ],
+  exports: [
+    {
+      provide: 'IAppHostService',
+      useClass: AppHostService,
+    },
+  ],
 })
 export class AppHostModule {}

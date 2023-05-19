@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 
 import { File } from '@app/files/entities';
-import { AppHostService } from '@app/app-host';
+import type { IAppHostService } from '@app/app-host';
 
 import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
 import type { Type } from '@app/similarity-filter';
@@ -19,7 +19,10 @@ import { DeleteFileFactory } from '@app/files/factories/delete';
 
 @Injectable()
 export class FilesService {
-  constructor(private readonly appHostService: AppHostService) {}
+  constructor(
+    @Inject('IAppHostService')
+    private readonly appHostService: IAppHostService,
+  ) {}
 
   async create(file: CreateFileDto) {
     return await CreateFileFactory.run(file, this.appHostService.app);
