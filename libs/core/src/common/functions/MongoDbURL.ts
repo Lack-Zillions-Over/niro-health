@@ -1,4 +1,16 @@
-export default function MongoDbURL(params: {
+/**
+ * @description Function for generate MongoDB URL.
+ * @param params {
+ *  username: string;
+ *  password: string;
+ *  host: string;
+ *  port: string;
+ *  database: string;
+ *  appname: string;
+ *  ssl: boolean;
+ * }
+ */
+export function MongoDbURL(params: {
   username: string;
   password: string;
   host: string;

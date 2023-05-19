@@ -2,7 +2,18 @@ import { INestApplication } from '@nestjs/common';
 import { FindByIdUserFactory } from '@app/users/factories/findById';
 import { User } from '@app/users/entities';
 
-export default async function CheckUserSession(
+/**
+ * @description Function for check sessions of users.
+ * @param params {
+ *  user_id: string;
+ *  token_value: string;
+ *  token_signature: string;
+ *  token_revalidate_value: string;
+ *  token_revalidate_signature: string;
+ * }
+ * @param app Nest application.
+ */
+export async function CheckUserSession(
   params: {
     user_id: string;
     token_value: string;
