@@ -13,24 +13,30 @@ import {
   MaskPhoneType,
 } from '@app/string-ex/string-ex.interface';
 
+/**
+ * @description The module provides several methods for manipulating strings.
+ */
 @Injectable()
 export class StringExService implements IStringExService {
   /**
-   * @description Compresses a string to EncodedURIComponent
+   * @description Compresses a string to EncodedURIComponent.
+   * @param data The data to compress
    */
   public LZStringCompressToEncodedURIComponent(data: string) {
     return LZString.compressToEncodedURIComponent(data);
   }
 
   /**
-   * @description Decompresses a string from EncodedURIComponent to string
+   * @description Decompresses a string from EncodedURIComponent to string.
+   * @param encoded The encoded data to decompress
    */
   public LZStringDecompressFromEncodedURIComponent(encoded: string) {
     return LZString.decompressFromEncodedURIComponent(encoded);
   }
 
   /**
-   * @description Compresses a {string | Uint8Array | Buffer} to base64
+   * @description Compresses a {string | Uint8Array | Buffer} to base64.
+   * @param data The data to compress
    */
   public compress(data: CompressData) {
     if (
@@ -47,7 +53,8 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Decompresses a string from base64 to {Type | string | Uint8Array | Buffer}
+   * @description Decompresses a string from base64 to {Type | string | Uint8Array | Buffer}.
+   * @param encoded The encoded data to decompress
    */
   public decompress(encoded: string): CompressData {
     const exec = (run) => {
@@ -74,7 +81,9 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Return hash from password
+   * @description Return hash from password.
+   * @param password The password to hash
+   * @param saltRounds The salt rounds to hash
    */
   public async hashPassword(password: string, saltRounds?: number) {
     if (!saltRounds) saltRounds = 10;
@@ -83,14 +92,19 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Compare hash from password
+   * @description Compare hash from password.
+   * @param password The password to compare
+   * @param hashed The hashed password to compare
    */
   public async compareHashPassword(password: string, hashed: string) {
     return await compare(password, hashed);
   }
 
   /**
-   * @description Return hash from string
+   * @description Return hash from string.
+   * @param txt The string to hash
+   * @param algorithm The algorithm to hash ("md5" | "sha1" | "sha256" | "sha512")
+   * @param digest The digest to hash ("base64" | "base64url" | "hex")
    */
   public hash(
     txt: string,
@@ -105,28 +119,32 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Return bytes to string
+   * @description Return bytes to string.
+   * @param bytes The bytes to convert
    */
   public bytesToString(bytes: number): string {
     return Sugar.Number.bytes(bytes, 2, true);
   }
 
   /**
-   * @description Get name of file
+   * @description Get name of file.
+   * @param name The name of file
    */
   public getFilename(name: string): string {
     return name.slice(0, name.lastIndexOf('.'));
   }
 
   /**
-   * @description Get extension of file
+   * @description Get extension of file.
+   * @param name The name of file
    */
-  getFileExtension(name: string): string {
+  public getFileExtension(name: string): string {
     return name.slice(name.lastIndexOf('.'));
   }
 
   /**
-   * @description Extract numbers from string
+   * @description Extract numbers from string.
+   * @param text The text to extract
    */
   public extractNumbers(text: string): number[] {
     const regex = /\d+/g;
@@ -136,7 +154,8 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Convert a string to money format
+   * @description Convert a string to money format.
+   * @param value The value to convert
    */
   public maskMoney(value: number): string {
     const formatter = value.toLocaleString('pt-br', {
@@ -147,7 +166,9 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Convert a string to phone pretty
+   * @description Convert a string to phone pretty.
+   * @param value The value to convert
+   * @param type The type of phone ("tel" | "cell")
    */
   public maskPhone(value: string, type: MaskPhoneType): string {
     switch (type) {
@@ -170,9 +191,10 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Convert a string to zipcode pretty
+   * @description Convert a string to zip code pretty.
+   * @param value The value to convert
    */
-  public maskZipcode(value: string): string {
+  public maskZipCode(value: string): string {
     const formatter = value
       .toString()
       .replace(/\D/g, '')
@@ -183,7 +205,8 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Convert a string to CNPJ pretty
+   * @description Convert a string to CNPJ pretty.
+   * @param value The value to convert
    */
   public maskCNPJ(value: string): string {
     const formatter = value
@@ -196,7 +219,8 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Convert a string to CPF pretty
+   * @description Convert a string to CPF pretty.
+   * @param value The value to convert
    */
   public maskCPF(value: string): string {
     const formatter = value
@@ -209,7 +233,8 @@ export class StringExService implements IStringExService {
   }
 
   /**
-   * @description Convert a string to RG pretty
+   * @description Convert a string to RG pretty.
+   * @param value The value to convert
    */
   public maskRG(value: string): string {
     const formatter = value

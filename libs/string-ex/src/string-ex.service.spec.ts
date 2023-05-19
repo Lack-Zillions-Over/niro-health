@@ -136,7 +136,7 @@ describe('StringExService', () => {
 
     it('should be convert a string to zipcode pretty', () => {
       const text = '04833001';
-      const mask = service.maskZipcode(text);
+      const mask = service.maskZipCode(text);
       expect(mask).toBe('04833-001');
     });
   });

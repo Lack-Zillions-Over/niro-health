@@ -21,7 +21,7 @@ export interface IStringExService {
   extractNumbers(value: string): number[];
   maskMoney(value: string | number): string;
   maskPhone(value: string | number, type: MaskPhoneType): string;
-  maskZipcode(value: string | number): string;
+  maskZipCode(value: string | number): string;
   maskCNPJ(value: string | number): string;
   maskCPF(value: string | number): string;
   maskRG(value: string | number): string;
