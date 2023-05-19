@@ -13,7 +13,10 @@ describe('SchedulesService', () => {
       providers: [
         FilesClearTemporarySchedule,
         SchedulesService,
-        AppHostService,
+        {
+          provide: 'IAppHostService',
+          useClass: AppHostService,
+        },
         { provide: 'IDebugService', useClass: DebugService },
         { provide: 'IFilesService', useClass: FilesService },
       ],

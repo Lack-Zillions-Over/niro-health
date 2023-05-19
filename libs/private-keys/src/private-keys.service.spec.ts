@@ -20,7 +20,10 @@ describe('PrivateKeysService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        AppHostService,
+        {
+          provide: 'IAppHostService',
+          useClass: AppHostService,
+        },
         { provide: 'IPrivateKeysService', useClass: PrivateKeysService },
         { provide: 'IPrivateKeysParser', useClass: PrivateKeysParser },
         { provide: 'IConfigurationService', useClass: ConfigurationService },

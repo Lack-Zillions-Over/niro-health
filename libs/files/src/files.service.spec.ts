@@ -30,7 +30,10 @@ describe('FilesService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        AppHostService,
+        {
+          provide: 'IAppHostService',
+          useClass: AppHostService,
+        },
         { provide: 'IFilesService', useClass: FilesService },
         { provide: 'IFilesParser', useClass: FilesParser },
         { provide: 'IConfigurationService', useClass: ConfigurationService },

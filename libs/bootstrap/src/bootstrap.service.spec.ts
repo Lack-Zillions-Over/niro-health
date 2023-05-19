@@ -22,7 +22,10 @@ describe('BootstrapService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BootstrapService,
-        AppHostService,
+        {
+          provide: 'IAppHostService',
+          useClass: AppHostService,
+        },
         { provide: 'IConfigurationService', useClass: ConfigurationService },
         {
           provide: 'IValidatorRegexpService',

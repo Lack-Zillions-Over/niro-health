@@ -27,7 +27,10 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [CoreModule],
       providers: [
-        AppHostService,
+        {
+          provide: 'IAppHostService',
+          useClass: AppHostService,
+        },
         { provide: 'IUsersService', useClass: UsersService },
         { provide: 'IUsersParser', useClass: UsersParser },
         { provide: 'IEmailJob', useClass: EmailJob },
