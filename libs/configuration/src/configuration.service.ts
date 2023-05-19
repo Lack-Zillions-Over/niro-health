@@ -6,7 +6,6 @@ import {
   ENVS,
   VARIABLES,
 } from '@app/configuration/configuration.interface';
-
 import {
   IStringExService,
   CompressData,
@@ -27,6 +26,11 @@ export class ConfigurationService implements IConfigurationService {
    * @description The application version.
    */
   private _VERSION: string;
+
+  /**
+   * @description The application time zone.
+   */
+  private _TZ: string;
 
   /**
    * @description The application back-end API URI.
@@ -89,12 +93,12 @@ export class ConfigurationService implements IConfigurationService {
   private _MONGODB_PORT: string;
 
   /**
-   * @description The mongodb name.
+   * @description The mongodb database name.
    */
   private _MONGODB_NAME: string;
 
   /**
-   * @description The mongodb gridfs name.
+   * @description The mongodb database gridfs name.
    */
   private _MONGODB_GRIDFS_NAME: string;
 
@@ -109,17 +113,17 @@ export class ConfigurationService implements IConfigurationService {
   private _MONGODB_PROJECT_NAME: string;
 
   /**
-   * @description The redis host.
+   * @description The host of the redis.
    */
   private _REDIS_HOST: string;
 
   /**
-   * @description The redis port.
+   * @description The port of the redis.
    */
   private _REDIS_PORT: number;
 
   /**
-   * @description The redis password.
+   * @description The password of the redis.
    */
   private _REDIS_PASSWORD: string;
 
@@ -134,17 +138,12 @@ export class ConfigurationService implements IConfigurationService {
   private _BULL_BOARD_PASSWORD: string;
 
   /**
-   * @description The cron timezone.
-   */
-  private _CRON_TIMEZONE: string;
-
-  /**
    * @description The crypto password.
    */
   private _CRYPTO_PASSWORD: string;
 
   /**
-   * @description The master key.
+   * @description The master key used to authenticate the routes.
    */
   private _MASTER_KEY: string;
 
@@ -241,6 +240,10 @@ export class ConfigurationService implements IConfigurationService {
 
     if (process.env.VERSION) {
       this.validatorRegexpService.version(process.env.VERSION);
+    }
+
+    if (process.env.TZ) {
+      this.validatorRegexpService.cronTimezone(process.env.TZ);
     }
 
     if (process.env.API_URI) {
@@ -341,10 +344,6 @@ export class ConfigurationService implements IConfigurationService {
         .alphanumeric();
     }
 
-    if (process.env.CRON_TIMEZONE) {
-      this.validatorRegexpService.cronTimezone(process.env.CRON_TIMEZONE);
-    }
-
     if (process.env.CRYPTO_PASSWORD) {
       this.validatorRegexpService.string(process.env.CRYPTO_PASSWORD).secret();
     }
@@ -414,6 +413,10 @@ export class ConfigurationService implements IConfigurationService {
 
     if (process.env.VERSION) {
       this._VERSION = process.env.VERSION;
+    }
+
+    if (process.env.TZ) {
+      this._TZ = process.env.TZ;
     }
 
     if (process.env.API_URI) {
@@ -500,10 +503,6 @@ export class ConfigurationService implements IConfigurationService {
 
     if (process.env.BULL_BOARD_PASSWORD) {
       this._BULL_BOARD_PASSWORD = process.env.BULL_BOARD_PASSWORD;
-    }
-
-    if (process.env.CRON_TIMEZONE) {
-      this._CRON_TIMEZONE = process.env.CRON_TIMEZONE;
     }
 
     if (process.env.CRYPTO_PASSWORD) {
@@ -661,6 +660,13 @@ export class ConfigurationService implements IConfigurationService {
   }
 
   /**
+   * @description Returns the time zone of the application.
+   */
+  public get TZ() {
+    return this._TZ;
+  }
+
+  /**
    * @description Returns the uri of the back-end.
    */
   public get API_URI() {
@@ -805,13 +811,6 @@ export class ConfigurationService implements IConfigurationService {
    */
   public get BULL_BOARD_PASSWORD() {
     return this._BULL_BOARD_PASSWORD;
-  }
-
-  /**
-   * @description Returns the timezone of the cron.
-   */
-  public get CRON_TIMEZONE() {
-    return this._CRON_TIMEZONE;
   }
 
   /**

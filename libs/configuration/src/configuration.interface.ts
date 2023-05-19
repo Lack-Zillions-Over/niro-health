@@ -13,6 +13,7 @@ export interface IConfigurationService {
   delVariable(key: string): void;
   NODE_ENV: NODE_ENV;
   VERSION: string;
+  TZ: string;
   API_URI: string;
   WEBAPP_URI: string;
   PORT: number;
@@ -34,7 +35,6 @@ export interface IConfigurationService {
   REDIS_PASSWORD: string;
   BULL_BOARD_USERNAME: string;
   BULL_BOARD_PASSWORD: string;
-  CRON_TIMEZONE: string;
   CRYPTO_PASSWORD: string;
   MASTER_KEY: string;
   JWT_SECRET: string;

@@ -67,6 +67,11 @@ describe('ConfigurationService', () => {
     expect(typeof service.VERSION).toBe('string');
   });
 
+  it('should be defined TZ', () => {
+    expect(service.TZ).toBe('America/Sao_Paulo');
+    expect(typeof service.TZ).toBe('string');
+  });
+
   it('should be defined API_URI', () => {
     expect(service.API_URI).toBe('http://localhost:4000');
     expect(typeof service.API_URI).toBe('string');
@@ -167,11 +172,6 @@ describe('ConfigurationService', () => {
   it('should be defined BULL_BOARD_PASSWORD', () => {
     expect(service.BULL_BOARD_PASSWORD).toBe('admin');
     expect(typeof service.BULL_BOARD_PASSWORD).toBe('string');
-  });
-
-  it('should be defined CRON_TIMEZONE', () => {
-    expect(service.CRON_TIMEZONE).toBe('America/Sao_Paulo');
-    expect(typeof service.CRON_TIMEZONE).toBe('string');
   });
 
   it('should be defined CRYPTO_PASSWORD', () => {
