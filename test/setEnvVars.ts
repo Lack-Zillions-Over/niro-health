@@ -2,6 +2,7 @@ process.env.VERSION = '1.7.0';
 process.env.API_URI = 'http://localhost:4000';
 process.env.WEBAPP_URI = 'http://localhost:3000';
 process.env.PORT = '4000';
+process.env.TZ = 'America/Sao_Paulo';
 process.env.DATABASE_URL =
   'postgresql://postgres:postgres@postgres/project_development';
 process.env.DB_PORT = '5432';
@@ -21,7 +22,6 @@ process.env.REDIS_PORT = '6379';
 process.env.REDIS_PASSWORD = '';
 process.env.BULL_BOARD_USERNAME = 'admin';
 process.env.BULL_BOARD_PASSWORD = 'admin';
-process.env.CRON_TIMEZONE = 'America/Sao_Paulo';
 process.env.CRYPTO_PASSWORD = 'o4t7bNT5CbOnlqBcah40R99zierzSQz3MS9Ssceqq2U=';
 process.env.MASTER_KEY =
   'eJwFwcFOwzAMANBviZxTJB+c2Il7q7ZdKGWlbGzqKaKbWihTGYzR3+e9knQFqTI7dB5Hz1FCIacPZ8LdF9S4Ldrwa8wymrt7YcJ60xxlQU25g7+068McmjU6GKw3xMr5RI/gIzz3sorqiA3rTRvGs9JUu9bo6NCifRImwQLVwnhRzSml48OeQecSbPiZM+8OSHotaeFNjgXE6/snyVCj+Sa8nvELJnFyFoC07Muh7LQs4jZRf1vnSLZqJxdu/tLmrj+JrUzwYjmxKV4Rwecgb0gY0z8TjUCv';
