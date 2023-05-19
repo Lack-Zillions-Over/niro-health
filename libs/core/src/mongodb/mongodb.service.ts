@@ -7,34 +7,29 @@ import {
 } from '@nestjs/common';
 import { connection, connect } from 'mongoose';
 
-import MongoDbURL from '@app/core/common/functions/MongoDbURL';
-
-import type { IMongoDBService } from '@app/core/mongodb/mongodb.interface';
+import { MongoDbURL } from '@app/core/common/functions/MongoDbURL';
+import type {
+  Config,
+  IMongoDBService,
+} from '@app/core/mongodb/mongodb.interface';
 import type { IDebugService } from '@app/debug';
 import type { IConfigurationService } from '@app/configuration';
 
-export interface User {
-  username: string;
-  password: string;
-}
-
-export interface Config extends User {
-  host: string;
-  port: string;
-  database: string;
-  connection: {
-    ssl: boolean;
-  };
-  project: {
-    name: string;
-  };
-}
-
+/**
+ * @description This service is responsible for connecting to the MongoDB database.
+ */
 @Injectable()
 export class MongoDBService
   implements IMongoDBService, OnModuleInit, OnApplicationShutdown
 {
-  app: INestApplication;
+  /**
+   * @description The application instance.
+   */
+  public app: INestApplication;
+
+  /**
+   * @description The MongoDB configuration.
+   */
   private _mongoConfig: Config;
 
   constructor(
@@ -43,10 +38,16 @@ export class MongoDBService
     private readonly configurationService: IConfigurationService,
   ) {}
 
-  async onModuleInit() {
+  /**
+   * @description Initialize the module.
+   */
+  public async onModuleInit() {
     await this._initialize();
   }
 
+  /**
+   * @description Initialize the MongoDB connection.
+   */
   private async _initialize() {
     this._mongoConfig = {
       username: this.configurationService.mongoDB.username,
@@ -66,6 +67,9 @@ export class MongoDBService
     await this._connectionLogs();
   }
 
+  /**
+   * @description Create the MongoDB connection URI.
+   */
   private _uri() {
     return MongoDbURL({
       username: this._mongoConfig.username,
@@ -78,6 +82,9 @@ export class MongoDBService
     });
   }
 
+  /**
+   * @description MongoDB connection logs.
+   */
   private async _connectionLogs() {
     const logger = this.debugService;
 
@@ -98,6 +105,9 @@ export class MongoDBService
     });
   }
 
+  /**
+   * @description MongoDB connection close.
+   */
   private async _connectionClose() {
     const logger = this.debugService;
 
@@ -118,6 +128,9 @@ export class MongoDBService
     process.on('SIGTERM', gracefulExit.bind(this));
   }
 
+  /**
+   * @description MongoDB connection open.
+   */
   private async _connectionOpen() {
     const logger = this.debugService;
 
@@ -128,10 +141,18 @@ export class MongoDBService
     return _connect;
   }
 
+  /**
+   * @description Create a new Db instance sharing the current socket connections.
+   * @param dbName The name of the database we want to use. If not provided, use database name from connection string.
+   */
   public getDB(dbName: string) {
     return connection.getClient().db(dbName);
   }
 
+  /**
+   * @description This method is used to shutdown application.
+   * @param app The application instance.
+   */
   public async shutdown(app: INestApplication) {
     const logger = this.debugService;
     try {
@@ -146,11 +167,18 @@ export class MongoDBService
     }
   }
 
-  async onApplicationShutdown() {
+  /**
+   * @description This method is called before the application shutdown.
+   */
+  public async onApplicationShutdown() {
     return await this.shutdown(this.app);
   }
 
-  async enableShutdownHooks(app: INestApplication) {
+  /**
+   * @description This method is used to enable shutdown hooks.
+   * @param app The application instance.
+   */
+  public async enableShutdownHooks(app: INestApplication) {
     this.app = app;
   }
 }
