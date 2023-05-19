@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.9](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.8...v1.8.9) (2023-05-19)
+
+
+### Build System
+
+* **fix:** fixed all imports of module 'CoreRepositoryContract' ([1c66754](https://github.com/Lack-Zillions-Over/niro-health/commit/1c66754aa43733357b302e6e58e18abef9a402d4))
+
 ### [1.8.8](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.7...v1.8.8) (2023-05-19)
 
 
