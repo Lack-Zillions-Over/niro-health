@@ -1,12 +1,12 @@
 import type { INestApplication } from '@nestjs/common';
 import { PrivateKeyDatabaseContract } from '@app/private-keys/contracts';
-import { RepositoryContract } from '@app/core/contracts/coreRepository';
+import { CoreRepositoryContract } from '@app/core/contracts/coreRepository';
 import { PrivateKey } from '@app/private-keys/entities';
 import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
 import type { Type } from '@app/similarity-filter';
 import type { Ii18nService } from '@app/i18n';
 
-export class PrivateKeyRepository extends RepositoryContract {
+export class PrivateKeyRepository extends CoreRepositoryContract {
   private readonly _i18nService: Ii18nService;
 
   constructor(

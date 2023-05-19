@@ -91,8 +91,6 @@ export { ISqliteService } from '@app/core';\n\
 export { SqliteModule } from '@app/core';\n\
 export { SqliteService } from '@app/core';\n\
 export { GeoIP } from '@app/core';\n\
-export { ConfigurationModule } from '@app/core';\n\
-export { ConfigurationService } from '@app/core';\n\
 " >> index.ts
 
 echo "Export Crypto (Interface, Module, Service)"

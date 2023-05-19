@@ -1,6 +1,6 @@
 import type { INestApplication } from '@nestjs/common';
 import { FileDatabaseContract } from '@app/files/contracts';
-import { RepositoryContract } from '@app/core/contracts/coreRepository';
+import { CoreRepositoryContract } from '@app/core/contracts/coreRepository';
 import { File } from '@app/files/entities';
 import type { EntityWithRelation } from '@app/files/types/entityWithRelation';
 import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
@@ -8,7 +8,7 @@ import type { Type } from '@app/similarity-filter';
 
 import * as moment from 'moment';
 
-export class FileRepository extends RepositoryContract {
+export class FileRepository extends CoreRepositoryContract {
   constructor(
     protected readonly database: FileDatabaseContract,
     protected readonly app: INestApplication,

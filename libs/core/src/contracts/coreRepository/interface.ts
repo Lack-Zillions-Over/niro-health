@@ -1,7 +1,7 @@
 import type { Type } from '@app/similarity-filter/similarity-filter.interface';
 import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
 
-export interface IRepositoryContract<Model> {
+export interface ICoreRepositoryContract<Model> {
   beforeSave(data: Model): Promise<Model>;
   beforeUpdate(
     beforeData: Model,

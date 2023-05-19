@@ -1,6 +1,6 @@
 import type { INestApplication } from '@nestjs/common';
 import { UserDatabaseContract } from '@app/users/contracts';
-import { RepositoryContract } from '@app/core/contracts/coreRepository';
+import { CoreRepositoryContract } from '@app/core/contracts/coreRepository';
 import { User } from '@app/users/entities';
 import type { EntityWithRelation } from '@app/users/types/entityWithRelation';
 import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
@@ -10,7 +10,7 @@ import type { IRandomService } from '@app/random';
 import type { Ii18nService } from '@app/i18n';
 import type { IJsonWebTokenService } from '@app/json-web-token';
 
-export class UserRepository extends RepositoryContract {
+export class UserRepository extends CoreRepositoryContract {
   private readonly _randomService: IRandomService;
   private readonly _i18nService: Ii18nService;
   private readonly _jsonWebTokenService: IJsonWebTokenService;

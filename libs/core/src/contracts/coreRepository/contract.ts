@@ -1,4 +1,4 @@
-import type { IRepositoryContract } from '@app/core/contracts/coreRepository/interface';
+import type { ICoreRepositoryContract } from '@app/core/contracts/coreRepository/interface';
 import type { CoreDatabaseContract } from '@app/core/contracts/coreDatabase';
 import type { CoreEntityContract } from '@app/core/contracts/coreEntity';
 import type { RecursivePartial } from '@app/core/common/types/recursive-partial.type';
@@ -7,8 +7,8 @@ import type { Type } from '@app/similarity-filter';
 /**
  * @description The contract that provides methods for repositories.
  */
-export abstract class RepositoryContract
-  implements IRepositoryContract<CoreEntityContract>
+export abstract class CoreRepositoryContract
+  implements ICoreRepositoryContract<CoreEntityContract>
 {
   constructor(
     protected readonly database: CoreDatabaseContract<CoreEntityContract>,
