@@ -9,6 +9,7 @@ VERSION="1.7.0"\n\
 API_URI="http://localhost:4000"\n\
 WEBAPP_URI="http://localhost:3000"\n\
 PORT="4000"\n\
+TZ="America/Sao_Paulo"\n\
 DATABASE_URL="postgresql://postgres:postgres@localhost/project_development"\n\
 DB_PORT="5432"\n\
 DB_USERNAME="postgres"\n\
@@ -27,7 +28,6 @@ REDIS_PORT='6379'\n\
 REDIS_PASSWORD=""\n\
 BULL_BOARD_USERNAME="admin"\n\
 BULL_BOARD_PASSWORD="admin"\n\
-CRON_TIMEZONE="America/Sao_Paulo"\n\
 CRYPTO_PASSWORD="o4t7bNT5CbOnlqBcah40R99zierzSQz3MS9Ssceqq2U="\n\
 MASTER_KEY="eJwFwcFOwzAMANBviZxTJB+c2Il7q7ZdKGWlbGzqKaKbWihTGYzR3+e9knQFqTI7dB5Hz1FCIacPZ8LdF9S4Ldrwa8wymrt7YcJ60xxlQU25g7+068McmjU6GKw3xMr5RI/gIzz3sorqiA3rTRvGs9JUu9bo6NCifRImwQLVwnhRzSml48OeQecSbPiZM+8OSHotaeFNjgXE6/snyVCj+Sa8nvELJnFyFoC07Muh7LQs4jZRf1vnSLZqJxdu/tLmrj+JrUzwYjmxKV4Rwecgb0gY0z8TjUCv"\n\
 JWT_SECRET="cLoM/xpKjQpuL825AZexwyitebaOg94Gr4SzBiBNN6M="\n\
@@ -51,6 +51,7 @@ VERSION="1.7.0"\n\
 API_URI="http://172.18.0.2:4000"\n\
 WEBAPP_URI="http://172.18.0.6:3000"\n\
 PORT="4000"\n\
+TZ="America/Sao_Paulo"\n\
 DATABASE_URL="postgresql://postgres:postgres@172.18.0.3/project_development"\n\
 DB_PORT="5432"\n\
 DB_USERNAME="postgres"\n\
@@ -69,7 +70,6 @@ REDIS_PORT='6379'\n\
 REDIS_PASSWORD=""\n\
 BULL_BOARD_USERNAME="admin"\n\
 BULL_BOARD_PASSWORD="admin"\n\
-CRON_TIMEZONE="America/Sao_Paulo"\n\
 CRYPTO_PASSWORD="o4t7bNT5CbOnlqBcah40R99zierzSQz3MS9Ssceqq2U="\n\
 MASTER_KEY="eJwFwcFOwzAMANBviZxTJB+c2Il7q7ZdKGWlbGzqKaKbWihTGYzR3+e9knQFqTI7dB5Hz1FCIacPZ8LdF9S4Ldrwa8wymrt7YcJ60xxlQU25g7+068McmjU6GKw3xMr5RI/gIzz3sorqiA3rTRvGs9JUu9bo6NCifRImwQLVwnhRzSml48OeQecSbPiZM+8OSHotaeFNjgXE6/snyVCj+Sa8nvELJnFyFoC07Muh7LQs4jZRf1vnSLZqJxdu/tLmrj+JrUzwYjmxKV4Rwecgb0gY0z8TjUCv"\n\
 JWT_SECRET="cLoM/xpKjQpuL825AZexwyitebaOg94Gr4SzBiBNN6M="\n\
