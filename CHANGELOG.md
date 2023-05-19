@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.11](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.10...v1.8.11) (2023-05-19)
+
+
+### Bug Fixes
+
+* **i18n:** fix async/await calls ([0c4b311](https://github.com/Lack-Zillions-Over/niro-health/commit/0c4b311d55003344909e338f5180a789df3c3448))
+
 ### [1.8.10](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.9...v1.8.10) (2023-05-19)
 
 
