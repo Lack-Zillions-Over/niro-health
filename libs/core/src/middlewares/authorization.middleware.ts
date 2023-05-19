@@ -10,11 +10,14 @@ import { Request, Response, NextFunction } from 'express';
 
 import { ValidatePrivateKeyFactory } from '@app/private-keys/factories/validate';
 
-import { Ii18nService } from '@app/i18n';
-import { IConfigurationService } from '@app/configuration';
-import { IStringExService } from '@app/string-ex';
-import { AppHostService } from '@app/app-host';
+import type { Ii18nService } from '@app/i18n';
+import type { IConfigurationService } from '@app/configuration';
+import type { IStringExService } from '@app/string-ex';
+import type { AppHostService } from '@app/app-host';
 
+/**
+ * @description The middleware for check authorization.
+ */
 @Injectable()
 export class AuthorizationMiddleware implements NestMiddleware {
   constructor(
@@ -26,6 +29,10 @@ export class AuthorizationMiddleware implements NestMiddleware {
     private readonly appHostService: AppHostService,
   ) {}
 
+  /**
+   * @description Check if the master key is invalid.
+   * @param authorization The master key.
+   */
   private async _invalidMasterKey(authorization: string) {
     if (
       this.stringExService.hash(
@@ -39,6 +46,12 @@ export class AuthorizationMiddleware implements NestMiddleware {
     return false;
   }
 
+  /**
+   * @description Check if the private key is invalid.
+   * @param tag The tag of private key.
+   * @param secret The secret of private key.
+   * @param value The value of private key.
+   */
   private async _invalidPrivateKey(tag: string, secret: string, value: string) {
     const key = await ValidatePrivateKeyFactory.run(
       tag as string,
@@ -52,7 +65,13 @@ export class AuthorizationMiddleware implements NestMiddleware {
     return false;
   }
 
-  async use(req: Request, res: Response, next: NextFunction) {
+  /**
+   * @description The method for check authorization.
+   * @param req The request object.
+   * @param res The response object.
+   * @param next The next function.
+   */
+  public async use(req: Request, res: Response, next: NextFunction) {
     const headers = req.headers,
       authorization = headers.authorization,
       tag = headers.key_tag as string,
