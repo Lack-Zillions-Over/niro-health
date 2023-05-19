@@ -445,7 +445,7 @@ export class i18nService implements Ii18nService {
    * @param text The text to parser
    * @param values The values to parser
    */
-  private _parserText(text: string, ...values: string[]) {
+  private async _parserText(text: string, ...values: string[]) {
     if (
       typeof text === 'bigint' ||
       typeof text === 'number' ||
@@ -471,9 +471,9 @@ export class i18nService implements Ii18nService {
       }
 
       if (parserValue) {
-        newText = this._parserText(parserValue, ...values.slice(1));
+        newText = await this._parserText(parserValue, ...values.slice(1));
       } else {
-        newText = this._parserText(otherValue, ...values.slice(1));
+        newText = await this._parserText(otherValue, ...values.slice(1));
       }
 
       if (!(newText instanceof Error)) return newText;
@@ -497,12 +497,12 @@ export class i18nService implements Ii18nService {
         const clearValue = this._removeParserOptions(value);
 
         if (!this._isNoCascade(value)) {
-          valueDeep = this.translate(
+          valueDeep = await this.translate(
             clearValue.slice(1),
             ...values.slice(index + 1),
           );
         } else {
-          valueDeep = this.translate(
+          valueDeep = await this.translate(
             clearValue.slice(1),
             ...(this._getCascadeValue(value) as string[]),
           );
@@ -520,6 +520,8 @@ export class i18nService implements Ii18nService {
           new RegExp(`\\${key}`, 'g'),
           valueDeep instanceof Error ? '???' : valueDeep,
         );
+
+        console.log(text);
       } else {
         let parserValue = value;
 
@@ -705,7 +707,7 @@ export class i18nService implements Ii18nService {
 
     if (!value) return `Phrase "${phrase}" not found in locale.`;
 
-    const parserValue = this._parserText(value, ...params);
+    const parserValue = await this._parserText(value, ...params);
 
     if (parserValue instanceof Error) return parserValue.message;
 
