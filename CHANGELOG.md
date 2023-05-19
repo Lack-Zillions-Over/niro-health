@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.13](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.12...v1.8.13) (2023-05-19)
+
+
+### Tests
+
+* **i18n:** fix tests ([52b425f](https://github.com/Lack-Zillions-Over/niro-health/commit/52b425fd80bd47054cf8bb780761b400bdfe02cf))
+
 ### [1.8.12](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.11...v1.8.12) (2023-05-19)
 
 
