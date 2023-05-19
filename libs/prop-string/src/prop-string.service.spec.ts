@@ -21,7 +21,6 @@ describe('PropStringService', () => {
     const prop = service.execute('text.hello', {
       text: { hello: text },
     });
-
     expect(prop).toBe(text);
   });
 });

@@ -2,10 +2,15 @@ import { Injectable } from '@nestjs/common';
 
 import type { IPropStringService } from '@app/prop-string';
 
+/**
+ * @description The module to handle the property in object by string.
+ */
 @Injectable()
 export class PropStringService implements IPropStringService {
   /**
-   * @description Get value of property in object by string
+   * @description Get value of property in object by string.
+   * @param text The string to get the property
+   * @param object The object to get the property
    */
   public execute<T, R>(text: string, object: T): R {
     if (text === '') return null;
