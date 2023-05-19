@@ -14,10 +14,9 @@ export class CreatePrivateKey {
     const entity = new PrivateKey({
       id: database.generateUUID(),
       value: database.generateValue(),
+      tag: key.tag,
+      secret: key.secret,
     });
-
-    entity.tag = key.tag;
-    entity.secret = key.secret;
 
     return await repository.create(entity);
   }
