@@ -5,10 +5,14 @@ import { existsSync, mkdirSync } from 'fs-extra';
 
 import type { ILocalPathService } from '@app/localpath';
 
+/**
+ * @description The module to handle the local path
+ */
 @Injectable()
 export class LocalPathService implements ILocalPathService {
   /**
    * @description Return the local path of the file or folder
+   * @param p The path of the file or folder
    */
   public local(p: string): string {
     if (p.substring(0, 1) === '/') p = p.substring(1);
@@ -20,6 +24,7 @@ export class LocalPathService implements ILocalPathService {
 
   /**
    * @description Verify if the local path exists
+   * @param p The path of the file or folder
    */
   public localExists(p: string): boolean {
     let i = 0,
@@ -55,6 +60,7 @@ export class LocalPathService implements ILocalPathService {
 
   /**
    * @description Create the local path
+   * @param p The path of the file or folder
    */
   public localCreate(p: string): void {
     let dir = '';
