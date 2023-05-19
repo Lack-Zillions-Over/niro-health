@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.12](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.11...v1.8.12) (2023-05-19)
+
+
+### Styling
+
+* **i18n:** remove console from code ([55f4832](https://github.com/Lack-Zillions-Over/niro-health/commit/55f483213e17c50101d1cc48f0c24cc6fbaa6bc8))
+
 ### [1.8.11](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.10...v1.8.11) (2023-05-19)
 
 
