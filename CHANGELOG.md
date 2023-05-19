@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.8](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.7...v1.8.8) (2023-05-19)
+
+
+### Tests
+
+* **fix:** fixed all inject of module 'App Host' ([9a7c4a0](https://github.com/Lack-Zillions-Over/niro-health/commit/9a7c4a0709cec6b992cbec701a1c722c5bf8b5fc))
+
 ### [1.8.7](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.6...v1.8.7) (2023-05-19)
 
 
