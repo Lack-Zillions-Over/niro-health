@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.10](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.9...v1.8.10) (2023-05-19)
+
+
+### Bug Fixes
+
+* **redis:** fixed error when environment variables from redis are  missing ([697ca55](https://github.com/Lack-Zillions-Over/niro-health/commit/697ca55dbbba6638c079ed17846e378b29a657ee))
+
+
+### Styling
+
+* **localpath:** added period at the end of the sentence ([df60f07](https://github.com/Lack-Zillions-Over/niro-health/commit/df60f073df87caebc0a7ffbc8ee1d9380606b919))
+
 ### [1.8.9](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.8...v1.8.9) (2023-05-19)
 
 
