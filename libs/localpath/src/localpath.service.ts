@@ -6,7 +6,7 @@ import { existsSync, mkdirSync } from 'fs-extra';
 import type { ILocalPathService } from '@app/localpath';
 
 /**
- * @description The module to handle the local path
+ * @description The module to handle the local path.
  */
 @Injectable()
 export class LocalPathService implements ILocalPathService {
