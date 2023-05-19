@@ -8,9 +8,12 @@ export interface IRepositoryContract<Model> {
     nextData: RecursivePartial<Model>,
   ): Promise<Model>;
   create(data: Model): Promise<Model | Error>;
-  update(id: string, newData: RecursivePartial<Model>): Promise<Model | Error>;
-  delete(id: string): Promise<boolean | Error>;
-  findById(id: string): Promise<Model | Error>;
+  update(
+    id: number | string,
+    newData: RecursivePartial<Model>,
+  ): Promise<Model | Error>;
+  delete(id: number | string): Promise<boolean | Error>;
+  findById(id: number | string): Promise<Model | Error>;
   findAll(skip?: number, limit?: number): Promise<Model[]>;
   findBy(filter: RecursivePartial<Model>, similarity?: Type): Promise<Model[]>;
 }
