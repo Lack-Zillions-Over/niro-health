@@ -8,6 +8,9 @@ import type {
 } from '@app/json-web-token';
 import type { IConfigurationService } from '@app/configuration';
 
+/**
+ * @description The module provides a service that allows you to create and verify JSON Web Tokens.
+ */
 @Injectable()
 export class JsonWebTokenService implements IJsonWebTokenService {
   constructor(
@@ -16,7 +19,7 @@ export class JsonWebTokenService implements IJsonWebTokenService {
   ) {}
 
   /**
-   * It takes a payload, a secret, and an expiration time, and returns a signed JWT
+   * @description It takes a payload, a secret, and an expiration time, and returns a signed JWT.
    * @param payload - The data you want to store in the token.
    * @param {string} secret - The secret key used to sign the token.
    * @param expiresIn - This is the time in seconds that the token will be valid for.
@@ -37,7 +40,7 @@ export class JsonWebTokenService implements IJsonWebTokenService {
   }
 
   /**
-   * It takes a token and a secret and returns the payload of the token or an error
+   * @description It takes a token and a secret and returns the payload of the token or an error.
    * @param {string} token - The token to be decoded
    * @param {string} secret - The secret key used to sign the token.
    * @returns The payload of the token.
