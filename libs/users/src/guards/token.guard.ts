@@ -4,7 +4,7 @@ import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 
 import { AppHostService } from '@app/app-host';
-import CheckUserSession from '@app/core/common/functions/CheckUserSession';
+import { CheckUserSession } from '@app/core/common/functions/CheckUserSession';
 
 @Injectable()
 export class TokenGuard implements CanActivate {
