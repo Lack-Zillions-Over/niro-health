@@ -29,6 +29,7 @@ describe('I18nService', () => {
     }).compile();
 
     service = module.get<i18nService>(i18nService);
+    await service.resetLocales();
     service.setPath('mocks/locales');
   });
 
@@ -64,8 +65,8 @@ describe('I18nService', () => {
     });
 
     it('should be translate a phrase in the current locale', async () => {
-      const text = await service.translate('hi', 'GuilhermeSantos001');
-      expect(text).toBe('Hello GuilhermeSantos001');
+      const text = await service.translate('hello', 'GuilhermeSantos001');
+      expect(text).toBe('Hi GuilhermeSantos001');
     });
 
     it('should be add the current locale', async () => {
@@ -135,9 +136,9 @@ describe('I18nService', () => {
 
       it('should be define a property in a way nested', async () => {
         await expect(
-          service.defineProperty('en', { message: '$1', hello: 'Hello World' }),
+          service.defineProperty('en', { message: '$1', info: 'Hello World' }),
         ).resolves.not.toThrow();
-        await expect(service.translate('message', '.hello')).resolves.toBe(
+        await expect(service.translate('message', '.info')).resolves.toBe(
           'Hello World',
         );
       });
@@ -239,9 +240,9 @@ describe('I18nService', () => {
 
       it('should be define a property in a way nested', async () => {
         await expect(
-          service.defineProperty('en', { message: '$1', hello: 'Hello World' }),
+          service.defineProperty('en', { message: '$1', info: 'Hello World' }),
         ).resolves.not.toThrow();
-        await expect(service.translate('message', '.hello')).resolves.toBe(
+        await expect(service.translate('message', '.info')).resolves.toBe(
           'Hello World',
         );
       });
