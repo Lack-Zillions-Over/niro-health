@@ -5,8 +5,17 @@ import type { RecursivePartial } from '@app/core/common/types/recursive-partial.
 
 import * as _ from 'lodash';
 
+/**
+ * @description This module is used to filter objects by similarity (full, 50%, any-one).
+ */
 @Injectable()
 export class SimilarityFilterService implements ISimilarityFilterService {
+  /**
+   * @description Filter objects by similarity (full, 50%, any-one).
+   * @param {RecursivePartial<Source>} filter The filter.
+   * @param {Source} source The source.
+   * @param {Type} similarity The similarity.
+   */
   public execute<Source>(
     filter: RecursivePartial<Source>,
     source: Source,
