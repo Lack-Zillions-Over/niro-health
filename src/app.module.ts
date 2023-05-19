@@ -12,7 +12,7 @@ import { AppService } from '@/app.service';
 // import { WebSocketModule } from '@/websockets/websocket.module';
 
 // import { MongooseAppModule } from '@/mongoose/mongoose.module';
-// import MongoDbURL from '@/core/common/functions/MongoDbURL';
+// import { MongoDbURL } from '@/core/common/functions/MongoDbURL';
 
 import { AppHostModule } from '@app/app-host';
 import { BootstrapModule } from '@app/bootstrap';
