@@ -6,6 +6,9 @@ import {
 } from '@nestjs/common';
 import { ObjectSchema, ArraySchema } from 'joi';
 
+/**
+ * @description This pipe is responsible for validating the request body.
+ */
 @Injectable()
 export class JoiValidationPipe implements PipeTransform {
   constructor(private schema: ObjectSchema | ArraySchema) {}
