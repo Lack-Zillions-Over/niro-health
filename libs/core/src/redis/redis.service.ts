@@ -25,15 +25,37 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
    */
   private _client: ioredis;
 
+  /**
+   * @description This is used to check if the environment variables from Redis are missing.
+   */
+  private _redisConfigurationFalsy = false;
+
   constructor(
     @Inject('IDebugService') private readonly debugService: IDebugService,
     @Inject('IConfigurationService')
     private readonly configurationService: IConfigurationService,
   ) {
-    this._client = new ioredis(this.configurationService.REDIS_HOST, {
-      password: this.configurationService.REDIS_PASSWORD,
-      port: this.configurationService.REDIS_PORT,
-    });
+    if (
+      !this.configurationService.REDIS_HOST ||
+      !this.configurationService.REDIS_PORT
+    ) {
+      this.debugService.error(
+        'Environment variables from Redis are missing: REDIS_HOST, REDIS_PORT',
+      );
+      this._redisConfigurationFalsy = true;
+    } else {
+      this._client = new ioredis(this.configurationService.REDIS_HOST, {
+        password: this.configurationService.REDIS_PASSWORD,
+        port: this.configurationService.REDIS_PORT,
+      });
+    }
+  }
+
+  /**
+   * @description Returns if environment variables from Redis are missing.
+   */
+  public get redisConfigurationFalsy(): boolean {
+    return this._redisConfigurationFalsy;
   }
 
   /**
