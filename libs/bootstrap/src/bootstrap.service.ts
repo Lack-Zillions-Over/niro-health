@@ -7,7 +7,7 @@ import { BasicStrategy } from 'passport-http';
 import { createBullBoard } from '@bull-board/api';
 import { ExpressAdapter } from '@bull-board/express';
 
-import { getBullBoardQueues } from '@app/core/bull/bull-board-queue';
+import { getBullBoardQueues } from '@app/core';
 import { EN, PT_BR } from '@app/bootstrap/translations';
 
 // import { RedisIoAdapter } from '@app/websockets/adapters/redis-io.adapter';
