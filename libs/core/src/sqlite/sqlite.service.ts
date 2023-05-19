@@ -12,7 +12,14 @@ import type { IConfigurationService } from '@app/configuration';
 
 @Injectable()
 export class SqliteService implements ISqliteService, OnApplicationShutdown {
+  /**
+   * @description This is instance of application.
+   */
   app: INestApplication;
+
+  /**
+   * @description This is the major component of sqlite3. Use it to connect to a standalone Sqlite server or Sentinels.
+   */
   private _db: Database;
 
   constructor(
@@ -24,6 +31,9 @@ export class SqliteService implements ISqliteService, OnApplicationShutdown {
     this._connectionLogs();
   }
 
+  /**
+   * @description This method is used to log connection events.
+   */
   private _connectionLogs() {
     const logger = this.debugService;
 
@@ -40,14 +50,24 @@ export class SqliteService implements ISqliteService, OnApplicationShutdown {
     });
   }
 
+  /**
+   * @description This method is used to get database name.
+   */
   private get _dbName() {
     return this.configurationService.getVariable('sqlite_dbname') ?? 'memoryDB';
   }
 
+  /**
+   * @description This method is used to get database instance.
+   */
   public get db() {
     return this._db;
   }
 
+  /**
+   * @description This method is used to shutdown application.
+   * @param app The application instance.
+   */
   public async shutdown(app: INestApplication) {
     const logger = this.debugService;
     try {
@@ -59,10 +79,17 @@ export class SqliteService implements ISqliteService, OnApplicationShutdown {
     }
   }
 
+  /**
+   * @description This method is called before the application shutdown.
+   */
   async onApplicationShutdown() {
     return await this.shutdown(this.app);
   }
 
+  /**
+   * @description This method is used to enable shutdown hooks.
+   * @param app The application instance.
+   */
   async enableShutdownHooks(app: INestApplication) {
     this.app = app;
   }
