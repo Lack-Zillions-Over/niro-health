@@ -520,8 +520,6 @@ export class i18nService implements Ii18nService {
           new RegExp(`\\${key}`, 'g'),
           valueDeep instanceof Error ? '???' : valueDeep,
         );
-
-        console.log(text);
       } else {
         let parserValue = value;
 
