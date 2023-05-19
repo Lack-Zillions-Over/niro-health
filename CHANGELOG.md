@@ -2,6 +2,70 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.7](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.6...v1.8.7) (2023-05-19)
+
+
+### Bug Fixes
+
+* **app-host:** fixed inject module 'APP Host' om modules ([6106de1](https://github.com/Lack-Zillions-Over/niro-health/commit/6106de1daa57b84b8f1ca75ca3ff953c28bae9b1))
+* **configuration:** Fixed bug without variables in .env ([e832f8e](https://github.com/Lack-Zillions-Over/niro-health/commit/e832f8e05ee0640a616493348821ba6f56532107))
+
+
+### Docs
+
+* **app-host:** writed documentation of module ([71bee1c](https://github.com/Lack-Zillions-Over/niro-health/commit/71bee1c6d8da87045b6796875e77248825c3dfd6))
+* **archive:** writed documentation of module ([7af47bf](https://github.com/Lack-Zillions-Over/niro-health/commit/7af47bf585ac995d107f1f194cfe76985e5647e3))
+* **aws-configuration:** writed documentation of module ([b398bc3](https://github.com/Lack-Zillions-Over/niro-health/commit/b398bc3e31fab43c6adc198add381b7d55765c9a))
+* **aws-core:** writed documentation of module ([806c447](https://github.com/Lack-Zillions-Over/niro-health/commit/806c447e21a3b36f25afff79f256fc76eba7dda9))
+* **aws-ec2:** writed documentation of module ([5ff8af6](https://github.com/Lack-Zillions-Over/niro-health/commit/5ff8af6ff44b1190898d674b89d33591acc7cae2))
+* **aws-s3:** writed documentation of module ([92c5ed4](https://github.com/Lack-Zillions-Over/niro-health/commit/92c5ed4b8473c6a2a00f657c9ffc3aac9720ef9f))
+* **aws-sts:** writed documentation of module ([6cfe31b](https://github.com/Lack-Zillions-Over/niro-health/commit/6cfe31baa033b6c83ba1b8a7159f913980e00ee8))
+* **bjson:** writed documentation of module ([4eae9ba](https://github.com/Lack-Zillions-Over/niro-health/commit/4eae9ba39e82b9452b25b58fb49c8438aa2f703a))
+* **core-bull:** write documentation of module ([c59cb0f](https://github.com/Lack-Zillions-Over/niro-health/commit/c59cb0f6a94b0e187d74b3f550b3d848daa8f886))
+* **core-common:** write documentation of functions ([0cd0126](https://github.com/Lack-Zillions-Over/niro-health/commit/0cd0126d5918014adf073ed45a81cf2158d9e426))
+* **core-middlewares:** write documentation of module ([03e3f44](https://github.com/Lack-Zillions-Over/niro-health/commit/03e3f44124aca4c66c5626e4674a3835e983d61e))
+* **core-pipes:** write documentation of Joi ([fdb1c01](https://github.com/Lack-Zillions-Over/niro-health/commit/fdb1c01394c21fb191b4d892e5eec27f1e05bdef))
+* **core:** write documentation of module ([170b034](https://github.com/Lack-Zillions-Over/niro-health/commit/170b0346fcadd2a188fb41d206d1d45be21e0b27))
+* **crypto:** writed documentation of module ([aa11b01](https://github.com/Lack-Zillions-Over/niro-health/commit/aa11b01fa12446aee0f86e32d059410a30172d7f))
+* **dateex:** writed documentation of module ([4236c82](https://github.com/Lack-Zillions-Over/niro-health/commit/4236c82bf032ed502b0bbfd290f00c6427d95a46))
+* **debug:** writed Documentation of module ([9a182b9](https://github.com/Lack-Zillions-Over/niro-health/commit/9a182b9d07109f45f70090b062e85f4a963d081b))
+* **email:** write documentation of module ([7077a27](https://github.com/Lack-Zillions-Over/niro-health/commit/7077a27e5ef7bb100d70874d085dd288f36d18a1))
+* **file-gridfs:** write documentation of module ([c5deedd](https://github.com/Lack-Zillions-Over/niro-health/commit/c5deedd972f303006393866a5d6678d0cb76dc4a))
+* **hyperc:** write documentation of module ([8c65a50](https://github.com/Lack-Zillions-Over/niro-health/commit/8c65a50305f6581af13efa86b364c76931963796))
+* **i18n:** write documentation of module ([d1f545d](https://github.com/Lack-Zillions-Over/niro-health/commit/d1f545d8fd77c3bcf374b90592f169cfc264e743))
+* **json-web-token:** write documentation of module ([433af9d](https://github.com/Lack-Zillions-Over/niro-health/commit/433af9d54c541ac8ee1de6e07ad3262d95286024))
+* **localpath:** write documentation of module ([2511744](https://github.com/Lack-Zillions-Over/niro-health/commit/25117447c2943cde896267c6fac8f07b9aafc6e8))
+* **mongodb:** write documentation of module ([2d74a8d](https://github.com/Lack-Zillions-Over/niro-health/commit/2d74a8d5bd3320119699741f0c32ea668829f3df))
+* **prisma:** write documentation of module ([1e302b6](https://github.com/Lack-Zillions-Over/niro-health/commit/1e302b634c54eb53a123b3210b1d955a840b4549))
+* **prop-string:** write documentation of module ([133a9df](https://github.com/Lack-Zillions-Over/niro-health/commit/133a9dfb6568a371cc3e2a02eb0bd0fdf78dbdd6))
+* **random:** write documentation of module ([86d8706](https://github.com/Lack-Zillions-Over/niro-health/commit/86d87065fd6a135d7b10ccf5126541491cfa6569))
+* **redis:** write documentation of module ([b3e4e7c](https://github.com/Lack-Zillions-Over/niro-health/commit/b3e4e7c8300765e87fcd35d37b6ce8ab4ae98e2c))
+* **similarity-filter:** write documentation of module ([4a5757c](https://github.com/Lack-Zillions-Over/niro-health/commit/4a5757cf1d11f6e866b501774f140885a239c67c))
+* **sqlite:** write documentation of module ([6753955](https://github.com/Lack-Zillions-Over/niro-health/commit/6753955c2fbfaf0d419b17ada82b0f81c315d8f6))
+* **string-ex:** write documentation of module ([c19e66a](https://github.com/Lack-Zillions-Over/niro-health/commit/c19e66aaa4fc1976fa32b3632ceebb9c79bc99e6))
+* **validator-regexp:** write documentation of module ([0c864c0](https://github.com/Lack-Zillions-Over/niro-health/commit/0c864c012aa3b7e0769784e46d29d62bc0c7d732))
+
+
+### Code Refactoring
+
+* **app:** change module import ([990ea11](https://github.com/Lack-Zillions-Over/niro-health/commit/990ea114a774844d573ad28653e1f1330bf87ad8))
+* **bootstrap:** change locale for import module ([180d26c](https://github.com/Lack-Zillions-Over/niro-health/commit/180d26cf39197597fd963d0578edbe84564d4bf6))
+* **configuration:** added variable TZ for timezone on application ([d7046b6](https://github.com/Lack-Zillions-Over/niro-health/commit/d7046b65cd1e633a41bf19b846a5d67d6e7fffda))
+* **core-contracts:** contract structure refactored ([b7c47a5](https://github.com/Lack-Zillions-Over/niro-health/commit/b7c47a519d36f43d65b499f1b13b7a451bd0957a))
+* **private-keys:** added properties 'tag' and 'secret' in object from construct class ([632c18d](https://github.com/Lack-Zillions-Over/niro-health/commit/632c18df64ac9b3a86cde94a6202ddc8b859ef74))
+* **users-guards:** change module import in Token Guard ([c5f4f12](https://github.com/Lack-Zillions-Over/niro-health/commit/c5f4f12319d30c1c3d978a3ebcd65d33ca69aab2))
+
+
+### Tests
+
+* **env-vars:** added new variable TZ for timezone ([b6b7dfd](https://github.com/Lack-Zillions-Over/niro-health/commit/b6b7dfdffbb36e72401199198314a6d0f1a35b4f))
+
+
+### Build System
+
+* **build-libs:** writed script for building ([8064c70](https://github.com/Lack-Zillions-Over/niro-health/commit/8064c707491915aa9645601ef59d152218de27a1))
+* **packages:** update Packages ([77f9cd8](https://github.com/Lack-Zillions-Over/niro-health/commit/77f9cd85843e6985710585402958a77741122d1e))
+
 ### [1.8.6](https://github.com/Lack-Zillions-Over/niro-health/compare/v1.8.5...v1.8.6) (2023-04-22)
 
 
