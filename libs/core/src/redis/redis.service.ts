@@ -10,9 +10,19 @@ import type { IRedisService } from '@app/core/redis/redis.interface';
 import type { IDebugService } from '@app/debug';
 import type { IConfigurationService } from '@app/configuration';
 
+/**
+ * @description This service is used to interact with the Redis database.
+ */
 @Injectable()
 export class RedisService implements IRedisService, OnApplicationShutdown {
+  /**
+   * @description This is instance of application.
+   */
   app: INestApplication;
+
+  /**
+   * @description This is the major component of ioredis. Use it to connect to a standalone Redis server or Sentinels.
+   */
   private _client: ioredis;
 
   constructor(
@@ -36,7 +46,7 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
   }
 
   /**
-   * It saves a key-value pair in the Redis database.
+   * @description It saves a key-value pair in the Redis database.
    * @param {string} key The key.
    * @param {string} value The value.
    * @return {Promise<boolean>} A promise that resolves to true if the key-value pair is saved.
@@ -46,7 +56,7 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
   }
 
   /**
-   * It saves a key-value pair in the Redis database.
+   * @description It saves a key-value pair in the Redis database.
    * @param {string} key The key.
    * @param {Buffer} value The value.
    * @return {Promise<boolean>} A promise that resolves to true if the key-value pair is saved.
@@ -58,7 +68,7 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
   }
 
   /**
-   * It update a key-value pair in the Redis database.
+   * @description It update a key-value pair in the Redis database.
    * @param {string} key The key.
    * @param {string} newValue The new value.
    * @return {Promise<boolean>} A promise that resolves to true if the key-value pair is updated.
@@ -70,7 +80,7 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
   }
 
   /**
-   * It update a key-value pair in the Redis database.
+   * @description It update a key-value pair in the Redis database.
    * @param {string} key The key.
    * @param {Buffer} newValue The new value.
    * @return {Promise<boolean>} A promise that resolves to true if the key-value pair is updated.
@@ -84,7 +94,7 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
   }
 
   /**
-   * It returns all the values in the Redis database.
+   * @description It returns all the values in the Redis database.
    * @return {Promise<Array<string | Buffer>>} A promise that resolves to an array of values.
    */
   public async findAll(): Promise<Array<string | Buffer>> {
@@ -107,7 +117,7 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
   }
 
   /**
-   * It returns a value in the Redis database.
+   * @description It returns a value in the Redis database.
    * @param {string} key The key.
    * @return {Promise<string | Buffer | null>} A promise that resolves to a value.
    */
@@ -125,7 +135,7 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
   }
 
   /**
-   * It delete a key-value pair in the Redis database.
+   * @description It delete a key-value pair in the Redis database.
    * @param {string} key The key.
    * @return {Promise<boolean>} A promise that resolves to true if the key-value pair is deleted.
    */
@@ -141,6 +151,10 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
     return await this._client.flushall();
   }
 
+  /**
+   * @description This method is used to shutdown application.
+   * @param {INestApplication} app The application instance.
+   */
   public async shutdown(app: INestApplication) {
     const logger = this.debugService;
     try {
@@ -152,11 +166,18 @@ export class RedisService implements IRedisService, OnApplicationShutdown {
     }
   }
 
-  async onApplicationShutdown() {
+  /**
+   * @description This method is called before the application shutdown.
+   */
+  public async onApplicationShutdown() {
     return await this.shutdown(this.app);
   }
 
-  async enableShutdownHooks(app: INestApplication) {
+  /**
+   * @description This method is used to enable shutdown hooks.
+   * @param {INestApplication} app The application instance.
+   */
+  public async enableShutdownHooks(app: INestApplication) {
     this.app = app;
   }
 }
